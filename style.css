@@ -1619,3 +1619,201 @@ mark.highlight::after {
     radial-gradient(ellipse 40% 60% at 20% 50%, rgba(255, 107, 53, 0.06) 0%, transparent 60%);
   pointer-events: none;
 }
+
+/* ═══════════════════════════════════════════════════════
+   FIX: 100dvh for mobile browser chrome (UX guideline #20)
+   ═══════════════════════════════════════════════════════ */
+
+@supports (height: 100dvh) {
+  .hero__sticky {
+    height: 100dvh;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   HERO SCROLL PROGRESS BAR (Pattern 10 — progress indicator)
+   ═══════════════════════════════════════════════════════ */
+
+.hero__progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 1001;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.hero__progress--visible {
+  opacity: 1;
+}
+
+.hero__progress-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  width: 0%;
+  transition: width 0.08s linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE STICKY CTA BAR (landing page pattern best practice)
+   ═══════════════════════════════════════════════════════ */
+
+.mobile-cta-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 20px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  background: rgba(5, 5, 8, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-subtle);
+  z-index: 500;
+  transform: translateY(100%);
+  transition: transform 0.4s var(--ease-out);
+}
+
+.mobile-cta-bar.visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .mobile-cta-bar { display: block; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN READER ONLY — Accessibility fix (guideline #43)
+   ═══════════════════════════════════════════════════════ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   TOUCH TARGETS — 44px minimum (guideline #22)
+   ═══════════════════════════════════════════════════════ */
+
+.btn {
+  min-height: 44px;
+}
+
+.nav__link, .nav__mobile-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer__social-link {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   TRANSFORMATION STRIP (Pattern 21 — Before/After)
+   ═══════════════════════════════════════════════════════ */
+
+.transformation-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-top: 64px;
+  padding: 40px 32px;
+  background: rgba(255, 107, 53, 0.04);
+  border: 1px solid rgba(255, 107, 53, 0.12);
+  border-radius: var(--radius-xl);
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.transformation-item {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.transformation-before {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 107, 53, 0.4);
+}
+
+.transformation-arrow {
+  font-size: 1.5rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.transformation-after {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.transformation-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.transformation-divider {
+  width: 1px;
+  height: 60px;
+  background: var(--border-subtle);
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .transformation-strip { flex-direction: column; gap: 0; }
+  .transformation-divider { width: 60px; height: 1px; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   ANIMATION TIMING FIX — 150-300ms (guideline #8)
+   ═══════════════════════════════════════════════════════ */
+
+.service-card,
+.testimonial-card,
+.badge,
+.btn,
+.nav__link,
+.footer__social-link {
+  transition-duration: 0.25s;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BODY SCROLL PADDING — prevent nav overlap (guideline #2)
+   ═══════════════════════════════════════════════════════ */
+
+:target {
+  scroll-margin-top: calc(var(--nav-height) + 16px);
+}

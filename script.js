@@ -149,6 +149,18 @@
           }
         }
 
+        // ── Hero progress bar ──
+        var progressBar = document.getElementById('hero-progress');
+        var progressFill = document.getElementById('hero-progress-fill');
+        if (progressBar && progressFill) {
+          if (progress > 0.01 && progress < 0.99) {
+            progressBar.classList.add('hero__progress--visible');
+            progressFill.style.width = (progress * 100) + '%';
+          } else {
+            progressBar.classList.remove('hero__progress--visible');
+          }
+        }
+
         ticking = false;
       });
     }
@@ -179,6 +191,7 @@
     if (!nav) return;
 
     // ── Sticky background on scroll ──
+    var mobileCta = document.getElementById('mobile-cta-bar');
     let navTicking = false;
     window.addEventListener('scroll', function () {
       if (navTicking) return;
@@ -188,6 +201,18 @@
           nav.classList.add('nav--scrolled');
         } else {
           nav.classList.remove('nav--scrolled');
+        }
+        // Show mobile CTA after scrolling past hero
+        if (mobileCta) {
+          var hero = document.getElementById('hero');
+          var heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 600;
+          if (window.scrollY > heroBottom * 0.15) {
+            mobileCta.classList.add('visible');
+            mobileCta.removeAttribute('aria-hidden');
+          } else {
+            mobileCta.classList.remove('visible');
+            mobileCta.setAttribute('aria-hidden', 'true');
+          }
         }
         navTicking = false;
       });

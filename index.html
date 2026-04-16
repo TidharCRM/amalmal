@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>אמלמל | סדנאות עריכה ו-AI | תוכן שעוצר גלילה</title>
-  <meta name="description" content="אמלמל - יוצרת תוכן עם בינה מלאכותית. סדנאות עריכה מנייד לעסקים. למדו ליצור תוכן שעוצר גלילה ומושך לקוחות." />
+  <meta name="description"
+    content="אמלמל - יוצרת תוכן עם בינה מלאכותית. סדנאות עריכה מנייד לעסקים. למדו ליצור תוכן שעוצר גלילה ומושך לקוחות." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700;800;900&family=Secular+One&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700;800;900&family=Secular+One&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
   <div id="cursor" class="cursor" aria-hidden="true"></div>
   <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- Hero scroll progress bar -->
+  <div class="hero__progress" id="hero-progress" aria-hidden="true">
+    <div class="hero__progress-fill" id="hero-progress-fill"></div>
+  </div>
 
   <!-- ═══════════════════════════════════════════ -->
   <!-- NAVIGATION                                  -->
@@ -58,7 +68,7 @@
             <span class="hero__title-line">תוכן שעוצר</span>
             <span class="hero__title-line hero__title-line--accent">גלילה</span>
           </h1>
-          <p class="hero__subtitle">תפסיקו לגלול על תוכן של אחרים —<br/>הגיע הזמן שיגללו על שלכם 🔥</p>
+          <p class="hero__subtitle">תפסיקו לגלול על תוכן של אחרים —<br />הגיע הזמן שיגללו על שלכם 🔥</p>
           <div class="hero__actions">
             <a href="#course" class="btn btn--primary" id="hero-cta">לפרטים על הקורס</a>
             <a href="#about" class="btn btn--ghost">גלו עוד</a>
@@ -70,7 +80,10 @@
       <div class="hero__scroll-hint" id="scroll-hint">
         <span>גללו למטה</span>
         <div class="hero__scroll-arrow">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M19 12l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 5v14M19 12l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
         </div>
       </div>
     </div>
@@ -134,7 +147,8 @@
       <div class="about__grid">
         <div class="about__visual">
           <div class="about__image-wrapper">
-            <img src="frames/ezgif-frame-001.jpg" alt="אמלמל - יוצרת תוכן דיגיטלי" class="about__image" loading="lazy" />
+            <img src="frames/ezgif-frame-001.jpg" alt="אמלמל - יוצרת תוכן דיגיטלי" class="about__image"
+              loading="lazy" />
             <div class="about__image-glow"></div>
           </div>
           <div class="about__accent-card">
@@ -147,10 +161,12 @@
           <h2 class="section__title">אמלמל</h2>
           <p class="section__subtitle">סדנאות עריכה | AI</p>
           <p class="about__desc">
-            תמיד אהבתי לצלם ולשתף, אבל לקח לי זמן להבין שהמצלמה הכי טובה שיש לי — <mark class="highlight">היא זו שתמיד בכיס</mark>.
+            תמיד אהבתי לצלם ולשתף, אבל לקח לי זמן להבין שהמצלמה הכי טובה שיש לי — <mark class="highlight">היא זו שתמיד
+              בכיס</mark>.
           </p>
           <p class="about__desc">
-            היום אני מלמדת בעלי עסקים, מנהלי שיווק ויוצרי תוכן ליצור ריילס מקצועיים, לכתוב קפי שמוכר, ולשלב AI בצורה שנראית <mark class="highlight">אנושית לחלוטין</mark>.
+            היום אני מלמדת בעלי עסקים, מנהלי שיווק ויוצרי תוכן ליצור ריילס מקצועיים, לכתוב קפי שמוכר, ולשלב AI בצורה
+            שנראית <mark class="highlight">אנושית לחלוטין</mark>.
           </p>
           <p class="about__desc">
             כי בסוף — אנשים קונים מאנשים. ואני כאן ללמד אתכם איך להיות אתם ברשת, רק גרסה קצת יותר מלוקחת.
@@ -178,32 +194,46 @@
         <!-- Card 1 -->
         <div class="service-card" id="service-editing">
           <div class="service-card__icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
           <div class="service-card__hook">ריל ב-10 דקות? כן, זה אפשרי</div>
           <h3 class="service-card__title">עריכה מנייד</h3>
-          <p class="service-card__desc">לא צריך מאנטג׳, לא צריך פרמייר. אלמד אתכם לערוך וידאו מקצועי ישירות מהסמארטפון — מצילום, דרך עריכה, עד פרסום.</p>
+          <p class="service-card__desc">לא צריך מאנטג׳, לא צריך פרמייר. אלמד אתכם לערוך וידאו מקצועי ישירות מהסמארטפון —
+            מצילום, דרך עריכה, עד פרסום.</p>
           <div class="service-card__shine"></div>
         </div>
         <!-- Card 2 -->
         <div class="service-card service-card--featured" id="service-ai">
           <div class="service-card__badge">הכי פופולרי</div>
           <div class="service-card__icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
           <div class="service-card__hook">AI שעובד בשבילכם</div>
           <h3 class="service-card__title">תוכן עם AI</h3>
-          <p class="service-card__desc">בינה מלאכותית לא תיקח את העבודה שלכם — היא תכפיל את הפרודוקטיביות שלכם. אני מראה לכם בדיוק אילו כלים להשתמש ואיך.</p>
+          <p class="service-card__desc">בינה מלאכותית לא תיקח את העבודה שלכם — היא תכפיל את הפרודוקטיביות שלכם. אני מראה
+            לכם בדיוק אילו כלים להשתמש ואיך.</p>
           <div class="service-card__shine"></div>
         </div>
         <!-- Card 3 -->
         <div class="service-card" id="service-workshops">
           <div class="service-card__icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
           <div class="service-card__hook">3 שעות שמשנות הכל</div>
           <h3 class="service-card__title">סדנאות לעסקים</h3>
-          <p class="service-card__desc">סדנה מעשית לצוות שלכם. יוצאים עם תכנית תוכן, תבניות מוכנות וידע איך להשתמש בהן. ללא BS, רק תוצאות.</p>
+          <p class="service-card__desc">סדנה מעשית לצוות שלכם. יוצאים עם תכנית תוכן, תבניות מוכנות וידע איך להשתמש בהן.
+            ללא BS, רק תוצאות.</p>
           <div class="service-card__shine"></div>
         </div>
       </div>
@@ -258,7 +288,8 @@
           <h2 class="section__title">מנייד למקצוענים</h2>
           <p class="course__desc">
             קורס מקיף שמלמד איך ליצור תוכן מקצועי מהטלפון הנייד בעזרת בינה מלאכותית.
-            מתאים לבעלי עסקים, מנהלי שיווק, ויוצרי תוכן שרוצים <mark class="highlight">לשדרג את הנוכחות הדיגיטלית</mark> שלהם.
+            מתאים לבעלי עסקים, מנהלי שיווק, ויוצרי תוכן שרוצים <mark class="highlight">לשדרג את הנוכחות הדיגיטלית</mark>
+            שלהם.
           </p>
           <ul class="course__features">
             <li class="course__feature">
@@ -311,7 +342,8 @@
       <div class="testimonials__grid">
         <div class="testimonial-card" id="testimonial-1">
           <div class="testimonial-card__stars">★★★★★</div>
-          <p class="testimonial-card__text">"לפני הקורס הייתי מפחדת מהמצלמה. ידעתי שהתוכן שלי נראה ׳ביתי׳ ולא ידעתי למה. אחרי הסדנה של אמלמל, הריל הראשון שעשיתי קיבל 40K צפיות. עוד לא מאמינה."</p>
+          <p class="testimonial-card__text">"לפני הקורס הייתי מפחדת מהמצלמה. ידעתי שהתוכן שלי נראה ׳ביתי׳ ולא ידעתי למה.
+            אחרי הסדנה של אמלמל, הריל הראשון שעשיתי קיבל 40K צפיות. עוד לא מאמינה."</p>
           <div class="testimonial-card__author">
             <div class="testimonial-card__avatar">נ</div>
             <div>
@@ -322,7 +354,8 @@
         </div>
         <div class="testimonial-card" id="testimonial-2">
           <div class="testimonial-card__stars">★★★★★</div>
-          <p class="testimonial-card__text">"חשבתי ש-AI זה לאנשי הייטק. אמלמל הראתה לי שבחמש דקות אפשר לכתוב קפי שממיר. הניוזלטר שלי גדל ב-60% תוך חודש."</p>
+          <p class="testimonial-card__text">"חשבתי ש-AI זה לאנשי הייטק. אמלמל הראתה לי שבחמש דקות אפשר לכתוב קפי שממיר.
+            הניוזלטר שלי גדל ב-60% תוך חודש."</p>
           <div class="testimonial-card__author">
             <div class="testimonial-card__avatar">ד</div>
             <div>
@@ -333,7 +366,8 @@
         </div>
         <div class="testimonial-card" id="testimonial-3">
           <div class="testimonial-card__stars">★★★★★</div>
-          <p class="testimonial-card__text">"שילמתי על קורסים יקרים יותר ולמדתי פחות. הגישה של אמלמל — ישירה, מעשית, בלי מילים מיותרות — זה בדיוק מה שהייתי צריכה."</p>
+          <p class="testimonial-card__text">"שילמתי על קורסים יקרים יותר ולמדתי פחות. הגישה של אמלמל — ישירה, מעשית, בלי
+            מילים מיותרות — זה בדיוק מה שהייתי צריכה."</p>
           <div class="testimonial-card__author">
             <div class="testimonial-card__avatar">ש</div>
             <div>
@@ -341,6 +375,30 @@
               <div class="testimonial-card__role">יוצרת תוכן</div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Transformation strip -->
+      <div class="transformation-strip">
+        <div class="transformation-item">
+          <span class="transformation-before">0 צפיות</span>
+          <span class="transformation-arrow">↗</span>
+          <span class="transformation-after">40K</span>
+          <span class="transformation-label">ריל ראשון</span>
+        </div>
+        <div class="transformation-divider"></div>
+        <div class="transformation-item">
+          <span class="transformation-before">ניוזלטר קטן</span>
+          <span class="transformation-arrow">↗</span>
+          <span class="transformation-after">+60%</span>
+          <span class="transformation-label">תוך חודש</span>
+        </div>
+        <div class="transformation-divider"></div>
+        <div class="transformation-item">
+          <span class="transformation-before">פחד מהמצלמה</span>
+          <span class="transformation-arrow">↗</span>
+          <span class="transformation-after">תוכן מקצועי</span>
+          <span class="transformation-label">אחרי סדנה אחת</span>
         </div>
       </div>
     </div>
@@ -359,15 +417,19 @@
         </div>
         <form class="contact__form" id="contact-form" onsubmit="handleSubmit(event)">
           <div class="form__group">
-            <input type="text" id="form-name" class="form__input" placeholder="שם מלא" required />
+            <label for="form-name" class="sr-only">שם מלא</label>
+            <input type="text" id="form-name" class="form__input" placeholder="שם מלא" autocomplete="name" required />
           </div>
           <div class="form__group">
-            <input type="tel" id="form-phone" class="form__input" placeholder="מספר טלפון" required />
+            <label for="form-phone" class="sr-only">מספר טלפון</label>
+            <input type="tel" id="form-phone" class="form__input" placeholder="מספר טלפון" autocomplete="tel" required />
           </div>
           <div class="form__group">
-            <input type="email" id="form-email" class="form__input" placeholder="אימייל" required />
+            <label for="form-email" class="sr-only">אימייל</label>
+            <input type="email" id="form-email" class="form__input" placeholder="אימייל" autocomplete="email" required />
           </div>
           <div class="form__group">
+            <label for="form-interest" class="sr-only">תחום עניין</label>
             <select id="form-interest" class="form__input form__select" required>
               <option value="" disabled selected>מה מעניין אותך?</option>
               <option value="course">הקורס המלא</option>
@@ -377,6 +439,7 @@
             </select>
           </div>
           <div class="form__group">
+            <label for="form-message" class="sr-only">הודעה</label>
             <textarea id="form-message" class="form__input form__textarea" placeholder="ספרו לי קצת על העסק שלכם..." rows="4"></textarea>
           </div>
           <button type="submit" class="btn btn--primary btn--lg btn--full" id="form-submit">
@@ -400,13 +463,24 @@
         </div>
         <div class="footer__social">
           <a href="#" class="footer__social-link" aria-label="Instagram" id="social-instagram">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" />
+            </svg>
           </a>
           <a href="#" class="footer__social-link" aria-label="TikTok" id="social-tiktok">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 12a4 4 0 104 4V4a5 5 0 005 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
           </a>
           <a href="#" class="footer__social-link" aria-label="WhatsApp" id="social-whatsapp">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </a>
         </div>
         <p class="footer__copy">&copy; 2026 אמלמל. כל הזכויות שמורות.</p>
@@ -414,6 +488,12 @@
     </div>
   </footer>
 
+  <!-- Mobile sticky CTA -->
+  <div class="mobile-cta-bar" id="mobile-cta-bar" aria-hidden="true">
+    <a href="#contact" class="btn btn--primary btn--full">אני רוצה להצטרף 🔥</a>
+  </div>
+
   <script src="script.js"></script>
 </body>
+
 </html>
