@@ -437,6 +437,64 @@
   }
 
   // ═══════════════════════════════════════════════════════
+  // MOBILE HERO AUTO-SCROLL
+  // ═══════════════════════════════════════════════════════
+
+  function initMobileHeroScroll() {
+    if (!('ontouchstart' in window)) return;
+
+    var hero = document.getElementById('hero');
+    if (!hero) return;
+
+    var animating = false;
+    var touchStartY = 0;
+
+    document.addEventListener('touchstart', function (e) {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function (e) {
+      if (animating) return;
+
+      var rect = hero.getBoundingClientRect();
+      var scrollableHeight = hero.offsetHeight - window.innerHeight;
+      var scrolled = -rect.top;
+      var progress = scrolled / scrollableHeight;
+
+      // Only trigger inside hero scroll zone on downward swipe
+      if (progress < 0 || progress >= 0.95) return;
+      var deltaY = touchStartY - e.touches[0].clientY;
+      if (deltaY < 10) return;
+
+      animating = true;
+
+      var heroEnd = hero.offsetTop + hero.offsetHeight - window.innerHeight;
+      var start = window.scrollY;
+      var remaining = heroEnd - start;
+      // Duration proportional to remaining distance (min 900ms, max 2200ms)
+      var duration = Math.max(900, Math.min(2200, remaining * 1.3));
+      var startTime = null;
+
+      function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function step(now) {
+        if (!startTime) startTime = now;
+        var t = Math.min((now - startTime) / duration, 1);
+        window.scrollTo(0, start + remaining * easeOut(t));
+        if (t < 1) {
+          requestAnimationFrame(step);
+        } else {
+          animating = false;
+        }
+      }
+
+      requestAnimationFrame(step);
+    }, { passive: true });
+  }
+
+  // ═══════════════════════════════════════════════════════
   // BOOT
   // ═══════════════════════════════════════════════════════
 
@@ -449,5 +507,6 @@
     initSmoothScroll();
     initCursor();
     initHeroStickers();
+    initMobileHeroScroll();
   });
 })();
