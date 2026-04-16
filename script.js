@@ -377,6 +377,66 @@
   };
 
   // ═══════════════════════════════════════════════════════
+  // CUSTOM CURSOR
+  // ═══════════════════════════════════════════════════════
+
+  function initCursor() {
+    var cursor = document.getElementById('cursor');
+    var dot = document.getElementById('cursor-dot');
+    if (!cursor) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    var mx = -100, my = -100;
+    var cx = -100, cy = -100;
+
+    document.addEventListener('mousemove', function (e) {
+      mx = e.clientX;
+      my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top = my + 'px';
+    });
+
+    (function animateCursor() {
+      cx += (mx - cx) * 0.12;
+      cy += (my - cy) * 0.12;
+      cursor.style.left = cx + 'px';
+      cursor.style.top = cy + 'px';
+      requestAnimationFrame(animateCursor);
+    })();
+
+    document.querySelectorAll('a, button').forEach(function (el) {
+      el.addEventListener('mouseenter', function () { cursor.classList.add('cursor--hover'); });
+      el.addEventListener('mouseleave', function () { cursor.classList.remove('cursor--hover'); });
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // HERO STICKERS
+  // ═══════════════════════════════════════════════════════
+
+  function initHeroStickers() {
+    var stickers = document.querySelectorAll('.hero__sticker');
+    if (!stickers.length) return;
+
+    window.addEventListener('scroll', function () {
+      var hero = document.getElementById('hero');
+      if (!hero) return;
+      var rect = hero.getBoundingClientRect();
+      var scrollableHeight = hero.offsetHeight - window.innerHeight;
+      var scrolled = -rect.top;
+      var progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
+
+      stickers.forEach(function (s) {
+        if (progress > 0.25 && progress < 0.78) {
+          s.classList.add('hero__sticker--visible');
+        } else {
+          s.classList.remove('hero__sticker--visible');
+        }
+      });
+    }, { passive: true });
+  }
+
+  // ═══════════════════════════════════════════════════════
   // BOOT
   // ═══════════════════════════════════════════════════════
 
@@ -387,5 +447,7 @@
     initScrollReveal();
     initCardShine();
     initSmoothScroll();
+    initCursor();
+    initHeroStickers();
   });
 })();

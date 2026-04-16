@@ -12,6 +12,9 @@
 </head>
 <body>
 
+  <div id="cursor" class="cursor" aria-hidden="true"></div>
+  <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
+
   <!-- ═══════════════════════════════════════════ -->
   <!-- NAVIGATION                                  -->
   <!-- ═══════════════════════════════════════════ -->
@@ -44,6 +47,9 @@
   <!-- ═══════════════════════════════════════════ -->
   <section id="hero" class="hero">
     <div class="hero__sticky">
+      <div class="hero__sticker hero__sticker--1" aria-hidden="true">📱</div>
+      <div class="hero__sticker hero__sticker--2" aria-hidden="true">✨</div>
+      <div class="hero__sticker hero__sticker--3" aria-hidden="true">🔥</div>
       <canvas id="hero-canvas" class="hero__canvas" aria-label="אנימציית גלילה של אמלמל"></canvas>
       <div class="hero__overlay">
         <div class="hero__content">
@@ -52,7 +58,7 @@
             <span class="hero__title-line">תוכן שעוצר</span>
             <span class="hero__title-line hero__title-line--accent">גלילה</span>
           </h1>
-          <p class="hero__subtitle">מלמדת עסקים לערוך מנייד כמו מקצוענים<br/>וליצור תוכן שמושך לקוחות ✨</p>
+          <p class="hero__subtitle">תפסיקו לגלול על תוכן של אחרים —<br/>הגיע הזמן שיגללו על שלכם 🔥</p>
           <div class="hero__actions">
             <a href="#course" class="btn btn--primary" id="hero-cta">לפרטים על הקורס</a>
             <a href="#about" class="btn btn--ghost">גלו עוד</a>
@@ -69,6 +75,32 @@
     </div>
   </section>
 
+  <!-- MARQUEE STRIP -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-inner">
+        <span>עריכה מנייד</span><span class="marquee-sep">✦</span>
+        <span>בינה מלאכותית</span><span class="marquee-sep">✦</span>
+        <span>תוכן שעוצר גלילה</span><span class="marquee-sep">✦</span>
+        <span>ריילס שממירים</span><span class="marquee-sep">✦</span>
+        <span>סדנאות לעסקים</span><span class="marquee-sep">✦</span>
+        <span>AI לכולם</span><span class="marquee-sep">✦</span>
+        <span>ללא ציוד יקר</span><span class="marquee-sep">✦</span>
+        <span>רק עם הטלפון</span><span class="marquee-sep">✦</span>
+      </div>
+      <div class="marquee-inner" aria-hidden="true">
+        <span>עריכה מנייד</span><span class="marquee-sep">✦</span>
+        <span>בינה מלאכותית</span><span class="marquee-sep">✦</span>
+        <span>תוכן שעוצר גלילה</span><span class="marquee-sep">✦</span>
+        <span>ריילס שממירים</span><span class="marquee-sep">✦</span>
+        <span>סדנאות לעסקים</span><span class="marquee-sep">✦</span>
+        <span>AI לכולם</span><span class="marquee-sep">✦</span>
+        <span>ללא ציוד יקר</span><span class="marquee-sep">✦</span>
+        <span>רק עם הטלפון</span><span class="marquee-sep">✦</span>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════════════ -->
   <!-- STATS BAR                                    -->
   <!-- ═══════════════════════════════════════════ -->
@@ -77,17 +109,17 @@
       <div class="stats__grid">
         <div class="stats__item">
           <span class="stats__number" data-target="124">0</span>
-          <span class="stats__label">פוסטים</span>
+          <span class="stats__label">ריילס שנוצרו</span>
         </div>
         <div class="stats__divider"></div>
         <div class="stats__item">
           <span class="stats__number" data-target="10400">0</span>
-          <span class="stats__label">עוקבים</span>
+          <span class="stats__label">עוקבים אורגניים</span>
         </div>
         <div class="stats__divider"></div>
         <div class="stats__item">
           <span class="stats__number" data-target="925">0</span>
-          <span class="stats__label">במעקב</span>
+          <span class="stats__label">תלמידים מרוצים</span>
         </div>
       </div>
     </div>
@@ -104,15 +136,23 @@
             <img src="frames/ezgif-frame-001.jpg" alt="אמלמל - יוצרת תוכן דיגיטלי" class="about__image" loading="lazy" />
             <div class="about__image-glow"></div>
           </div>
+          <div class="about__accent-card">
+            <span class="about__accent-emoji">🎯</span>
+            <span>925+ תלמידים מרוצים</span>
+          </div>
         </div>
         <div class="about__text">
           <span class="section__tag">הכירו אותי</span>
           <h2 class="section__title">אמלמל</h2>
           <p class="section__subtitle">סדנאות עריכה | AI</p>
           <p class="about__desc">
-            יוצרת תוכן עם בינה מלאכותית. מלמדת עסקים לערוך מנייד כמו מקצוענים 
-            וליצור תוכן שעוצר גלילה ומושך לקוחות. בזכות שילוב ייחודי של יצירתיות 
-            ו-AI, אני עוזרת לעסקים להבליט את עצמם ברשתות החברתיות ולהגיע ללקוחות חדשים.
+            תמיד אהבתי לצלם ולשתף, אבל לקח לי זמן להבין שהמצלמה הכי טובה שיש לי — <mark class="highlight">היא זו שתמיד בכיס</mark>.
+          </p>
+          <p class="about__desc">
+            היום אני מלמדת בעלי עסקים, מנהלי שיווק ויוצרי תוכן ליצור ריילס מקצועיים, לכתוב קפי שמוכר, ולשלב AI בצורה שנראית <mark class="highlight">אנושית לחלוטין</mark>.
+          </p>
+          <p class="about__desc">
+            כי בסוף — אנשים קונים מאנשים. ואני כאן ללמד אתכם איך להיות אתם ברשת, רק גרסה קצת יותר מלוקחת.
           </p>
           <div class="about__badges">
             <span class="badge">🎨 עריכה מנייד</span>
@@ -138,17 +178,20 @@
           <div class="service-card__icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
+          <div class="service-card__hook">ריל ב-10 דקות? כן, זה אפשרי</div>
           <h3 class="service-card__title">עריכה מנייד</h3>
-          <p class="service-card__desc">למדו ליצור תוכן מקצועי ישירות מהסמארטפון שלכם, בלי צורך בציוד יקר או תוכנות מסובכות.</p>
+          <p class="service-card__desc">לא צריך מאנטג׳, לא צריך פרמייר. אלמד אתכם לערוך וידאו מקצועי ישירות מהסמארטפון — מצילום, דרך עריכה, עד פרסום.</p>
           <div class="service-card__shine"></div>
         </div>
         <!-- Card 2 -->
-        <div class="service-card" id="service-ai">
+        <div class="service-card service-card--featured" id="service-ai">
+          <div class="service-card__badge">הכי פופולרי</div>
           <div class="service-card__icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
+          <div class="service-card__hook">AI שעובד בשבילכם</div>
           <h3 class="service-card__title">תוכן עם AI</h3>
-          <p class="service-card__desc">שימוש בכלי בינה מלאכותית מתקדמים ליצירת תוכן שעוצר גלילה ומושך את תשומת הלב של הקהל שלכם.</p>
+          <p class="service-card__desc">בינה מלאכותית לא תיקח את העבודה שלכם — היא תכפיל את הפרודוקטיביות שלכם. אני מראה לכם בדיוק אילו כלים להשתמש ואיך.</p>
           <div class="service-card__shine"></div>
         </div>
         <!-- Card 3 -->
@@ -156,9 +199,47 @@
           <div class="service-card__icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
+          <div class="service-card__hook">3 שעות שמשנות הכל</div>
           <h3 class="service-card__title">סדנאות לעסקים</h3>
-          <p class="service-card__desc">סדנאות מותאמות אישית לצוות שלכם, ללמוד ליצור תוכן מקצועי שמייצר לידים ומביא תוצאות.</p>
+          <p class="service-card__desc">סדנה מעשית לצוות שלכם. יוצאים עם תכנית תוכן, תבניות מוכנות וידע איך להשתמש בהן. ללא BS, רק תוצאות.</p>
           <div class="service-card__shine"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process section" id="process">
+    <div class="container">
+      <span class="section__tag">איך זה עובד</span>
+      <h2 class="section__title section__title--center">מהיום הראשון לתוצאות</h2>
+      <div class="process__steps">
+        <div class="process__step">
+          <div class="process__number">01</div>
+          <div class="process__emoji">🎯</div>
+          <h3 class="process__title">בוחרים את הכלים הנכונים</h3>
+          <p class="process__desc">לא כל כלי מתאים לכל עסק. נתחיל בלהבין מה עובד בדיוק עבורכם.</p>
+        </div>
+        <div class="process__connector" aria-hidden="true"></div>
+        <div class="process__step">
+          <div class="process__number">02</div>
+          <div class="process__emoji">📱</div>
+          <h3 class="process__title">צולמים ועורכים ביחד</h3>
+          <p class="process__desc">בזמן אמת, אני מלמדת את הטכניקות שגורמות לאנשים לעצור ולצפות.</p>
+        </div>
+        <div class="process__connector" aria-hidden="true"></div>
+        <div class="process__step">
+          <div class="process__number">03</div>
+          <div class="process__emoji">📊</div>
+          <h3 class="process__title">מפרסמים ומנתחים</h3>
+          <p class="process__desc">מה עבד? מה לשפר? נסקור ביחד ונבנה על ההצלחות שלכם.</p>
+        </div>
+        <div class="process__connector" aria-hidden="true"></div>
+        <div class="process__step">
+          <div class="process__number">04</div>
+          <div class="process__emoji">🚀</div>
+          <h3 class="process__title">צומחים בהתמדה</h3>
+          <p class="process__desc">עם ליווי שוטף וקהילה תומכת — אתם לא לבד בדרך.</p>
         </div>
       </div>
     </div>
@@ -175,31 +256,35 @@
           <h2 class="section__title">מנייד למקצוענים</h2>
           <p class="course__desc">
             קורס מקיף שמלמד איך ליצור תוכן מקצועי מהטלפון הנייד בעזרת בינה מלאכותית.
-            מתאים לבעלי עסקים, מנהלי שיווק, ויוצרי תוכן שרוצים לשדרג את הנוכחות הדיגיטלית שלהם.
+            מתאים לבעלי עסקים, מנהלי שיווק, ויוצרי תוכן שרוצים <mark class="highlight">לשדרג את הנוכחות הדיגיטלית</mark> שלהם.
           </p>
           <ul class="course__features">
             <li class="course__feature">
               <span class="course__feature-icon">✦</span>
-              <span>עריכת וידאו ותמונות מנייד</span>
+              <span>6 מודולים מלאים עם סרטוני הדרכה</span>
             </li>
             <li class="course__feature">
               <span class="course__feature-icon">✦</span>
-              <span>שימוש בכלי AI ליצירת תוכן</span>
+              <span>תבניות עריכה מוכנות לשימוש מיידי</span>
             </li>
             <li class="course__feature">
               <span class="course__feature-icon">✦</span>
-              <span>אסטרטגיית תוכן שמושכת לקוחות</span>
+              <span>ספריית קפי AI שאפשר להתאים אישית</span>
             </li>
             <li class="course__feature">
               <span class="course__feature-icon">✦</span>
-              <span>תמיכה וליווי אישי</span>
+              <span>גישה לקהילה פרטית בוואטסאפ</span>
             </li>
             <li class="course__feature">
               <span class="course__feature-icon">✦</span>
-              <span>קהילת בוגרים פעילה</span>
+              <span>שאלות ותשובות חי כל חודש</span>
+            </li>
+            <li class="course__feature">
+              <span class="course__feature-icon">✦</span>
+              <span>עדכונים לכל החיים — ללא תשלום נוסף</span>
             </li>
           </ul>
-          <a href="#contact" class="btn btn--primary btn--lg" id="course-cta">אני רוצה להירשם</a>
+          <a href="#contact" class="btn btn--primary btn--lg" id="course-cta">אני רוצה להצטרף</a>
         </div>
         <div class="course__visual">
           <div class="course__phone">
@@ -224,18 +309,18 @@
       <div class="testimonials__grid">
         <div class="testimonial-card" id="testimonial-1">
           <div class="testimonial-card__stars">★★★★★</div>
-          <p class="testimonial-card__text">"אמלמל שינתה לי את הגישה ליצירת תוכן. בזכות הקורס שלה, אני יוצרת תוכן מקצועי ישירות מהנייד ומקבלת הרבה יותר פניות מלקוחות."</p>
+          <p class="testimonial-card__text">"לפני הקורס הייתי מפחדת מהמצלמה. ידעתי שהתוכן שלי נראה ׳ביתי׳ ולא ידעתי למה. אחרי הסדנה של אמלמל, הריל הראשון שעשיתי קיבל 40K צפיות. עוד לא מאמינה."</p>
           <div class="testimonial-card__author">
             <div class="testimonial-card__avatar">נ</div>
             <div>
               <div class="testimonial-card__name">נועה כהן</div>
-              <div class="testimonial-card__role">בעלת עסק</div>
+              <div class="testimonial-card__role">בעלת עסק לעיצוב פנים</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card" id="testimonial-2">
           <div class="testimonial-card__stars">★★★★★</div>
-          <p class="testimonial-card__text">"הסדנה הייתה מדהימה! למדתי כל כך הרבה על AI ואיך לשלב את זה בתוכן. התוכן שלי נראה עכשיו מקצועי ברמה אחרת לגמרי."</p>
+          <p class="testimonial-card__text">"חשבתי ש-AI זה לאנשי הייטק. אמלמל הראתה לי שבחמש דקות אפשר לכתוב קפי שממיר. הניוזלטר שלי גדל ב-60% תוך חודש."</p>
           <div class="testimonial-card__author">
             <div class="testimonial-card__avatar">ד</div>
             <div>
@@ -246,7 +331,7 @@
         </div>
         <div class="testimonial-card" id="testimonial-3">
           <div class="testimonial-card__stars">★★★★★</div>
-          <p class="testimonial-card__text">"המעבר לתוכן עם AI הכפיל לי את המעורבות באינסטגרם. אמלמל יודעת ללמד בצורה ברורה ומעשית. ממליצה בחום!"</p>
+          <p class="testimonial-card__text">"שילמתי על קורסים יקרים יותר ולמדתי פחות. הגישה של אמלמל — ישירה, מעשית, בלי מילים מיותרות — זה בדיוק מה שהייתי צריכה."</p>
           <div class="testimonial-card__author">
             <div class="testimonial-card__avatar">ש</div>
             <div>
@@ -268,7 +353,7 @@
         <div class="contact__content">
           <span class="section__tag">בואו נתחיל</span>
           <h2 class="section__title">מוכנים ליצור תוכן שעוצר גלילה?</h2>
-          <p class="contact__desc">השאירו פרטים ואחזור אליכם עם כל המידע על הקורס והסדנאות</p>
+          <p class="contact__desc">השאירו פרטים ואחזור אליכם תוך 24 שעות עם כל המידע על הקורס והסדנאות</p>
         </div>
         <form class="contact__form" id="contact-form" onsubmit="handleSubmit(event)">
           <div class="form__group">
