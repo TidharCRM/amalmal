@@ -3909,8 +3909,8 @@ mark.highlight {
    MOBILE RESPONSIVENESS — comprehensive 390px fixes
    ═══════════════════════════════════════════════════════ */
 
-html, body {
-  overflow-x: hidden;
+body {
+  overflow-x: clip; /* clip doesn't create a scroll container — keeps position:sticky working */
 }
 
 @media (max-width: 768px) {
