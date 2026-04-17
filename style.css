@@ -2261,22 +2261,28 @@ mark.highlight::after {
    ═══════════════════════════════════════════════════════ */
 
 .admin-trigger {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--text-muted);
-  opacity: 0.1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: none;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
   cursor: pointer;
   vertical-align: middle;
-  margin-right: 6px;
-  transition: opacity 0.3s;
+  margin-right: 10px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
   position: relative;
   top: -1px;
+  padding: 0;
 }
 
 .admin-trigger:hover {
-  opacity: 0.3;
+  color: var(--text-secondary);
+  border-color: var(--border-accent);
+  background: var(--bg-secondary);
 }
 
 .admin-modal {
