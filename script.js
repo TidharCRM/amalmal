@@ -556,6 +556,27 @@
   // BOOT
   // ═══════════════════════════════════════════════════════
 
+  function initFaq() {
+    document.querySelectorAll('[data-faq]').forEach(function (item) {
+      var btn = item.querySelector('.faq__q');
+      var ans = item.querySelector('.faq__a');
+      if (!btn || !ans) return;
+      btn.addEventListener('click', function () {
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('[data-faq].open').forEach(function (other) {
+          other.classList.remove('open');
+          other.querySelector('.faq__a').style.maxHeight = '0';
+          other.querySelector('.faq__q').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          ans.style.maxHeight = ans.scrollHeight + 'px';
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
+
   function initSnekReveal() {
     var steps = document.querySelectorAll('[data-snek-step]');
     if (!steps.length) return;
@@ -581,5 +602,6 @@
     initAdmin();
     initCountdown();
     initSnekReveal();
+    initFaq();
   });
 })();
