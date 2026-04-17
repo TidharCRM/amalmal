@@ -110,6 +110,9 @@
     }
 
     if (prefersReducedMotion) {
+      document.body.classList.remove('body--hero-lock');
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
       if (heroContent) {
         heroContent.style.opacity = '1';
         heroContent.style.transform = 'none';
@@ -202,16 +205,20 @@
       }
     }
 
-    // Lock scroll on all devices — desktop uses wheel, mobile uses touch
+    // Lock scroll on all devices — register both wheel and touch so hybrid
+    // devices (tablets with mouse, narrow desktop windows) are never stuck
     document.body.classList.add('body--hero-lock');
     document.body.style.touchAction = 'none';
 
-    if (isMobile) {
-      document.addEventListener('touchstart', onTouchStart, { passive: true });
-      document.addEventListener('touchmove', onTouchMove, { passive: false });
-    } else {
-      window.addEventListener('wheel', onWheel, { passive: false });
-    }
+    window.addEventListener('wheel', onWheel, { passive: false });
+    document.addEventListener('touchstart', onTouchStart, { passive: true });
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+
+    // Belt-and-suspenders: if anything causes a scroll while locked, snap back to 0
+    window.addEventListener('scroll', function onHeroScrollGuard() {
+      if (heroComplete) { window.removeEventListener('scroll', onHeroScrollGuard); return; }
+      if (window.scrollY !== 0) window.scrollTo({ top: 0, behavior: 'instant' });
+    }, { passive: true });
   }
 
   // ═══════════════════════════════════════════════════════
@@ -226,6 +233,7 @@
     if (!nav) return;
 
     var mobileCta = document.getElementById('mobile-cta-bar');
+    var heroEl = document.getElementById('hero');
     let navTicking = false;
     window.addEventListener('scroll', function () {
       if (navTicking) return;
@@ -236,9 +244,16 @@
         } else {
           nav.classList.remove('nav--scrolled');
         }
+        // Show logo only after hero has scrolled out of view
+        if (heroEl) {
+          if (heroEl.getBoundingClientRect().bottom <= 0) {
+            nav.classList.add('nav--past-hero');
+          } else {
+            nav.classList.remove('nav--past-hero');
+          }
+        }
         if (mobileCta) {
-          var hero = document.getElementById('hero');
-          var heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 600;
+          var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 600;
           if (window.scrollY > heroBottom * 0.15) {
             mobileCta.classList.add('visible');
             mobileCta.removeAttribute('aria-hidden');
@@ -464,12 +479,13 @@
         var ids = order[stackKey];
         if (!ids || !ids.length) return;
         var stackEl = document.querySelector('.card-stack--' + stackKey);
-        if (!stackEl) return;
+        var stickyEl = stackEl ? stackEl.querySelector('.cards-sticky') : null;
+        if (!stickyEl) return;
         ids.forEach(function (sectionId) {
           var section = document.getElementById(sectionId);
           if (!section) return;
           var scene = section.closest('.card-scene');
-          if (scene && scene.parentElement === stackEl) stackEl.appendChild(scene);
+          if (scene && scene.closest('.card-stack') === stackEl) stickyEl.appendChild(scene);
         });
       });
     }
@@ -489,14 +505,15 @@
         var card = custom[id];
         if (!card || card.deleted) return;
         var stackEl = document.querySelector('.card-stack--' + (card.stack || 'b'));
-        if (!stackEl) return;
+        var stickyEl = stackEl ? stackEl.querySelector('.cards-sticky') : null;
+        if (!stickyEl) return;
         if (document.getElementById('custom-card-' + id)) return;
         var scene = document.createElement('div');
         scene.className = 'card-scene';
-        scene.innerHTML = '<section id="custom-card-' + id + '" class="stack-card" style="background:' + (card.color || '#fff') + '; padding:48px 0;">' +
+        scene.innerHTML = '<section id="custom-card-' + id + '" class="stack-card" style="background:' + (card.color || '#fff') + ';">' +
           '<div class="container"><h2 class="section__title section__title--center">' + (card.title || '') + '</h2>' +
           '<p style="text-align:center;color:var(--text-secondary);margin-top:16px;font-size:1rem;line-height:1.8;">' + (card.body || '') + '</p></div></section>';
-        stackEl.appendChild(scene);
+        stickyEl.appendChild(scene);
       });
     }
   }
@@ -955,21 +972,106 @@
   }
 
   function initStickyCards() {
-    // CSS position:sticky handles everything — no JS scroll logic needed.
-    // The applyCardMeta() CMS function may reorder/hide scenes via DOM manipulation;
-    // sticky still works because overflow-x:clip on body doesn't break sticky.
+    var stacks = Array.from(document.querySelectorAll('.card-stack'));
+    if (!stacks.length) return;
+
+    function getScenes(stack) {
+      var sticky = stack.querySelector('.cards-sticky');
+      return sticky ? Array.from(sticky.querySelectorAll('.card-scene')) : [];
+    }
+
+    function setup() {
+      stacks.forEach(function (stack) {
+        var wrapper = stack.querySelector('.cards-wrapper');
+        if (!wrapper) return;
+        var scenes = getScenes(stack);
+        var N = scenes.length;
+        if (!N) return;
+        wrapper.style.height = (N * window.innerHeight) + 'px';
+        // Ensure first card is visible before first scroll update
+        scenes.forEach(function (s, i) { s.classList.toggle('is-active', i === 0); });
+      });
+      update();
+    }
+
+    var ticking = false;
+    function update() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        stacks.forEach(function (stack) {
+          var wrapper = stack.querySelector('.cards-wrapper');
+          if (!wrapper) return;
+          var scenes = getScenes(stack);
+          var N = scenes.length;
+          if (!N) return;
+          var rect = wrapper.getBoundingClientRect();
+          var wH = wrapper.offsetHeight;
+          var scrollable = wH - window.innerHeight;
+          var progress = scrollable > 0 ? Math.max(0, Math.min(1, -rect.top / scrollable)) : 0;
+          var idx = Math.min(N - 1, Math.floor(progress * N));
+          scenes.forEach(function (scene, i) {
+            scene.classList.toggle('is-active', i === idx);
+          });
+        });
+        ticking = false;
+      });
+    }
+
+    setup();
+    window.addEventListener('load', setup, { once: true });
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', function () { setup(); }, { passive: true });
   }
 
   function initJourney() {
-    var rail = document.getElementById('journey-rail');
-    var fill = document.getElementById('journey-road-fill');
-    var avatar = document.getElementById('journey-avatar');
+    var svg = document.getElementById('journey-svg');
+    var fillPath = document.getElementById('journey-road-fill');
+    var avatarDot = document.getElementById('journey-avatar');
+    var avatarInner = document.getElementById('journey-avatar-inner');
     var section = document.getElementById('journey');
-    if (!rail || !fill || !section) return;
+    var rail = document.getElementById('journey-rail');
+    if (!svg || !fillPath || !section) return;
 
-    var milestones = Array.from(rail.querySelectorAll('.jm'));
+    var milestones = Array.from(section.querySelectorAll('.jm'));
+    // Fractions along the path where each session card sits
+    var STOPS = [0.20, 0.43, 0.65, 0.87];
+    var totalLen = 0;
+
+    function init() {
+      totalLen = fillPath.getTotalLength();
+      fillPath.style.strokeDasharray = totalLen;
+      fillPath.style.strokeDashoffset = totalLen;
+      positionMilestones();
+      doUpdate();
+    }
+
+    function positionMilestones() {
+      var ctm = svg.getScreenCTM();
+      if (!ctm || !totalLen) return;
+      var railRect = rail.getBoundingClientRect();
+
+      milestones.forEach(function (jm, i) {
+        var pt = fillPath.getPointAtLength(STOPS[i] * totalLen);
+        var svgPt = svg.createSVGPoint();
+        svgPt.x = pt.x; svgPt.y = pt.y;
+        var domPt = svgPt.matrixTransform(ctm);
+        var x = domPt.x - railRect.left;
+        var y = domPt.y - railRect.top;
+        jm.style.top = (y - 20) + 'px'; // vertically center card on path point
+
+        // Place card to the right of path if point is right of center (200 in viewBox)
+        if (pt.x >= 200) {
+          jm.style.left = (x + 26) + 'px';
+          jm.style.right = '';
+        } else {
+          jm.style.right = (railRect.width - x + 26) + 'px';
+          jm.style.left = '';
+        }
+      });
+    }
+
     var journeyTicking = false;
-
     function update() {
       if (journeyTicking) return;
       journeyTicking = true;
@@ -978,40 +1080,33 @@
 
     function doUpdate() {
       journeyTicking = false;
+      if (!totalLen) return;
       var sRect = section.getBoundingClientRect();
       var sH = section.offsetHeight;
       var vpH = window.innerHeight;
-      // Progress 0→1 as section scrolls from bottom of viewport to above viewport
-      var raw = (-sRect.top) / (sH - vpH);
-      var progress = Math.max(0, Math.min(1, raw));
+      var progress = Math.max(0, Math.min(1, -sRect.top / (sH - vpH)));
 
-      // Grow the road fill
-      fill.style.height = (progress * 100) + '%';
+      // Animate road fill via stroke-dashoffset
+      fillPath.style.strokeDashoffset = totalLen * (1 - progress);
 
-      // Move avatar along the rail, clamped so it stays inside the road
-      if (avatar) {
-        var railH = rail.offsetHeight;
-        var avatarH = avatar.offsetHeight || 28;
-        var minTop = avatarH / 2;
-        var maxTop = railH - avatarH / 2;
-        avatar.style.top = (minTop + progress * (maxTop - minTop)) + 'px';
-      }
+      // Move avatar along the SVG path
+      var pt = fillPath.getPointAtLength(progress * totalLen);
+      if (avatarDot)   { avatarDot.setAttribute('cx', pt.x);   avatarDot.setAttribute('cy', pt.y); }
+      if (avatarInner) { avatarInner.setAttribute('cx', pt.x); avatarInner.setAttribute('cy', pt.y); }
 
-      // Reveal milestone cards as fill passes each one
-      var railRect = rail.getBoundingClientRect();
-      milestones.forEach(function (jm) {
+      // Reveal milestone cards as progress passes each stop
+      milestones.forEach(function (jm, i) {
         var card = jm.querySelector('.jm__card');
-        if (!card) return;
-        var jmRect = jm.getBoundingClientRect();
-        var jmRelY = (jmRect.top + jmRect.height / 2 - railRect.top) / rail.offsetHeight;
-        if (progress >= jmRelY - 0.05) {
-          card.classList.add('jm--visible');
-        }
+        if (card) card.classList.toggle('jm--visible', progress >= STOPS[i] - 0.04);
       });
     }
 
+    window.addEventListener('load', init, { once: true });
     window.addEventListener('scroll', update, { passive: true });
-    update();
+    window.addEventListener('resize', function () {
+      positionMilestones();
+    }, { passive: true });
+    init();
   }
 
   function initReadingProgress() {
