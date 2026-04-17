@@ -2216,9 +2216,9 @@ mark.highlight::after {
    ═══════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
-  /* 200vh = animation in 1 viewport scroll, no scroll-trap feeling */
+  /* 100dvh = hero is exactly one screen, animation auto-plays (no scroll trap) */
   .hero {
-    height: 200vh;
+    height: 100dvh;
   }
 
   /* Touch-friendly hint: bigger, more visible */

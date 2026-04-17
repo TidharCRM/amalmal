@@ -68,6 +68,42 @@
       ctx.drawImage(img, dx, dy, dw, dh);
     }
 
+    var isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    // ── Shared: apply progress value → canvas + overlay + content reveal ──
+    function applyProgress(progress) {
+      var frameIndex = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+      if (frameIndex !== currentFrame) {
+        currentFrame = frameIndex;
+        drawFrame(currentFrame);
+      }
+
+      var overlayBase;
+      if (progress < 0.75) {
+        overlayBase = 0.05 + progress * 0.35;
+      } else {
+        overlayBase = 0.31 + (progress - 0.75) * 2.6;
+      }
+      overlayBase = Math.min(overlayBase, 0.92);
+      overlay.style.background =
+        'radial-gradient(ellipse at center, ' +
+        'rgba(5,5,8,' + (overlayBase * 0.3).toFixed(3) + ') 0%, ' +
+        'rgba(5,5,8,' + overlayBase.toFixed(3) + ') 65%, ' +
+        'rgba(5,5,8,' + Math.min(0.98, overlayBase * 1.15).toFixed(3) + ') 100%)';
+
+      if (heroContent) {
+        var REVEAL_START = 0.78;
+        var REVEAL_END   = 0.96;
+        var t = 0;
+        if (progress >= REVEAL_START) {
+          var raw = Math.min(1, (progress - REVEAL_START) / (REVEAL_END - REVEAL_START));
+          t = 1 - Math.pow(1 - raw, 3);
+        }
+        heroContent.style.opacity = t;
+        heroContent.style.transform = 'translateY(' + (20 * (1 - t)) + 'px)';
+      }
+    }
+
     // ── Preload every frame ──
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image();
@@ -75,13 +111,54 @@
       img.src = FRAME_PATH + num + '.jpg';
       img.onload = function () {
         loadedCount++;
-        if (loadedCount === 1) resizeCanvas();          // show first frame ASAP
-        if (loadedCount === FRAME_COUNT) drawFrame(0);   // ensure clean first render
+        if (loadedCount === 1) resizeCanvas();
+        if (loadedCount === FRAME_COUNT) drawFrame(0);
+        if (isMobile && loadedCount >= 4 && !mobileAnimStarted) startMobileAnim();
       };
       frames.push(img);
     }
 
-    // ── Scroll handler — maps scroll position → frame index ──
+    // ── Reduced-motion: show content immediately, no animation ──
+    if (prefersReducedMotion) {
+      if (heroContent) {
+        heroContent.style.opacity = '1';
+        heroContent.style.transform = 'none';
+        heroContent.style.transition = 'none';
+      }
+      resizeCanvas();
+      return;
+    }
+
+    // ── MOBILE: time-based auto-play — no scroll trap ──
+    var mobileAnimStarted = false;
+    var mobileAnimStart = null;
+    var MOBILE_ANIM_DURATION = 2800; // ms — pace of mouth-open effect
+
+    function startMobileAnim() {
+      if (mobileAnimStarted) return;
+      mobileAnimStarted = true;
+      resizeCanvas();
+      requestAnimationFrame(stepMobile);
+    }
+
+    function stepMobile(now) {
+      if (!mobileAnimStart) mobileAnimStart = now;
+      var elapsed = now - mobileAnimStart;
+      var progress = Math.min(1, elapsed / MOBILE_ANIM_DURATION);
+      applyProgress(progress);
+      if (progress < 1) {
+        requestAnimationFrame(stepMobile);
+      }
+    }
+
+    if (isMobile) {
+      // Start as soon as enough frames are buffered (or immediately if already loaded)
+      if (loadedCount >= 4) startMobileAnim();
+      window.addEventListener('resize', resizeCanvas);
+      return; // no scroll listener on mobile
+    }
+
+    // ── DESKTOP: scroll-based scrubbing ──
     function onScroll() {
       if (ticking) return;
       ticking = true;
@@ -92,64 +169,12 @@
         const scrolled = -rect.top;
         const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
 
-        // ── Frame scrubbing ──
-        const frameIndex = Math.min(
-          FRAME_COUNT - 1,
-          Math.floor(progress * FRAME_COUNT)
-        );
+        applyProgress(progress);
 
-        if (frameIndex !== currentFrame) {
-          currentFrame = frameIndex;
-          drawFrame(currentFrame);
-        }
-
-        // ── Dynamic overlay ──
-        //    Fully transparent at the top so animation is clean.
-        //    Gets very dark at the end to create a backdrop for the text reveal.
-        var overlayBase;
-        if (progress < 0.75) {
-          // During the animation: subtle vignette, mostly transparent
-          overlayBase = 0.05 + progress * 0.35;
-        } else {
-          // Final phase: rapidly darken to create text backdrop
-          overlayBase = 0.31 + (progress - 0.75) * 2.6;
-        }
-        overlayBase = Math.min(overlayBase, 0.92);
-        overlay.style.background =
-          'radial-gradient(ellipse at center, ' +
-          'rgba(5,5,8,' + (overlayBase * 0.3).toFixed(3) + ') 0%, ' +
-          'rgba(5,5,8,' + overlayBase.toFixed(3) + ') 65%, ' +
-          'rgba(5,5,8,' + Math.min(0.98, overlayBase * 1.15).toFixed(3) + ') 100%)';
-
-        // ── Hero content — REVEAL ONLY in final ~15% ──
-        //    ZERO visibility from 0% to 82%.
-        //    Fades in from 82% → 97% with translateY for mouth-emergence feel.
-        if (heroContent) {
-          var REVEAL_START = 0.82;  // text begins appearing
-          var REVEAL_END   = 0.97;  // text fully visible
-          var t = 0;
-
-          if (progress >= REVEAL_START) {
-            // Ease-out cubic for smooth natural emergence
-            var raw = Math.min(1, (progress - REVEAL_START) / (REVEAL_END - REVEAL_START));
-            t = 1 - Math.pow(1 - raw, 3);  // ease-out cubic
-          }
-
-          // translateY: 20px → 0 (slides up as if emerging from below)
-          heroContent.style.opacity = t;
-          heroContent.style.transform = 'translateY(' + (20 * (1 - t)) + 'px)';
-        }
-
-        // ── Scroll hint auto-hide ──
         if (scrollHint) {
-          if (progress > 0.04) {
-            scrollHint.classList.add('hidden');
-          } else {
-            scrollHint.classList.remove('hidden');
-          }
+          scrollHint.classList.toggle('hidden', progress > 0.04);
         }
 
-        // ── Hero progress bar ──
         var progressBar = document.getElementById('hero-progress');
         var progressFill = document.getElementById('hero-progress-fill');
         if (progressBar && progressFill) {
@@ -165,22 +190,10 @@
       });
     }
 
-    // ── Reduced-motion only: skip scroll animation ──
-    if (prefersReducedMotion) {
-      if (heroContent) {
-        heroContent.style.opacity = '1';
-        heroContent.style.transform = 'none';
-        heroContent.style.transition = 'none';
-      }
-      return;
-    }
-
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', function () {
-      resizeCanvas();
-    });
+    window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
-    onScroll(); // initial state
+    onScroll();
   }
 
   // ═══════════════════════════════════════════════════════
@@ -465,65 +478,7 @@
     }, { passive: true });
   }
 
-  // ═══════════════════════════════════════════════════════
-  // MOBILE HERO AUTO-SCROLL
-  // ═══════════════════════════════════════════════════════
-
-  function initMobileHeroScroll() {
-    if (!('ontouchstart' in window)) return;
-
-    var hero = document.getElementById('hero');
-    if (!hero) return;
-
-    var animating = false;
-    var touchStartY = 0;
-    var touchStartScrollY = 0;
-
-    document.addEventListener('touchstart', function (e) {
-      touchStartY = e.touches[0].clientY;
-      touchStartScrollY = window.scrollY;
-    }, { passive: true });
-
-    document.addEventListener('touchend', function (e) {
-      if (animating) return;
-
-      var rect = hero.getBoundingClientRect();
-      var scrollableHeight = hero.offsetHeight - window.innerHeight;
-      var scrolled = -rect.top;
-      var progress = scrolled / scrollableHeight;
-
-      // Only inside hero, only on downward swipe, only partway through
-      if (progress < 0.02 || progress >= 0.9) return;
-      var deltaY = touchStartY - e.changedTouches[0].clientY;
-      if (deltaY < 5) return; // any small downward swipe
-
-      animating = true;
-
-      var heroEnd = hero.offsetTop + hero.offsetHeight - window.innerHeight;
-      var start = window.scrollY;
-      var remaining = heroEnd - start;
-      // Fast, snappy: 700–1100ms
-      var duration = Math.max(700, Math.min(1100, remaining * 0.9));
-      var startTime = null;
-
-      function easeOut(t) {
-        return 1 - Math.pow(1 - t, 3);
-      }
-
-      function step(now) {
-        if (!startTime) startTime = now;
-        var t = Math.min((now - startTime) / duration, 1);
-        window.scrollTo(0, start + remaining * easeOut(t));
-        if (t < 1) {
-          requestAnimationFrame(step);
-        } else {
-          animating = false;
-        }
-      }
-
-      requestAnimationFrame(step);
-    }, { passive: true });
-  }
+  // Mobile auto-scroll removed — mobile hero now uses time-based animation (no scroll trap)
 
   // ═══════════════════════════════════════════════════════
   // BOOT
@@ -538,6 +493,5 @@
     initSmoothScroll();
     initCursor();
     initHeroStickers();
-    initMobileHeroScroll();
   });
 })();
