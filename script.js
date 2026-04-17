@@ -165,19 +165,14 @@
       });
     }
 
-    // ── Mobile / reduced-motion: skip scroll animation, show content immediately ──
-    var isMobile = window.matchMedia('(max-width: 768px)').matches;
-    if (isMobile || prefersReducedMotion) {
+    // ── Reduced-motion only: skip scroll animation ──
+    if (prefersReducedMotion) {
       if (heroContent) {
         heroContent.style.opacity = '1';
         heroContent.style.transform = 'none';
         heroContent.style.transition = 'none';
       }
-      if (overlay) {
-        overlay.style.background =
-          'linear-gradient(to top, rgba(5,5,8,0.9) 0%, rgba(5,5,8,0.55) 45%, rgba(5,5,8,0.15) 80%, transparent 100%)';
-      }
-      return; // no canvas animation on mobile
+      return;
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -475,21 +470,21 @@
   // ═══════════════════════════════════════════════════════
 
   function initMobileHeroScroll() {
-    // Hero is 100vh on mobile — no auto-scroll needed
     if (!('ontouchstart' in window)) return;
-    if (window.matchMedia('(max-width: 768px)').matches) return;
 
     var hero = document.getElementById('hero');
     if (!hero) return;
 
     var animating = false;
     var touchStartY = 0;
+    var touchStartScrollY = 0;
 
     document.addEventListener('touchstart', function (e) {
       touchStartY = e.touches[0].clientY;
+      touchStartScrollY = window.scrollY;
     }, { passive: true });
 
-    document.addEventListener('touchmove', function (e) {
+    document.addEventListener('touchend', function (e) {
       if (animating) return;
 
       var rect = hero.getBoundingClientRect();
@@ -497,18 +492,18 @@
       var scrolled = -rect.top;
       var progress = scrolled / scrollableHeight;
 
-      // Only trigger inside hero scroll zone on downward swipe
-      if (progress < 0 || progress >= 0.95) return;
-      var deltaY = touchStartY - e.touches[0].clientY;
-      if (deltaY < 10) return;
+      // Only inside hero, only on downward swipe, only partway through
+      if (progress < 0.02 || progress >= 0.9) return;
+      var deltaY = touchStartY - e.changedTouches[0].clientY;
+      if (deltaY < 5) return; // any small downward swipe
 
       animating = true;
 
       var heroEnd = hero.offsetTop + hero.offsetHeight - window.innerHeight;
       var start = window.scrollY;
       var remaining = heroEnd - start;
-      // Duration proportional to remaining distance (min 900ms, max 2200ms)
-      var duration = Math.max(900, Math.min(2200, remaining * 1.3));
+      // Fast, snappy: 700–1100ms
+      var duration = Math.max(700, Math.min(1100, remaining * 0.9));
       var startTime = null;
 
       function easeOut(t) {

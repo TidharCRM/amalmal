@@ -2211,48 +2211,23 @@ mark.highlight::after {
 }
 
 /* ═══════════════════════════════════════════════════════
-   MOBILE-FIRST HERO REDESIGN
-   On mobile: no scroll animation, hero = 100vh, content visible immediately
+   MOBILE HERO — Keep animation, compress to 2 screens
+   200vh = user scrolls 1 viewport → animation completes → content reveals
    ═══════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
-  /* Hero is exactly one screen tall — no scroll-trapping */
+  /* 200vh = animation in 1 viewport scroll, no scroll-trap feeling */
   .hero {
-    height: 100vh;
-    height: 100dvh;
+    height: 200vh;
   }
 
-  /* Hide canvas — replaced by CSS gradient background */
-  .hero__canvas {
-    display: none;
+  /* Touch-friendly hint: bigger, more visible */
+  .hero__scroll-hint {
+    bottom: 28px;
   }
 
-  /* Dark cinematic background for mobile hero */
-  .hero__sticky {
-    background: radial-gradient(ellipse at 30% 40%, rgba(180, 40, 30, 0.35) 0%, transparent 60%),
-                linear-gradient(160deg, #1A1614 0%, #2C1A17 55%, #1A1614 100%);
-  }
-
-  /* Hero content always visible on mobile */
-  .hero__content {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    transition: none !important;
-    padding: 0 20px;
-    padding-bottom: 8vh;
-  }
-
-  /* Static dark overlay for text readability on mobile */
-  .hero__overlay {
-    background: linear-gradient(
-      to top,
-      rgba(5,5,8,0.92) 0%,
-      rgba(5,5,8,0.55) 40%,
-      rgba(5,5,8,0.18) 75%,
-      transparent 100%
-    ) !important;
-    align-items: flex-end;
-    padding-bottom: 10vh;
+  .hero__scroll-hint span {
+    font-size: 0.8rem;
   }
 
   /* Larger touch-friendly buttons on mobile */
@@ -2260,21 +2235,21 @@ mark.highlight::after {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
-    max-width: 320px;
+    max-width: 300px;
     margin: 0 auto;
   }
 
   .hero__actions .btn {
     width: 100%;
     justify-content: center;
-    padding: 16px 24px;
-    font-size: 1rem;
+    padding: 16px 20px;
+    font-size: 0.95rem;
   }
 
   /* Hero title scale for mobile */
   .hero__title {
     font-size: clamp(2.6rem, 13vw, 4rem) !important;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .hero__subtitle {
@@ -2282,18 +2257,21 @@ mark.highlight::after {
     margin-bottom: 28px;
   }
 
-  /* Hide decorative elements on mobile for cleaner look */
+  /* Tighten hero content vertical position on mobile */
+  .hero__overlay {
+    padding-bottom: 8vh;
+  }
+
+  /* Hide purely decorative elements on mobile for performance */
   .hero__ghost-text { display: none; }
   .hero__sticker { display: none; }
-  .hero__scroll-hint { display: none; }
-  .hero__progress { display: none; }
 
   /* Section padding: 120px is too much for mobile */
   .section {
     padding: 72px 0;
   }
 
-  /* Stats: stack on very small screens */
+  /* Stats: wrap on small screens, hide dividers */
   .stats__grid {
     flex-wrap: wrap;
     gap: 28px;
@@ -2308,7 +2286,7 @@ mark.highlight::after {
     min-width: 90px;
   }
 
-  /* Process steps — already column, just tighten gap */
+  /* Process steps — tighten gap */
   .process__steps {
     gap: 32px;
   }
@@ -2318,17 +2296,12 @@ mark.highlight::after {
     width: 180px;
   }
 
-  /* Testimonial grid already single column — just fix padding */
+  /* Testimonial cards: tighter padding */
   .testimonial-card {
     padding: 28px 22px;
   }
 
-  /* Contact form full width */
-  .contact__wrapper {
-    padding: 0 4px;
-  }
-
-  /* Transformation strip: stack on mobile */
+  /* Transformation strip: tighter on mobile */
   .transformation-strip {
     padding: 28px 20px;
   }
