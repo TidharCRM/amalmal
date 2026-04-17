@@ -552,6 +552,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   border-radius: 0;
 }
 
