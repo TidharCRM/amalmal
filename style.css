@@ -542,9 +542,9 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 
 .about__image-wrapper {
   position: relative;
-  width: 320px;
-  height: 320px;
-  border-radius: var(--radius-xl);
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -552,13 +552,13 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: var(--radius-xl);
+  border-radius: 0;
 }
 
 .about__image-glow {
   position: absolute;
   inset: -2px;
-  border-radius: var(--radius-xl);
+  border-radius: 0;
   background: var(--gradient-primary);
   z-index: -1;
   opacity: 0.4;
@@ -608,7 +608,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
     text-align: center;
   }
   .about__badges { justify-content: center; }
-  .about__image-wrapper { width: 240px; height: 240px; }
+  .about__image-wrapper { width: 100%; aspect-ratio: 4 / 3; }
 }
 
 /* ═══════════════════════════════════════════════════════
