@@ -145,6 +145,20 @@
       window.removeEventListener('wheel', onWheel);
       document.removeEventListener('touchstart', onTouchStart);
       document.removeEventListener('touchmove', onTouchMove);
+
+      // After unlock: keep animation in sync with real scroll (enables reverse)
+      var postTicking = false;
+      window.addEventListener('scroll', function () {
+        if (postTicking) return;
+        postTicking = true;
+        requestAnimationFrame(function () {
+          var sh = hero.offsetHeight - window.innerHeight;
+          var progress = Math.max(0, Math.min(1, -hero.getBoundingClientRect().top / sh));
+          applyProgress(progress);
+          postTicking = false;
+        });
+      }, { passive: true });
+
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
           window.scrollTo(0, hero.offsetTop + hero.offsetHeight - window.innerHeight);
@@ -764,7 +778,6 @@
   document.addEventListener('DOMContentLoaded', function () {
     initReadingProgress();
     initHeroAnimation();
-    initStickyCards();
     initJourney();
     initNav();
     initStatsCounter();
