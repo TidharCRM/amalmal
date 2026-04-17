@@ -5,7 +5,7 @@
   // HERO — Canvas Scroll-Frame Animation
   // ═══════════════════════════════════════════════════════
 
-  const FRAME_COUNT = 21;
+  const FRAME_COUNT = 129;
   const FRAME_PATH = 'frames/ezgif-frame-';
 
   function initHeroAnimation() {
