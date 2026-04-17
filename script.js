@@ -556,6 +556,20 @@
   // BOOT
   // ═══════════════════════════════════════════════════════
 
+  function initSnekReveal() {
+    var steps = document.querySelectorAll('[data-snek-step]');
+    if (!steps.length) return;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    steps.forEach(function (el) { obs.observe(el); });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initHeroAnimation();
     initNav();
@@ -566,5 +580,6 @@
     initCursor();
     initAdmin();
     initCountdown();
+    initSnekReveal();
   });
 })();
