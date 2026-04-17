@@ -46,7 +46,7 @@
   <!-- ═══════════════════════════════════════════ -->
   <nav id="main-nav" class="nav">
     <div class="nav__inner">
-      <a href="#" class="nav__logo">Cut It</a>
+      <a href="#" class="nav__logo"><img src="photos/logo-cutit.png" alt="Cut It by Amalmal" class="nav__logo-img" /></a>
       <div class="nav__links">
         <a href="#about" class="nav__link">הסיפור שלי</a>
         <a href="#course-path" class="nav__link">הקורס</a>
@@ -58,14 +58,15 @@
         <span></span><span></span><span></span>
       </button>
     </div>
-    <div id="mobile-menu" class="nav__mobile">
-      <a href="#about" class="nav__mobile-link">הסיפור שלי</a>
-      <a href="#course-path" class="nav__mobile-link">הקורס</a>
-      <a href="#sessions" class="nav__mobile-link">מפגשים</a>
-      <a href="#faq" class="nav__mobile-link">שאלות</a>
-      <a href="#contact" class="nav__mobile-link nav__cta-btn">אני רוצה להצטרף ✨</a>
-    </div>
   </nav>
+  <!-- Mobile menu OUTSIDE nav so backdrop-filter on nav doesn't trap fixed positioning -->
+  <div id="mobile-menu" class="nav__mobile">
+    <a href="#about" class="nav__mobile-link">הסיפור שלי</a>
+    <a href="#course-path" class="nav__mobile-link">הקורס</a>
+    <a href="#sessions" class="nav__mobile-link">מפגשים</a>
+    <a href="#faq" class="nav__mobile-link">שאלות</a>
+    <a href="#contact" class="nav__mobile-link nav__cta-btn">אני רוצה להצטרף ✨</a>
+  </div>
 
   <!-- ═══════════════════════════════════════════ -->
   <!-- HERO — Scroll Frame Animation               -->
@@ -114,6 +115,8 @@
   <!-- CARD STACK A — Summary + Course Path         -->
   <!-- ═══════════════════════════════════════════ -->
   <div class="card-stack card-stack--a">
+  <div class="cards-wrapper">
+  <div class="cards-sticky">
 
   <div class="card-scene">
   <section id="summary" class="summary stack-card">
@@ -166,6 +169,8 @@
   </section>
   </div><!-- /card-scene -->
 
+  </div><!-- /cards-sticky -->
+  </div><!-- /cards-wrapper -->
   </div><!-- /card-stack--a -->
 
   <!-- PHOTO STRIP -->
@@ -222,43 +227,47 @@
   </section>
 
   <!-- ═══════════════════════════════════════════ -->
-  <!-- JOURNEY — Snake timeline                     -->
+  <!-- JOURNEY — Snake timeline (course sessions)   -->
   <!-- ═══════════════════════════════════════════ -->
   <section id="journey" class="journey">
     <div class="container">
       <div class="journey__head">
-        <span class="section__tag" style="color:var(--accent-hot)">הסיפור שלי</span>
-        <h2 class="section__title section__title--center" style="color:#FAF8F5">כך זה קרה</h2>
+        <span class="section__tag" style="color:var(--accent-hot)">מה לומדים</span>
+        <h2 class="section__title section__title--center" style="color:#FAF8F5">מסלול הקורס</h2>
       </div>
     </div>
     <div class="journey__rail" id="journey-rail">
-      <div class="journey__road">
-        <div class="journey__road-fill" id="journey-road-fill"></div>
-        <div class="journey__road-dashes"></div>
+      <!-- SVG winding snake road -->
+      <svg id="journey-svg" class="journey__svg" viewBox="0 0 400 840" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <defs>
+          <linearGradient id="snake-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#00CFFF"/>
+            <stop offset="60%" stop-color="#D42B21"/>
+            <stop offset="100%" stop-color="#FF6130"/>
+          </linearGradient>
+        </defs>
+        <!-- Road background -->
+        <path class="journey__snake-bg" d="M200,20 C360,80 360,170 200,230 C40,290 40,380 200,440 C360,500 360,590 200,650 C40,710 40,780 200,820" fill="none" stroke="#1e1e1e" stroke-width="40" stroke-linecap="round"/>
+        <!-- Animated fill (progress) -->
+        <path id="journey-road-fill" d="M200,20 C360,80 360,170 200,230 C40,290 40,380 200,440 C360,500 360,590 200,650 C40,710 40,780 200,820" fill="none" stroke="url(#snake-gradient)" stroke-width="40" stroke-linecap="round"/>
+        <!-- Centre dashes overlay -->
+        <path d="M200,20 C360,80 360,170 200,230 C40,290 40,380 200,440 C360,500 360,590 200,650 C40,710 40,780 200,820" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2" stroke-dasharray="14 14" stroke-linecap="round"/>
+        <!-- Avatar dot -->
+        <circle id="journey-avatar" cx="200" cy="20" r="13" fill="#D42B21" stroke="#fff" stroke-width="3"/>
+        <circle id="journey-avatar-inner" cx="200" cy="20" r="5" fill="#fff"/>
+      </svg>
+      <!-- Session milestone cards (JS positions these) -->
+      <div class="jm" data-jm="0">
+        <div class="jm__card"><span class="jm__label">שיעור 1</span><h3 class="jm__title">היכרות + סטוריטלינג</h3><p class="jm__text">פיתוח 3 רעיונות מהתוכן שלך + יסודות העריכה</p></div>
       </div>
-      <div class="journey__avatar" id="journey-avatar">
-        <svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="#D42B21" stroke="#fff" stroke-width="3"/><circle cx="14" cy="14" r="4" fill="#fff"/></svg>
+      <div class="jm" data-jm="1">
+        <div class="jm__card"><span class="jm__label">שיעור 2</span><h3 class="jm__title">עריכה למתחילים עד מתקדמים</h3><p class="jm__text">Keyframes, קצב ותנועה</p></div>
       </div>
-      <div class="jm jm--right" data-jm="0">
-        <div class="jm__card"><span class="jm__num">01</span><p class="jm__text">התחלתי לצלם בפלאפון</p></div>
+      <div class="jm" data-jm="2">
+        <div class="jm__card"><span class="jm__label">שיעור 3</span><h3 class="jm__title">עריכה מתקדמת</h3><p class="jm__text">מסכות ואפקטים ויזואליים</p></div>
       </div>
-      <div class="jm jm--left" data-jm="1">
-        <div class="jm__card"><span class="jm__num">02</span><p class="jm__text">למדתי לערוך לבד מיוטיוב</p></div>
-      </div>
-      <div class="jm jm--right" data-jm="2">
-        <div class="jm__card"><span class="jm__num">03</span><p class="jm__text">יצרתי תוכן שהתחיל להתפשט</p></div>
-      </div>
-      <div class="jm jm--left" data-jm="3">
-        <div class="jm__card"><span class="jm__num">04</span><p class="jm__text">הגעתי ל-10K עוקבים</p></div>
-      </div>
-      <div class="jm jm--right" data-jm="4">
-        <div class="jm__card"><span class="jm__num">05</span><p class="jm__text">עזבתי עבודה שכירה</p></div>
-      </div>
-      <div class="jm jm--left" data-jm="5">
-        <div class="jm__card"><span class="jm__num">06</span><p class="jm__text">הכנסתי <strong style="color:#E8564E">120,000 ש"ח</strong> בחודש וחצי</p></div>
-      </div>
-      <div class="jm jm--right" data-jm="6">
-        <div class="jm__card jm__card--final"><span class="jm__num">07</span><p class="jm__text">בניתי את <strong>CUT IT</strong></p></div>
+      <div class="jm" data-jm="3">
+        <div class="jm__card jm__card--final"><span class="jm__label">שיעור 4</span><h3 class="jm__title">AI בעריכה</h3><p class="jm__text">יצירת אפקטים עם בינה מלאכותית</p></div>
       </div>
     </div>
   </section>
@@ -267,6 +276,8 @@
   <!-- CARD STACK B — Structure + Sessions + FAQ   -->
   <!-- ═══════════════════════════════════════════ -->
   <div class="card-stack card-stack--b">
+  <div class="cards-wrapper">
+  <div class="cards-sticky">
 
   <div class="card-scene">
   <section id="structure" class="structure stack-card">
@@ -354,6 +365,8 @@
   </section>
   </div><!-- /card-scene -->
 
+  </div><!-- /cards-sticky -->
+  </div><!-- /cards-wrapper -->
   </div><!-- /card-stack--b -->
 
   <!-- ═══════════════════════════════════════════ -->
