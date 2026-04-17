@@ -18,7 +18,6 @@
     const heroContent = document.querySelector('.hero__content');
     const scrollHint = document.getElementById('scroll-hint');
 
-    // Check reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const frames = [];
@@ -26,7 +25,6 @@
     let currentFrame = 0;
     let ticking = false;
 
-    // ── Set canvas resolution to match screen ──
     function resizeCanvas() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = window.innerWidth * dpr;
@@ -37,7 +35,6 @@
       drawFrame(currentFrame);
     }
 
-    // ── Draw a single frame onto the canvas (cover-fit) ──
     function drawFrame(index) {
       const img = frames[index];
       if (!img || !img.complete || !img.naturalWidth) return;
@@ -48,17 +45,14 @@
 
       const imgRatio = img.naturalWidth / img.naturalHeight;
       const canvasRatio = cw / ch;
-
       let dw, dh, dx, dy;
 
       if (canvasRatio > imgRatio) {
-        // Canvas is wider → fit to width
         dw = cw;
         dh = cw / imgRatio;
         dx = 0;
         dy = (ch - dh) / 2;
       } else {
-        // Canvas is taller → fit to height
         dh = ch;
         dw = ch * imgRatio;
         dy = 0;
@@ -70,7 +64,7 @@
 
     var isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-    // ── Shared: apply progress value → canvas + overlay + content reveal ──
+    // ── Shared: apply progress → frame + overlay + content reveal ──
     function applyProgress(progress) {
       var frameIndex = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
       if (frameIndex !== currentFrame) {
@@ -118,7 +112,7 @@
       frames.push(img);
     }
 
-    // ── Reduced-motion: show content immediately, no animation ──
+    // ── Reduced-motion: show content immediately ──
     if (prefersReducedMotion) {
       if (heroContent) {
         heroContent.style.opacity = '1';
@@ -132,7 +126,7 @@
     // ── MOBILE: time-based auto-play — no scroll trap ──
     var mobileAnimStarted = false;
     var mobileAnimStart = null;
-    var MOBILE_ANIM_DURATION = 2800; // ms — pace of mouth-open effect
+    var MOBILE_ANIM_DURATION = 1600;
 
     function startMobileAnim() {
       if (mobileAnimStarted) return;
@@ -146,16 +140,13 @@
       var elapsed = now - mobileAnimStart;
       var progress = Math.min(1, elapsed / MOBILE_ANIM_DURATION);
       applyProgress(progress);
-      if (progress < 1) {
-        requestAnimationFrame(stepMobile);
-      }
+      if (progress < 1) requestAnimationFrame(stepMobile);
     }
 
     if (isMobile) {
-      // Start as soon as enough frames are buffered (or immediately if already loaded)
       if (loadedCount >= 4) startMobileAnim();
       window.addEventListener('resize', resizeCanvas);
-      return; // no scroll listener on mobile
+      return;
     }
 
     // ── DESKTOP: scroll-based scrubbing ──
@@ -207,7 +198,6 @@
 
     if (!nav) return;
 
-    // ── Sticky background on scroll ──
     var mobileCta = document.getElementById('mobile-cta-bar');
     let navTicking = false;
     window.addEventListener('scroll', function () {
@@ -219,7 +209,6 @@
         } else {
           nav.classList.remove('nav--scrolled');
         }
-        // Show mobile CTA after scrolling past hero
         if (mobileCta) {
           var hero = document.getElementById('hero');
           var heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 600;
@@ -235,14 +224,12 @@
       });
     }, { passive: true });
 
-    // ── Mobile hamburger toggle ──
     if (toggle && mobileMenu) {
       toggle.addEventListener('click', function () {
         toggle.classList.toggle('active');
         mobileMenu.classList.toggle('active');
       });
 
-      // Close on link click
       mobileMenu.querySelectorAll('a').forEach(function (link) {
         link.addEventListener('click', function () {
           toggle.classList.remove('active');
@@ -271,7 +258,6 @@
         function tick(now) {
           const elapsed = now - startTime;
           const t = Math.min(elapsed / duration, 1);
-          // Ease-out cubic
           const eased = 1 - Math.pow(1 - t, 3);
           const value = Math.floor(eased * target);
 
@@ -313,8 +299,8 @@
       '.about__visual',
       '.about__text',
       '.service-card',
-      '.course__content',
-      '.course__visual',
+      '.myth__col',
+      '.promise__item',
       '.testimonial-card',
       '.contact__wrapper',
       '.section__tag',
@@ -324,14 +310,12 @@
     var elements = document.querySelectorAll(selectors.join(', '));
 
     elements.forEach(function (el) {
-      // Only add if not already inside the hero
       if (el.closest('#hero')) return;
       el.classList.add('reveal');
     });
 
-    // Stagger siblings in grids
     document.querySelectorAll(
-      '.services__grid .service-card, .testimonials__grid .testimonial-card'
+      '.modules__grid .service-card, .testimonials__grid .testimonial-card, .promise__grid .promise__item'
     ).forEach(function (el, i) {
       var delay = (i % 3) + 1;
       if (delay <= 3) el.classList.add('reveal-delay-' + delay);
@@ -391,34 +375,6 @@
   }
 
   // ═══════════════════════════════════════════════════════
-  // FORM
-  // ═══════════════════════════════════════════════════════
-
-  window.handleSubmit = function (e) {
-    e.preventDefault();
-
-    var form = document.getElementById('contact-form');
-    var btn = document.getElementById('form-submit');
-    var btnText = btn.querySelector('.btn__text');
-    var btnLoading = btn.querySelector('.btn__loading');
-
-    // Show loading
-    btnText.style.display = 'none';
-    btnLoading.style.display = 'inline';
-    btn.disabled = true;
-
-    // Simulate submission
-    setTimeout(function () {
-      form.innerHTML =
-        '<div class="form-success">' +
-        '  <div class="form-success__icon">✨</div>' +
-        '  <h3 class="form-success__title">ההודעה נשלחה בהצלחה!</h3>' +
-        '  <p class="form-success__text">אחזור אליכם בהקדם ❤️</p>' +
-        '</div>';
-    }, 1400);
-  };
-
-  // ═══════════════════════════════════════════════════════
   // CUSTOM CURSOR
   // ═══════════════════════════════════════════════════════
 
@@ -453,32 +409,148 @@
   }
 
   // ═══════════════════════════════════════════════════════
-  // HERO STICKERS
+  // ADMIN — Hidden PIN-gated panel
   // ═══════════════════════════════════════════════════════
 
-  function initHeroStickers() {
-    var stickers = document.querySelectorAll('.hero__sticker');
-    if (!stickers.length) return;
+  function initAdmin() {
+    var trigger  = document.getElementById('admin-trigger');
+    var modal    = document.getElementById('admin-modal');
+    var backdrop = document.getElementById('admin-backdrop');
+    var closeBtn = document.getElementById('admin-close');
+    var pinInput  = document.getElementById('pin-input');
+    var pinSubmit = document.getElementById('pin-submit');
+    var pinError  = document.getElementById('pin-error');
+    var pinScreen = document.getElementById('admin-pin-screen');
+    var adminPanel = document.getElementById('admin-panel');
+    var dateInput  = document.getElementById('admin-date-input');
+    var saveBtn    = document.getElementById('admin-save-btn');
+    var clearBtn   = document.getElementById('admin-clear-btn');
 
-    window.addEventListener('scroll', function () {
-      var hero = document.getElementById('hero');
-      if (!hero) return;
-      var rect = hero.getBoundingClientRect();
-      var scrollableHeight = hero.offsetHeight - window.innerHeight;
-      var scrolled = -rect.top;
-      var progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
+    if (!trigger || !modal) return;
 
-      stickers.forEach(function (s) {
-        if (progress > 0.25 && progress < 0.78) {
-          s.classList.add('hero__sticker--visible');
-        } else {
-          s.classList.remove('hero__sticker--visible');
-        }
-      });
-    }, { passive: true });
+    var CORRECT_PIN = '1234';
+
+    function openModal() {
+      pinScreen.style.display = 'block';
+      adminPanel.style.display = 'none';
+      pinInput.value = '';
+      if (pinError) pinError.style.display = 'none';
+      modal.classList.add('active');
+      modal.removeAttribute('aria-hidden');
+      setTimeout(function () { pinInput.focus(); }, 120);
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    trigger.addEventListener('click', openModal);
+    backdrop.addEventListener('click', closeModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    });
+
+    pinInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') pinSubmit.click();
+    });
+
+    pinSubmit.addEventListener('click', function () {
+      if (pinInput.value === CORRECT_PIN) {
+        pinScreen.style.display = 'none';
+        adminPanel.style.display = 'block';
+        try {
+          var saved = localStorage.getItem('courseDate');
+          if (saved) dateInput.value = saved;
+        } catch (err) {}
+      } else {
+        if (pinError) pinError.style.display = 'block';
+        pinInput.value = '';
+        pinInput.focus();
+      }
+    });
+
+    saveBtn.addEventListener('click', function () {
+      var date = dateInput.value;
+      if (!date) return;
+      try { localStorage.setItem('courseDate', date); } catch (err) {}
+      initCountdown();
+      closeModal();
+    });
+
+    clearBtn.addEventListener('click', function () {
+      try { localStorage.removeItem('courseDate'); } catch (err) {}
+      var section = document.getElementById('countdown');
+      if (section) section.style.display = 'none';
+      closeModal();
+    });
   }
 
-  // Mobile auto-scroll removed — mobile hero now uses time-based animation (no scroll trap)
+  // ═══════════════════════════════════════════════════════
+  // COUNTDOWN — Public-facing timer
+  // ═══════════════════════════════════════════════════════
+
+  function initCountdown() {
+    var section = document.getElementById('countdown');
+    if (!section) return;
+
+    var courseDate;
+    try { courseDate = localStorage.getItem('courseDate'); } catch (err) {}
+
+    if (!courseDate) {
+      section.style.display = 'none';
+      return;
+    }
+
+    var target = new Date(courseDate);
+    var now = new Date();
+
+    section.style.display = 'block';
+
+    if (target <= now) {
+      var display = document.getElementById('countdown-display');
+      if (display) {
+        display.innerHTML = '<span class="countdown__live">הקורס כבר התחיל — הצטרפי עכשיו!</span>';
+      }
+      return;
+    }
+
+    var intervalId = null;
+
+    function tick() {
+      var now = new Date();
+      var diff = target - now;
+
+      if (diff <= 0) {
+        var display = document.getElementById('countdown-display');
+        if (display) {
+          display.innerHTML = '<span class="countdown__live">הקורס כבר התחיל — הצטרפי עכשיו!</span>';
+        }
+        clearInterval(intervalId);
+        return;
+      }
+
+      var days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      var dEl = document.getElementById('cd-days');
+      var hEl = document.getElementById('cd-hours');
+      var mEl = document.getElementById('cd-minutes');
+      var sEl = document.getElementById('cd-seconds');
+
+      if (dEl) dEl.textContent = String(days).padStart(2, '0');
+      if (hEl) hEl.textContent = String(hours).padStart(2, '0');
+      if (mEl) mEl.textContent = String(minutes).padStart(2, '0');
+      if (sEl) sEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    tick();
+    intervalId = setInterval(tick, 1000);
+  }
 
   // ═══════════════════════════════════════════════════════
   // BOOT
@@ -492,6 +564,7 @@
     initCardShine();
     initSmoothScroll();
     initCursor();
-    initHeroStickers();
+    initAdmin();
+    initCountdown();
   });
 })();
