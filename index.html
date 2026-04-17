@@ -27,9 +27,8 @@
     history.scrollRestoration = 'manual';
     var _vh = window.innerHeight;
     document.documentElement.style.setProperty('--real-vh', _vh + 'px');
-    if (window.innerWidth > 768) {
-      document.body.style.overflow = 'hidden';
-    }
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
   </script>
 
   <div id="reading-bar" class="reading-bar" aria-hidden="true"></div>
@@ -112,69 +111,62 @@
 
 
   <!-- ═══════════════════════════════════════════ -->
-  <!-- CARD STACK A — Summary + Course Path         -->
+  <!-- SCROLL STACK A — Summary + Course Path       -->
   <!-- ═══════════════════════════════════════════ -->
-  <div class="card-stack card-stack--a">
+  <div class="sc-stack" id="sc-stack-a">
+    <div class="sc-viewport">
 
-  <div class="card-scene">
-  <section id="summary" class="summary stack-card">
-    <div class="container">
-      <div class="summary__body">
-        <p class="summary__line">
-          הקורס נלמד ברמה מהבסיס, משלב
-          <span class="hl hl--lime">AI</span>
-          ו<span class="hl hl--lime">אפליקציות חינמיות</span>
-          כדי ליצור סרטונים שמושכים תשומת לב
-        </p>
-        <div class="summary__divider" aria-hidden="true"></div>
-        <p class="summary__line summary__line--dim">
-          לא צריך רקע קודם בעריכה, אבל צריך
-          <strong class="summary__strong">רצון ללמוד ולהיות יצירתיים</strong>
-          ולהתמיד בתהליך
-        </p>
-      </div>
-    </div>
-  </section>
-  </div><!-- /card-scene -->
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- COURSE PATH — מסלול הקורס                   -->
-  <!-- ═══════════════════════════════════════════ -->
-  <div class="card-scene">
-  <section id="course-path" class="course-path section stack-card">
-    <div class="container">
-      <h2 class="section__title section__title--center">מסלול הקורס שלנו</h2>
-      <div class="cp-grid">
-
-        <div class="cp-col">
-          <h3 class="cp-col__heading">מה תלמדו</h3>
-          <ul class="cp-list">
-            <li><span class="cp-dot" style="background:#C5F135"></span>להפוך סרטונים ברמה גבוהה בפלאפון בלבד תוך זמן קצר</li>
-            <li><span class="cp-dot" style="background:#FF6130"></span>לערוך בצורה מקצועית עם אפליקציות</li>
-            <li><span class="cp-dot" style="background:#00CFFF"></span>לשלב AI בעריכה</li>
-            <li><span class="cp-dot" style="background:#FFE135"></span>לספר סיפור מהיר ונכון</li>
-            <li><span class="cp-dot" style="background:#9B5EFF"></span>ליצור סרטונים שמושכים תשומת לב</li>
-          </ul>
+      <!-- Card 1: Summary -->
+      <div class="sc-card" id="summary" style="background:#EEFFB8">
+        <div class="container">
+          <div class="summary__body">
+            <p class="summary__line">
+              הקורס נלמד ברמה מהבסיס, משלב
+              <span class="hl hl--lime">AI</span>
+              ו<span class="hl hl--lime">אפליקציות חינמיות</span>
+              כדי ליצור סרטונים שמושכים תשומת לב
+            </p>
+            <div class="summary__divider" aria-hidden="true"></div>
+            <p class="summary__line summary__line--dim">
+              לא צריך רקע קודם בעריכה, אבל צריך
+              <strong class="summary__strong">רצון ללמוד ולהיות יצירתיים</strong>
+              ולהתמיד בתהליך
+            </p>
+          </div>
         </div>
-
-        <div class="cp-divider" aria-hidden="true"></div>
-
-        <div class="cp-col">
-          <h3 class="cp-col__heading">הקורס מתאים ל</h3>
-          <ul class="cp-list cp-list--who">
-            <li><span class="cp-check">✓</span>מי שאין לו רקע בעריכה</li>
-            <li><span class="cp-check">✓</span>מי שרוצה לשדרג את התוכן שלו</li>
-            <li><span class="cp-check">✓</span>מי שרוצה תוכן ברמה גבוהה יותר</li>
-            <li><span class="cp-check">✓</span>לבעלי עסקים שרוצים לשווק בעצמם</li>
-          </ul>
-        </div>
-
       </div>
-    </div>
-  </section>
-  </div><!-- /card-scene -->
 
-  </div><!-- /card-stack--a -->
+      <!-- Card 2: Course Path -->
+      <div class="sc-card course-path" id="course-path" style="background:#DDEFFF">
+        <div class="container">
+          <h2 class="section__title section__title--center">מסלול הקורס שלנו</h2>
+          <div class="cp-grid">
+            <div class="cp-col">
+              <h3 class="cp-col__heading">מה תלמדו</h3>
+              <ul class="cp-list">
+                <li><span class="cp-dot" style="background:#C5F135"></span>להפוך סרטונים ברמה גבוהה בפלאפון בלבד תוך זמן קצר</li>
+                <li><span class="cp-dot" style="background:#FF6130"></span>לערוך בצורה מקצועית עם אפליקציות</li>
+                <li><span class="cp-dot" style="background:#00CFFF"></span>לשלב AI בעריכה</li>
+                <li><span class="cp-dot" style="background:#FFE135"></span>לספר סיפור מהיר ונכון</li>
+                <li><span class="cp-dot" style="background:#9B5EFF"></span>ליצור סרטונים שמושכים תשומת לב</li>
+              </ul>
+            </div>
+            <div class="cp-divider" aria-hidden="true"></div>
+            <div class="cp-col">
+              <h3 class="cp-col__heading">הקורס מתאים ל</h3>
+              <ul class="cp-list cp-list--who">
+                <li><span class="cp-check">✓</span>מי שאין לו רקע בעריכה</li>
+                <li><span class="cp-check">✓</span>מי שרוצה לשדרג את התוכן שלו</li>
+                <li><span class="cp-check">✓</span>מי שרוצה תוכן ברמה גבוהה יותר</li>
+                <li><span class="cp-check">✓</span>לבעלי עסקים שרוצים לשווק בעצמם</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /sc-stack-a -->
 
   <!-- PHOTO STRIP -->
   <div class="photo-strip" aria-hidden="true">
@@ -230,179 +222,138 @@
   </section>
 
   <!-- ═══════════════════════════════════════════ -->
-  <!-- CARD STACK B — Structure + Sessions + FAQ   -->
+  <!-- JOURNEY — Snake timeline                     -->
   <!-- ═══════════════════════════════════════════ -->
-  <div class="card-stack card-stack--b">
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- STRUCTURE — מבנה הקורס                      -->
-  <!-- ═══════════════════════════════════════════ -->
-  <div class="card-scene">
-  <section id="structure" class="structure stack-card">
+  <section id="journey" class="journey">
     <div class="container">
-      <h2 class="section__title section__title--center structure__heading">מבנה הקורס</h2>
-
-      <div class="str-flow">
-        <div class="str-pre">
-          <div class="str-pre__content">
-            <h3 class="str-pre__title">קורס דיגיטלי</h3>
-            <p class="str-pre__desc">קורס קצר שמלמד את יסודות העריכה<br />כדי שתדעו לצלם נכון ולערוך בצורה נכונה</p>
-          </div>
-        </div>
-
-        <div class="str-arrow" aria-hidden="true">↓</div>
-
-        <div class="str-sessions">
-          <div class="str-session str-session--live">
-            <strong>מפגש 1</strong>
-            <span class="str-session__note">לייב</span>
-          </div>
-          <div class="str-session str-session--live">
-            <strong>מפגש 2</strong>
-            <span class="str-session__note">לייב</span>
-          </div>
-          <div class="str-session str-session--frontal">
-            <strong>מפגש 3</strong>
-            <span class="str-session__note">פרונטלי</span>
-          </div>
-          <div class="str-session str-session--frontal">
-            <strong>מפגש 4</strong>
-            <span class="str-session__note">פרונטלי</span>
-          </div>
-        </div>
-
-        <p class="str-support">ליווי אישי מלא לאורך כל הקורס</p>
+      <div class="journey__head">
+        <span class="section__tag" style="color:var(--accent-hot)">הסיפור שלי</span>
+        <h2 class="section__title section__title--center" style="color:#FAF8F5">כך זה קרה</h2>
+      </div>
+    </div>
+    <div class="journey__rail" id="journey-rail">
+      <div class="journey__road">
+        <div class="journey__road-fill" id="journey-road-fill"></div>
+        <div class="journey__road-dashes"></div>
+      </div>
+      <div class="journey__avatar" id="journey-avatar">
+        <svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="#D42B21" stroke="#fff" stroke-width="3"/><circle cx="14" cy="14" r="4" fill="#fff"/></svg>
+      </div>
+      <div class="jm jm--right" data-jm="0">
+        <div class="jm__card"><span class="jm__num">01</span><p class="jm__text">התחלתי לצלם בפלאפון</p></div>
+      </div>
+      <div class="jm jm--left" data-jm="1">
+        <div class="jm__card"><span class="jm__num">02</span><p class="jm__text">למדתי לערוך לבד מיוטיוב</p></div>
+      </div>
+      <div class="jm jm--right" data-jm="2">
+        <div class="jm__card"><span class="jm__num">03</span><p class="jm__text">יצרתי תוכן שהתחיל להתפשט</p></div>
+      </div>
+      <div class="jm jm--left" data-jm="3">
+        <div class="jm__card"><span class="jm__num">04</span><p class="jm__text">הגעתי ל-10K עוקבים</p></div>
+      </div>
+      <div class="jm jm--right" data-jm="4">
+        <div class="jm__card"><span class="jm__num">05</span><p class="jm__text">עזבתי עבודה שכירה</p></div>
+      </div>
+      <div class="jm jm--left" data-jm="5">
+        <div class="jm__card"><span class="jm__num">06</span><p class="jm__text">הכנסתי <strong style="color:#E8564E">120,000 ש"ח</strong> בחודש וחצי</p></div>
+      </div>
+      <div class="jm jm--right" data-jm="6">
+        <div class="jm__card jm__card--final"><span class="jm__num">07</span><p class="jm__text">בניתי את <strong>CUT IT</strong></p></div>
       </div>
     </div>
   </section>
-  </div><!-- /card-scene -->
 
   <!-- ═══════════════════════════════════════════ -->
-  <!-- SESSIONS — פירוט מפגשים                     -->
+  <!-- SCROLL STACK B — Structure + Sessions + FAQ  -->
   <!-- ═══════════════════════════════════════════ -->
-  <div class="card-scene">
-  <section id="sessions" class="sessions section stack-card">
-    <div class="container">
-      <h2 class="section__title section__title--center">פירוט מפגשים</h2>
-      <div class="sessions__grid">
+  <div class="sc-stack" id="sc-stack-b">
+    <div class="sc-viewport">
 
-        <div class="session-card session-card--1" data-reveal>
-          <div class="session-card__top">
-            <span class="session-card__num">01</span>
-          </div>
-          <h3 class="session-card__title">היכרות + סטוריטלינג</h3>
-          <ul class="session-card__list">
-            <li>פיתוח 3 רעיונות מהתוכן</li>
-            <li>יסודות העריכה</li>
-          </ul>
-        </div>
-
-        <div class="session-card session-card--2" data-reveal>
-          <div class="session-card__top">
-            <span class="session-card__num">02</span>
-          </div>
-          <h3 class="session-card__title">עריכה למתחילים – מתקדמים</h3>
-          <ul class="session-card__list">
-            <li>Keyframes</li>
-            <li>קצב וזרימה</li>
-          </ul>
-        </div>
-
-        <div class="session-card session-card--3" data-reveal>
-          <div class="session-card__top">
-            <span class="session-card__num">03</span>
-          </div>
-          <h3 class="session-card__title">עריכה מתקדמת</h3>
-          <ul class="session-card__list">
-            <li>מסכה ואפקטים</li>
-            <li>טכניקות מתקדמות</li>
-          </ul>
-        </div>
-
-        <div class="session-card session-card--4" data-reveal>
-          <div class="session-card__top">
-            <span class="session-card__num">04</span>
-          </div>
-          <h3 class="session-card__title">היכרות עם AI בעריכה</h3>
-          <ul class="session-card__list">
-            <li>יצירת אפקטים עם בינה מלאכותית</li>
-          </ul>
-          <div class="session-card__logos">
-            <img src="photos/logo-higgsfield.jpg" alt="Higgsfield" class="session-card__logo" />
+      <!-- Card 1: Structure -->
+      <div class="sc-card structure" id="structure" style="background:#FFE8D0">
+        <div class="container">
+          <h2 class="section__title section__title--center structure__heading">מבנה הקורס</h2>
+          <div class="str-flow">
+            <div class="str-pre">
+              <div class="str-pre__content">
+                <h3 class="str-pre__title">קורס דיגיטלי</h3>
+                <p class="str-pre__desc">קורס קצר שמלמד את יסודות העריכה<br />כדי שתדעו לצלם נכון ולערוך בצורה נכונה</p>
+              </div>
+            </div>
+            <div class="str-arrow" aria-hidden="true">↓</div>
+            <div class="str-sessions">
+              <div class="str-session str-session--live"><strong>מפגש 1</strong><span class="str-session__note">לייב</span></div>
+              <div class="str-session str-session--live"><strong>מפגש 2</strong><span class="str-session__note">לייב</span></div>
+              <div class="str-session str-session--frontal"><strong>מפגש 3</strong><span class="str-session__note">פרונטלי</span></div>
+              <div class="str-session str-session--frontal"><strong>מפגש 4</strong><span class="str-session__note">פרונטלי</span></div>
+            </div>
+            <p class="str-support">ליווי אישי מלא לאורך כל הקורס</p>
           </div>
         </div>
-
       </div>
-      <p class="sessions__support">ליווי אישי מלא לאורך כל הקורס</p>
-    </div>
-  </section>
-  </div><!-- /card-scene -->
 
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- FAQ — קורס עריכה                            -->
-  <!-- ═══════════════════════════════════════════ -->
-  <div class="card-scene">
-  <section id="faq" class="faq section stack-card">
-    <div class="container">
-      <h2 class="section__title section__title--center">קורס עריכה –<br />הפירוט המלא</h2>
-      <div class="faq__list">
-
-        <div class="faq__item" data-faq>
-          <button class="faq__q" aria-expanded="false">
-            <span>למי זה מתאים?</span>
-            <span class="faq__icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq__a">
-            <p>לכל מי שרוצה ליצור תוכן מקצועי מהטלפון — בלי ניסיון קודם, בלי ציוד יקר. מתאים לבעלי עסקים, יוצרי תוכן, ומי שרוצה לשדרג את הנוכחות הדיגיטלית שלו.</p>
+      <!-- Card 2: Sessions -->
+      <div class="sc-card sessions" id="sessions" style="background:#FFFFFF">
+        <div class="container">
+          <h2 class="section__title section__title--center">פירוט מפגשים</h2>
+          <div class="sessions__grid">
+            <div class="session-card session-card--1">
+              <div class="session-card__top"><span class="session-card__num">01</span></div>
+              <h3 class="session-card__title">היכרות + סטוריטלינג</h3>
+              <ul class="session-card__list"><li>פיתוח 3 רעיונות מהתוכן</li><li>יסודות העריכה</li></ul>
+            </div>
+            <div class="session-card session-card--2">
+              <div class="session-card__top"><span class="session-card__num">02</span></div>
+              <h3 class="session-card__title">עריכה למתחילים – מתקדמים</h3>
+              <ul class="session-card__list"><li>Keyframes</li><li>קצב וזרימה</li></ul>
+            </div>
+            <div class="session-card session-card--3">
+              <div class="session-card__top"><span class="session-card__num">03</span></div>
+              <h3 class="session-card__title">עריכה מתקדמת</h3>
+              <ul class="session-card__list"><li>מסכה ואפקטים</li><li>טכניקות מתקדמות</li></ul>
+            </div>
+            <div class="session-card session-card--4">
+              <div class="session-card__top"><span class="session-card__num">04</span></div>
+              <h3 class="session-card__title">היכרות עם AI בעריכה</h3>
+              <ul class="session-card__list"><li>יצירת אפקטים עם בינה מלאכותית</li></ul>
+              <div class="session-card__logos"><img src="photos/logo-higgsfield.jpg" alt="Higgsfield" class="session-card__logo" /></div>
+            </div>
           </div>
+          <p class="sessions__support">ליווי אישי מלא לאורך כל הקורס</p>
         </div>
-
-        <div class="faq__item" data-faq>
-          <button class="faq__q" aria-expanded="false">
-            <span>מה לומדים?</span>
-            <span class="faq__icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq__a">
-            <p>עריכה מקצועית ב-CapCut, שימוש ב-AI ליצירת אפקטים מרהיבים, סטוריטלינג, יצירת הוקים שעוצרים גלילה, ו-workflow מהיר ויעיל.</p>
-          </div>
-        </div>
-
-        <div class="faq__item" data-faq>
-          <button class="faq__q" aria-expanded="false">
-            <span>כמה ניסיון צריך?</span>
-            <span class="faq__icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq__a">
-            <p>אפס ניסיון נדרש. הקורס מתחיל מהבסיס המוחלט ומתקדם בהדרגה. הקורס הדיגיטלי לפני תחילת המפגשים מכין אתכם לרמה הנכונה.</p>
-          </div>
-        </div>
-
-        <div class="faq__item" data-faq>
-          <button class="faq__q" aria-expanded="false">
-            <span>מה אני צריך לעשות לפני הקורס?</span>
-            <span class="faq__icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq__a">
-            <p>לצפות בקורס הדיגיטלי הקצר שנשלח לפני תחילת המפגשים, להתקין את אפליקציית CapCut (חינם) ולהגיע עם טלפון נייד.</p>
-          </div>
-        </div>
-
-        <div class="faq__item" data-faq>
-          <button class="faq__q" aria-expanded="false">
-            <span>מה כולל הקורס?</span>
-            <span class="faq__icon" aria-hidden="true">+</span>
-          </button>
-          <div class="faq__a">
-            <p>קורס דיגיטלי לפני תחילת המפגשים + 4 מפגשים (2 לייב + 2 פרונטליים) + ליווי מלא בוואטסאפ לאורך כל הקורס + גישה לחומרים.</p>
-          </div>
-        </div>
-
       </div>
-    </div>
-  </section>
-  </div><!-- /card-scene -->
 
-  </div><!-- /card-stack--b -->
+      <!-- Card 3: FAQ -->
+      <div class="sc-card faq" id="faq" style="background:#F2EAFF">
+        <div class="container">
+          <h2 class="section__title section__title--center">קורס עריכה –<br />הפירוט המלא</h2>
+          <div class="faq__list">
+            <div class="faq__item" data-faq>
+              <button class="faq__q" aria-expanded="false"><span>למי זה מתאים?</span><span class="faq__icon" aria-hidden="true">+</span></button>
+              <div class="faq__a"><p>לכל מי שרוצה ליצור תוכן מקצועי מהטלפון — בלי ניסיון קודם, בלי ציוד יקר. מתאים לבעלי עסקים, יוצרי תוכן, ומי שרוצה לשדרג את הנוכחות הדיגיטלית שלו.</p></div>
+            </div>
+            <div class="faq__item" data-faq>
+              <button class="faq__q" aria-expanded="false"><span>מה לומדים?</span><span class="faq__icon" aria-hidden="true">+</span></button>
+              <div class="faq__a"><p>עריכה מקצועית ב-CapCut, שימוש ב-AI ליצירת אפקטים מרהיבים, סטוריטלינג, יצירת הוקים שעוצרים גלילה, ו-workflow מהיר ויעיל.</p></div>
+            </div>
+            <div class="faq__item" data-faq>
+              <button class="faq__q" aria-expanded="false"><span>כמה ניסיון צריך?</span><span class="faq__icon" aria-hidden="true">+</span></button>
+              <div class="faq__a"><p>אפס ניסיון נדרש. הקורס מתחיל מהבסיס המוחלט ומתקדם בהדרגה. הקורס הדיגיטלי לפני תחילת המפגשים מכין אתכם לרמה הנכונה.</p></div>
+            </div>
+            <div class="faq__item" data-faq>
+              <button class="faq__q" aria-expanded="false"><span>מה אני צריך לעשות לפני הקורס?</span><span class="faq__icon" aria-hidden="true">+</span></button>
+              <div class="faq__a"><p>לצפות בקורס הדיגיטלי הקצר שנשלח לפני תחילת המפגשים, להתקין את אפליקציית CapCut (חינם) ולהגיע עם טלפון נייד.</p></div>
+            </div>
+            <div class="faq__item" data-faq>
+              <button class="faq__q" aria-expanded="false"><span>מה כולל הקורס?</span><span class="faq__icon" aria-hidden="true">+</span></button>
+              <div class="faq__a"><p>קורס דיגיטלי לפני תחילת המפגשים + 4 מפגשים (2 לייב + 2 פרונטליים) + ליווי מלא בוואטסאפ לאורך כל הקורס + גישה לחומרים.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /sc-stack-b -->
 
   <!-- ═══════════════════════════════════════════ -->
   <!-- TESTIMONIALS — stacked card carousel        -->

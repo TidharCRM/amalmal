@@ -130,11 +130,10 @@
       resizeCanvas();
     }, { passive: true });
 
-    // ── DESKTOP: wheel-locked virtual scroll ──
+    // ── Shared virtual scroll state (desktop wheel + mobile touch) ──
     let virtualY = 0;
+    let touchLastY = 0;
     let scrollableH = hero.offsetHeight - window.innerHeight;
-
-    function preventTouchScroll(e) { e.preventDefault(); }
 
     function finishHero() {
       if (heroComplete) return;
@@ -143,11 +142,12 @@
       document.body.classList.remove('body--hero-lock');
       document.body.style.overflow = '';
       document.body.style.touchAction = '';
-      document.removeEventListener('touchmove', preventTouchScroll);
       window.removeEventListener('wheel', onWheel);
+      document.removeEventListener('touchstart', onTouchStart);
+      document.removeEventListener('touchmove', onTouchMove);
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
-          window.scrollTo(0, hero.offsetTop + hero.offsetHeight);
+          window.scrollTo(0, hero.offsetTop + hero.offsetHeight - window.innerHeight);
         });
       });
     }
@@ -166,25 +166,35 @@
       }
     }
 
-    // Lock scroll on all devices during hero animation
+    function onTouchStart(e) {
+      if (heroComplete) return;
+      touchLastY = e.touches[0].clientY;
+    }
+
+    function onTouchMove(e) {
+      if (heroComplete) return;
+      e.preventDefault();
+      var cy = e.touches[0].clientY;
+      var delta = touchLastY - cy;
+      touchLastY = cy;
+      virtualY = Math.max(0, Math.min(scrollableH, virtualY + delta * 3));
+      if (virtualY >= scrollableH * 0.99) { finishHero(); return; }
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(function () {
+          applyProgress(scrollableH > 0 ? virtualY / scrollableH : 0);
+          ticking = false;
+        });
+      }
+    }
+
+    // Lock scroll on all devices — desktop uses wheel, mobile uses touch
     document.body.classList.add('body--hero-lock');
+    document.body.style.touchAction = 'none';
 
     if (isMobile) {
-      // Hard-block touch scrolling on iOS (overflow:hidden alone is not enough)
-      document.body.style.touchAction = 'none';
-      document.addEventListener('touchmove', preventTouchScroll, { passive: false });
-
-      // Auto-play animation — user watches, cannot scroll until done
-      const AUTOPLAY_MS = 4000;
-      let autoStart = null;
-      function autoPlayStep(ts) {
-        if (heroComplete) return;
-        if (!autoStart) autoStart = ts;
-        const prog = Math.min(1, (ts - autoStart) / AUTOPLAY_MS);
-        applyProgress(prog);
-        if (prog < 1) { requestAnimationFrame(autoPlayStep); } else { finishHero(); }
-      }
-      requestAnimationFrame(autoPlayStep);
+      document.addEventListener('touchstart', onTouchStart, { passive: true });
+      document.addEventListener('touchmove', onTouchMove, { passive: false });
     } else {
       window.addEventListener('wheel', onWheel, { passive: false });
     }
@@ -643,6 +653,76 @@
     });
   }
 
+  function initStickyCards() {
+    document.querySelectorAll('.sc-stack').forEach(function (stack) {
+      var cards = Array.from(stack.querySelectorAll('.sc-card'));
+      var N = cards.length;
+      if (!N) return;
+
+      // Set stack height so each card gets 100vh of scroll dwell
+      stack.style.height = (N * 100) + 'vh';
+
+      // Activate first card immediately
+      cards[0].classList.add('sc-active');
+
+      function update() {
+        var rect = stack.getBoundingClientRect();
+        var scrolled = Math.max(0, -rect.top);
+        var eachH = stack.offsetHeight / N;
+        var idx = Math.min(Math.floor(scrolled / eachH), N - 1);
+        cards.forEach(function (c, i) {
+          c.classList.toggle('sc-active', i === idx);
+        });
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    });
+  }
+
+  function initJourney() {
+    var rail = document.getElementById('journey-rail');
+    var fill = document.getElementById('journey-road-fill');
+    var avatar = document.getElementById('journey-avatar');
+    var section = document.getElementById('journey');
+    if (!rail || !fill || !section) return;
+
+    var milestones = Array.from(rail.querySelectorAll('.jm'));
+
+    function update() {
+      var sRect = section.getBoundingClientRect();
+      var sH = section.offsetHeight;
+      var vpH = window.innerHeight;
+      // Progress 0→1 as section scrolls from bottom of viewport to above viewport
+      var raw = (-sRect.top) / (sH - vpH);
+      var progress = Math.max(0, Math.min(1, raw));
+
+      // Grow the road fill
+      fill.style.height = (progress * 100) + '%';
+
+      // Move avatar along the rail
+      if (avatar) {
+        var railH = rail.offsetHeight;
+        avatar.style.top = (progress * railH) + 'px';
+      }
+
+      // Reveal milestone cards as fill passes each one
+      var railRect = rail.getBoundingClientRect();
+      milestones.forEach(function (jm) {
+        var card = jm.querySelector('.jm__card');
+        if (!card) return;
+        var jmRect = jm.getBoundingClientRect();
+        var jmRelY = (jmRect.top + jmRect.height / 2 - railRect.top) / rail.offsetHeight;
+        if (progress >= jmRelY - 0.05) {
+          card.classList.add('jm--visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+
   function initReadingProgress() {
     var bar = document.getElementById('reading-bar');
     if (!bar) return;
@@ -684,6 +764,8 @@
   document.addEventListener('DOMContentLoaded', function () {
     initReadingProgress();
     initHeroAnimation();
+    initStickyCards();
+    initJourney();
     initNav();
     initStatsCounter();
     initScrollReveal();
