@@ -957,6 +957,8 @@
   function initStickyCards() {
     var navH = 72;
     var scenes = Array.from(document.querySelectorAll('.card-scene'));
+    // Cache per-scene data so the scroll handler never reads offsetHeight
+    var sceneData = [];
 
     function setup(preserveScroll) {
       var savedY = preserveScroll ? window.scrollY : 0;
@@ -964,26 +966,28 @@
       var prevCardH = 0;
       var prevParent = null;
 
+      sceneData = [];
       scenes.forEach(function (scene) {
         var card = scene.querySelector('.stack-card');
-        if (!card) return;
+        if (!card) { sceneData.push(null); return; }
         var cardH = card.offsetHeight;
         var parent = scene.parentElement;
 
-        // Overlap each scene with the previous card so they hit navH simultaneously.
-        // Reset at the start of each card-stack (different parent).
         if (parent === prevParent && prevCardH > 0) {
           scene.style.marginTop = '-' + prevCardH + 'px';
         } else {
           scene.style.marginTop = '';
         }
 
-        scene.style.height = (cardH + dwell) + 'px';
+        var sceneH = cardH + dwell;
+        scene.style.height = sceneH + 'px';
+
+        // Cache values; dwell = max translateY before card stays put
+        sceneData.push({ card: card, cardH: cardH, dwell: dwell });
         prevCardH = cardH;
         prevParent = parent;
       });
 
-      // Restore scroll after layout change to prevent jump
       if (preserveScroll) window.scrollTo({ top: savedY, behavior: 'instant' });
       update();
     }
@@ -993,15 +997,14 @@
       if (stickyTicking) return;
       stickyTicking = true;
       requestAnimationFrame(function () {
-        scenes.forEach(function (scene) {
-          var card = scene.querySelector('.stack-card');
-          if (!card) return;
-          var rect = scene.getBoundingClientRect();
-          var cardH = card.offsetHeight;
-          var sceneH = scene.offsetHeight;
-          // Pin card at navH: offset = scroll past navH, clamped to dwell range
-          var offset = Math.max(0, Math.min(sceneH - cardH, navH - rect.top));
-          card.style.top = offset + 'px';
+        // Read phase: all getBoundingClientRect calls together (no writes yet)
+        var rects = scenes.map(function (scene) { return scene.getBoundingClientRect(); });
+        // Write phase: transform (compositor layer, no layout recalc)
+        scenes.forEach(function (scene, i) {
+          var d = sceneData[i];
+          if (!d) return;
+          var offset = Math.max(0, Math.min(d.dwell, navH - rects[i].top));
+          d.card.style.transform = 'translateY(' + offset + 'px)';
         });
         stickyTicking = false;
       });
