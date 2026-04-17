@@ -74,16 +74,16 @@
 
       var overlayBase;
       if (progress < 0.75) {
-        overlayBase = 0.05 + progress * 0.35;
+        overlayBase = progress * 0.2;
       } else {
-        overlayBase = 0.31 + (progress - 0.75) * 2.6;
+        overlayBase = 0.15 + (progress - 0.75) * 1.8;
       }
-      overlayBase = Math.min(overlayBase, 0.92);
+      overlayBase = Math.min(overlayBase, 0.75);
       overlay.style.background =
         'radial-gradient(ellipse at center, ' +
-        'rgba(5,5,8,' + (overlayBase * 0.3).toFixed(3) + ') 0%, ' +
+        'rgba(5,5,8,' + (overlayBase * 0.25).toFixed(3) + ') 0%, ' +
         'rgba(5,5,8,' + overlayBase.toFixed(3) + ') 65%, ' +
-        'rgba(5,5,8,' + Math.min(0.98, overlayBase * 1.15).toFixed(3) + ') 100%)';
+        'rgba(5,5,8,' + Math.min(0.85, overlayBase * 1.1).toFixed(3) + ') 100%)';
 
       if (heroContent) {
         var REVEAL_START = 0.78;
@@ -106,8 +106,7 @@
       img.onload = function () {
         loadedCount++;
         if (loadedCount === 1) resizeCanvas();
-        if (loadedCount === FRAME_COUNT) drawFrame(0);
-        if (isMobile && loadedCount >= 4 && !mobileAnimStarted) startMobileAnim();
+        if (loadedCount === FRAME_COUNT) drawFrame(currentFrame);
       };
       frames.push(img);
     }
@@ -123,28 +122,13 @@
       return;
     }
 
-    // ── MOBILE: time-based auto-play — no scroll trap ──
-    var mobileAnimStarted = false;
-    var mobileAnimStart = null;
-    var MOBILE_ANIM_DURATION = 1600;
-
-    function startMobileAnim() {
-      if (mobileAnimStarted) return;
-      mobileAnimStarted = true;
-      resizeCanvas();
-      requestAnimationFrame(stepMobile);
-    }
-
-    function stepMobile(now) {
-      if (!mobileAnimStart) mobileAnimStart = now;
-      var elapsed = now - mobileAnimStart;
-      var progress = Math.min(1, elapsed / MOBILE_ANIM_DURATION);
-      applyProgress(progress);
-      if (progress < 1) requestAnimationFrame(stepMobile);
-    }
-
+    // ── MOBILE: static mid-frame, no auto-play ──
     if (isMobile) {
-      if (loadedCount >= 4) startMobileAnim();
+      if (heroContent) {
+        heroContent.style.opacity = '1';
+        heroContent.style.transform = 'none';
+      }
+      overlay.style.background = 'rgba(5,5,8,0.18)';
       window.addEventListener('resize', resizeCanvas);
       return;
     }
