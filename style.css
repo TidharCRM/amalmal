@@ -299,6 +299,8 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   height: 100%;
   object-fit: cover;
   background: #1A1614;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .hero__overlay {
@@ -1608,8 +1610,8 @@ mark.highlight {
 }
 
 @media (max-width: 768px) {
-  .hero { height: 100dvh; }
-  .hero__sticky { position: relative; height: 100dvh; }
+  .hero { height: 400vh; }
+  .hero__sticky { position: sticky; top: 0; height: 100dvh; }
 }
 
 /* ═══════════════════════════════════════════════════════

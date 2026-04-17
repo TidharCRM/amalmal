@@ -122,16 +122,6 @@
       return;
     }
 
-    // ── MOBILE: static mid-frame, no auto-play ──
-    if (isMobile) {
-      if (heroContent) {
-        heroContent.style.opacity = '1';
-        heroContent.style.transform = 'none';
-      }
-      overlay.style.background = 'rgba(5,5,8,0.18)';
-      window.addEventListener('resize', resizeCanvas);
-      return;
-    }
 
     // ── DESKTOP: scroll-based scrubbing ──
     function onScroll() {
