@@ -343,7 +343,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   font-size: 0.85rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent-primary);
+  color: var(--accent-hot);
   margin-bottom: 24px;
   font-weight: 500;
 }
@@ -354,6 +354,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   font-weight: 900;
   line-height: 1.05;
   margin-bottom: 24px;
+  color: #ffffff;
   text-shadow: 0 2px 30px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.4);
 }
 
@@ -370,7 +371,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 
 .hero__subtitle {
   font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.82);
   margin-bottom: 40px;
   line-height: 1.8;
   text-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.5);
@@ -471,6 +472,18 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   background: rgba(212, 43, 33, 0.06);
   border-color: var(--accent-primary);
   transform: translateY(-2px);
+}
+
+/* Hero-context overrides — ghost button on dark canvas background */
+.hero__actions .btn--ghost {
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.hero__actions .btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.65);
+  color: #fff;
 }
 
 .btn--lg {
@@ -707,7 +720,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   background: linear-gradient(
     45deg,
     transparent 30%,
-    rgba(192, 132, 252, 0.03) 50%,
+    rgba(212, 43, 33, 0.06) 50%,
     transparent 70%
   );
   transform: rotate(45deg) translateX(-100%);
@@ -1456,7 +1469,7 @@ mark.highlight::after {
 .process__connector {
   width: 48px;
   height: 2px;
-  background: linear-gradient(to left, transparent, rgba(192, 132, 252, 0.3), transparent);
+  background: linear-gradient(to left, transparent, rgba(212, 43, 33, 0.35), transparent);
   margin-top: 88px;
   flex-shrink: 0;
 }
@@ -1930,6 +1943,51 @@ mark.highlight::after {
   height: 100%;
   object-fit: cover;
   object-position: top center;
+   PORTFOLIO GALLERY
+   ═══════════════════════════════════════════════════════ */
+
+.portfolio {
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.portfolio__subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 56px;
+  margin-top: -8px;
+}
+
+.portfolio__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+
+.portfolio__item {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  cursor: pointer;
+}
+
+.portfolio__item--tall {
+  grid-row: span 2;
+  aspect-ratio: unset;
+}
+
+.portfolio__item--wide {
+  grid-column: span 2;
+  aspect-ratio: 16/9;
+}
+
+.portfolio__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 0.6s var(--ease-out);
   display: block;
 }
@@ -1942,6 +2000,14 @@ mark.highlight::after {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(212, 43, 33, 0.75) 0%, transparent 55%);
+.portfolio__item:hover img {
+  transform: scale(1.06);
+}
+
+.portfolio__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20,16,14,0.65) 0%, transparent 55%);
   display: flex;
   align-items: flex-end;
   padding: 20px;
@@ -1969,4 +2035,186 @@ mark.highlight::after {
   .gallery__item--tall { grid-row: span 1; }
   .gallery__item--wide { grid-column: span 2; }
   .gallery__overlay { opacity: 1; }
+.portfolio__item:hover .portfolio__overlay {
+  opacity: 1;
+}
+
+.portfolio__tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--gradient-primary);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+}
+
+@media (max-width: 768px) {
+  .portfolio__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .portfolio__item--tall {
+    grid-row: span 1;
+    aspect-ratio: 4/5;
+  }
+  .portfolio__item--wide {
+    grid-column: span 2;
+    aspect-ratio: 4/3;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio__grid {
+    grid-template-columns: 1fr;
+  }
+  .portfolio__item--wide {
+    grid-column: span 1;
+    aspect-ratio: 4/5;
+  }
+  .portfolio__overlay { opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   TESTIMONIAL PHOTO AVATARS
+   ═══════════════════════════════════════════════════════ */
+
+.testimonial-card__avatar--photo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  border: 2px solid var(--border-accent);
+  flex-shrink: 0;
+  background: none;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SHIMMER BUTTON EFFECT (adapted from 21st.dev / magicui)
+   Creates a light-sweep animation on primary CTAs
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-150%) skewX(-15deg); }
+  100% { transform: translateX(350%) skewX(-15deg); }
+}
+
+.btn--primary {
+  overflow: hidden;
+}
+
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 100%
+  );
+  animation: shimmer-sweep 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BORDER BEAM — Featured service card (from 21st.dev)
+   Uses @property for smooth conic-gradient rotation
+   ═══════════════════════════════════════════════════════ */
+
+@property --beam-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes beam-rotate {
+  to { --beam-angle: 360deg; }
+}
+
+.service-card--featured {
+  isolation: isolate;
+}
+
+.service-card--featured::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-lg);
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg,
+    var(--accent-hot) 40deg,
+    rgba(212, 43, 33, 0.6) 80deg,
+    transparent 120deg
+  );
+  animation: beam-rotate 4s linear infinite;
+  z-index: -1;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FOCUS VISIBLE — Keyboard accessibility
+   ═══════════════════════════════════════════════════════ */
+
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.btn:focus-visible {
+  outline-offset: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT ACCENT CARD — Mobile positioning fix
+   ═══════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .about__accent-card {
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   HERO HEIGHT — Reduce on mobile for better UX
+   400vh is too long to scroll on small screens
+   ═══════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .hero {
+    height: 280vh;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   TEXT SHIMMER — Section tags animated (from 21st.dev)
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes text-shimmer {
+  from { background-position: 200% center; }
+  to { background-position: -200% center; }
+}
+
+.hero__tag {
+  background: linear-gradient(
+    90deg,
+    var(--accent-hot) 0%,
+    rgba(255, 180, 170, 1) 40%,
+    var(--accent-hot) 60%,
+    var(--accent-primary) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 4s linear infinite;
 }

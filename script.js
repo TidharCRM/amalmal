@@ -259,9 +259,9 @@
           const value = Math.floor(eased * target);
 
           if (target >= 10000) {
-            el.textContent = (value / 1000).toFixed(1) + 'K';
+            el.textContent = (value / 1000).toFixed(1) + 'K+';
           } else {
-            el.textContent = value.toLocaleString();
+            el.textContent = value.toLocaleString() + '+';
           }
 
           if (t < 1) requestAnimationFrame(tick);
