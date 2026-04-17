@@ -516,6 +516,9 @@
         stickyEl.appendChild(scene);
       });
     }
+
+    // Re-run sticky card setup so wrapper height reflects any hidden/added scenes
+    requestAnimationFrame(function() { window.dispatchEvent(new Event('resize')); });
   }
 
   function initAdmin() {
@@ -977,7 +980,10 @@
 
     function getScenes(stack) {
       var sticky = stack.querySelector('.cards-sticky');
-      return sticky ? Array.from(sticky.querySelectorAll('.card-scene')) : [];
+      if (!sticky) return [];
+      return Array.from(sticky.querySelectorAll('.card-scene')).filter(function(s) {
+        return s.style.display !== 'none';
+      });
     }
 
     function setup() {

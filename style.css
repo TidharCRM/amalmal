@@ -109,7 +109,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   font-size: clamp(2.8rem, 7vw, 5.5rem);
   font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 20px;
+  margin-bottom: 32px;
   line-height: 1.05;
   letter-spacing: -0.025em;
 }
@@ -135,13 +135,18 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   right: 0;
   z-index: 1000;
   height: var(--nav-height);
-  transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 .nav--scrolled {
-  background: rgba(250, 248, 245, 0.92);
-  backdrop-filter: blur(20px) saturate(1.2);
-  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  background: rgba(250, 248, 245, 0.88);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  border-bottom-color: var(--border-subtle);
   box-shadow: 0 1px 0 var(--border-subtle);
 }
 
@@ -235,7 +240,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 .nav__hamburger span {
   width: 26px;
   height: 2px;
-  background: var(--text-primary);
+  background: #fff;
   border-radius: 2px;
   transition: background 0.3s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.25s ease;
 }
@@ -543,7 +548,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 
 .stats__number {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-size: clamp(3rem, 7vw, 5.5rem);
   font-weight: 900;
   color: var(--lime);
   letter-spacing: -0.02em;
@@ -568,6 +573,10 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 /* ═══════════════════════════════════════════════════════
    ABOUT
    ═══════════════════════════════════════════════════════ */
+
+.about {
+  background: #FFDDD6;
+}
 
 .about__grid {
   display: grid;
@@ -615,7 +624,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 
 .about__desc {
   font-size: 1.15rem;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   line-height: 1.85;
   margin-bottom: 28px;
 }
@@ -1554,6 +1563,44 @@ mark.highlight {
 
 .contact {
   position: relative;
+  background: var(--accent-primary);
+}
+
+.contact .section__title {
+  color: #fff;
+}
+
+.contact .section__tag {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.contact__desc {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.contact .form__input,
+.contact input,
+.contact textarea,
+.contact select {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+
+.contact .form__input::placeholder,
+.contact input::placeholder,
+.contact textarea::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.contact .form__input:focus,
+.contact input:focus,
+.contact textarea:focus,
+.contact select:focus {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+  outline: none;
 }
 
 .contact::before {
@@ -1561,8 +1608,8 @@ mark.highlight {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(212, 43, 33, 0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 20% 50%, rgba(168, 30, 22, 0.05) 0%, transparent 60%);
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255, 255, 255, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 20% 50%, rgba(0, 0, 0, 0.08) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -2604,6 +2651,12 @@ mark.highlight {
   border: 1px solid var(--border-subtle);
 }
 
+.contact .contact__meta span {
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
 /* ═══════════════════════════════════════════════════════
    JOURNEY — Snake map, 8-step course path
    ═══════════════════════════════════════════════════════ */
@@ -3401,7 +3454,8 @@ mark.highlight {
   top: 16px; right: 16px; bottom: 0; left: 16px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s ease;
+  transform: translateY(20px);
+  transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
 }
 
@@ -3409,6 +3463,7 @@ mark.highlight {
   opacity: 1;
   pointer-events: auto;
   z-index: 2;
+  transform: translateY(0);
 }
 
 .stack-card {
@@ -3480,7 +3535,7 @@ mark.highlight {
    ═══════════════════════════════════════════════════════ */
 
 .testimonials {
-  background: var(--bg-secondary);
+  background: #0D0D0D;
   padding: 100px 0 120px;
 }
 
@@ -3488,6 +3543,14 @@ mark.highlight {
   text-align: center;
   margin-bottom: 72px;
   padding: 0 24px;
+}
+
+.testimonials .section__title {
+  color: #FAF8F5;
+}
+
+.testimonials .section__tag {
+  color: rgba(250, 248, 245, 0.65);
 }
 
 /* Stacked card carousel */
@@ -3656,6 +3719,27 @@ mark.highlight {
   color: var(--text-muted);
 }
 
+/* Contact section on red background — override lead form input defaults */
+.contact .lead-form__field label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.contact .lead-form__field input {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+
+.contact .lead-form__field input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.contact .lead-form__field input:focus {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+}
+
 .lead-form__submit {
   margin-top: 6px;
   width: 100%;
@@ -3722,7 +3806,7 @@ mark.highlight {
 
 .journey__head {
   text-align: center;
-  margin-bottom: 70px;
+  margin-bottom: 90px;
 }
 
 .journey__head .section__tag {
@@ -3810,4 +3894,143 @@ mark.highlight {
   .jm__card { max-width: 130px; padding: 10px 12px; }
   .jm__title { font-size: 0.75rem; }
   .jm__text { font-size: 0.65rem; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   HAMBURGER — dark on solid/scrolled nav, white on hero
+   ═══════════════════════════════════════════════════════ */
+
+.nav--scrolled .nav__hamburger:not(.active) span,
+.nav--past-hero .nav__hamburger:not(.active) span {
+  background: var(--text-primary);
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE RESPONSIVENESS — comprehensive 390px fixes
+   ═══════════════════════════════════════════════════════ */
+
+html, body {
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 64px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .section__title {
+    font-size: clamp(2rem, 7vw, 5.5rem);
+  }
+
+  .section__subtitle {
+    font-size: 1rem;
+  }
+
+  /* About */
+  .about__grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .about__visual {
+    order: -1;
+  }
+
+  /* Transformation strip */
+  .transformation-strip {
+    padding: 28px 20px;
+    gap: 16px;
+  }
+
+  .transformation-item {
+    min-width: 120px;
+  }
+
+  /* Testimonials */
+  .tcard {
+    padding: 28px 24px;
+  }
+
+  /* Journey */
+  .journey {
+    padding: 60px 0 80px;
+  }
+
+  .journey__head {
+    margin-bottom: 48px;
+  }
+
+  /* Contact */
+  .contact {
+    padding: 64px 0;
+  }
+
+  /* Photo strip horizontal scroll */
+  .photo-strip {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Summary card: less internal padding when in stack */
+  .summary.stack-card {
+    padding: 48px 0;
+  }
+
+  /* Stack cards padding */
+  .cards-sticky {
+    padding: 10px 10px 0;
+  }
+
+  .card-scene {
+    top: 10px; right: 10px; left: 10px;
+  }
+
+  .stack-card {
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 430px) {
+  /* Countdown: 2×2 grid instead of 1×4 */
+  .countdown__display {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 280px;
+  }
+
+  .countdown__unit {
+    padding: 24px 10px 20px;
+  }
+}
+
+@media (max-width: 390px) {
+  .section {
+    padding: 56px 0;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  /* Stats: wrap on very small screens */
+  .stats__grid {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stats__item {
+    flex: 0 0 45%;
+  }
+
+  .stats__divider {
+    display: none;
+  }
+
+  /* Nav links */
+  .nav__mobile-link {
+    font-size: 1.6rem;
+    padding: 12px 32px;
+  }
 }
