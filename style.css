@@ -383,41 +383,6 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   }
 }
 
-.hero__scroll-hint {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  animation: scrollHintPulse 2s ease-in-out infinite;
-  transition: opacity 0.5s ease;
-}
-
-.hero__scroll-hint.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.hero__scroll-arrow {
-  animation: scrollBounce 1.5s ease-in-out infinite;
-}
-
-@keyframes scrollHintPulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
-}
-
-@keyframes scrollBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
-}
 
 /* ═══════════════════════════════════════════════════════
    BUTTONS
