@@ -300,10 +300,9 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   width: 100%;
   height: 100%;
   display: flex;
-  /* Align text toward the lower-center — near the character's mouth area */
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  padding-bottom: 12vh;
+  padding-bottom: 0;
   /* Initial: mostly transparent so the animation shines through.
      JS dynamically adjusts this gradient based on scroll progress. */
   background: radial-gradient(ellipse at center, rgba(20,16,14,0.03) 0%, rgba(20,16,14,0.1) 70%, rgba(20,16,14,0.25) 100%);
@@ -314,7 +313,8 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 .hero__content {
   text-align: center;
   pointer-events: all;
-  max-width: 700px;
+  max-width: 860px;
+  width: 100%;
   padding: 0 24px;
   /* Start completely hidden — JS reveals at the end of the animation */
   opacity: 0;
@@ -335,27 +335,29 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 }
 
 .hero__logo {
-  max-width: 460px;
-  width: 80%;
+  max-width: 680px;
+  width: 90%;
   height: auto;
   display: block;
-  margin-bottom: 28px;
-  filter: drop-shadow(0 4px 32px rgba(0,0,0,0.5));
+  margin: 0 auto 36px;
+  filter: drop-shadow(0 6px 40px rgba(0,0,0,0.6));
 }
 
 @media (max-width: 768px) {
   .hero__logo {
-    max-width: 300px;
-    width: 75%;
+    max-width: 340px;
+    width: 88%;
   }
 }
 
 .hero__subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: var(--text-secondary);
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  color: #ffffff;
   margin-bottom: 40px;
-  line-height: 1.8;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.5);
+  line-height: 1.7;
+  font-weight: 500;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.9), 0 0 60px rgba(0,0,0,0.7);
+  letter-spacing: 0.01em;
 }
 
 .hero__actions {
