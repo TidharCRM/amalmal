@@ -334,24 +334,20 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   font-weight: 500;
 }
 
-.hero__title {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 10vw, 6rem);
-  font-weight: 900;
-  line-height: 1.05;
-  margin-bottom: 24px;
-  text-shadow: 0 2px 30px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.4);
-}
-
-.hero__title-line {
+.hero__logo {
+  max-width: 460px;
+  width: 80%;
+  height: auto;
   display: block;
+  margin-bottom: 28px;
+  filter: drop-shadow(0 4px 32px rgba(0,0,0,0.5));
 }
 
-.hero__title-line--accent {
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+@media (max-width: 768px) {
+  .hero__logo {
+    max-width: 300px;
+    width: 75%;
+  }
 }
 
 .hero__subtitle {
@@ -1536,11 +1532,6 @@ mark.highlight::after {
 /* ═══════════════════════════════════════════════════════
    HERO TITLE — larger, more dramatic
    ═══════════════════════════════════════════════════════ */
-
-.hero__title {
-  font-size: clamp(3.5rem, 12vw, 7.5rem) !important;
-  letter-spacing: -0.02em;
-}
 
 /* ═══════════════════════════════════════════════════════
    SECTION TAG — redesigned, less generic
