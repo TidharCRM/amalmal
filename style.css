@@ -3374,15 +3374,16 @@ mark.highlight {
 
 .card-scene {
   position: relative;
-  /* height set by JS — no CSS padding needed */
+  padding-bottom: 100vh;
+}
+
+.card-scene:last-child {
+  padding-bottom: 60vh;
 }
 
 .stack-card {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0; /* baseline; JS uses transform: translateY() — no layout recalc */
-  will-change: transform;
+  position: sticky;
+  top: calc(var(--nav-height) + 16px);
   border-radius: 28px;
   overflow: hidden;
   box-shadow: 0 -2px 0 rgba(0,0,0,0.08), 0 12px 56px rgba(0, 0, 0, 0.14);

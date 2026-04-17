@@ -955,68 +955,9 @@
   }
 
   function initStickyCards() {
-    var navH = 72;
-    var scenes = Array.from(document.querySelectorAll('.card-scene'));
-    // Cache per-scene data so the scroll handler never reads offsetHeight
-    var sceneData = [];
-
-    function setup(preserveScroll) {
-      var savedY = preserveScroll ? window.scrollY : 0;
-      var dwell = Math.round(window.innerHeight * 0.7);
-      var prevCardH = 0;
-      var prevParent = null;
-
-      sceneData = [];
-      scenes.forEach(function (scene) {
-        var card = scene.querySelector('.stack-card');
-        if (!card) { sceneData.push(null); return; }
-        var cardH = card.offsetHeight;
-        var parent = scene.parentElement;
-
-        if (parent === prevParent && prevCardH > 0) {
-          scene.style.marginTop = '-' + prevCardH + 'px';
-        } else {
-          scene.style.marginTop = '';
-        }
-
-        var sceneH = cardH + dwell;
-        scene.style.height = sceneH + 'px';
-
-        // Cache values; dwell = max translateY before card stays put
-        sceneData.push({ card: card, cardH: cardH, dwell: dwell });
-        prevCardH = cardH;
-        prevParent = parent;
-      });
-
-      if (preserveScroll) window.scrollTo({ top: savedY, behavior: 'instant' });
-      update();
-    }
-
-    var stickyTicking = false;
-    function update() {
-      if (stickyTicking) return;
-      stickyTicking = true;
-      requestAnimationFrame(function () {
-        // Read phase: all getBoundingClientRect calls together (no writes yet)
-        var rects = scenes.map(function (scene) { return scene.getBoundingClientRect(); });
-        // Write phase: transform (compositor layer, no layout recalc)
-        scenes.forEach(function (scene, i) {
-          var d = sceneData[i];
-          if (!d) return;
-          var offset = Math.max(0, Math.min(d.dwell, navH - rects[i].top));
-          d.card.style.transform = 'translateY(' + offset + 'px)';
-        });
-        stickyTicking = false;
-      });
-    }
-
-    // Run immediately so layout is set before user can scroll
-    setup(false);
-    // Re-run after full load in case fonts changed card heights
-    window.addEventListener('load', function () { setup(true); });
-
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', function () { setup(true); });
+    // CSS position:sticky handles everything — no JS scroll logic needed.
+    // The applyCardMeta() CMS function may reorder/hide scenes via DOM manipulation;
+    // sticky still works because overflow-x:clip on body doesn't break sticky.
   }
 
   function initJourney() {
