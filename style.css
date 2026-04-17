@@ -3434,10 +3434,15 @@ mark.highlight {
 
 .card-stack {
   background: #111;
+  position: relative;
+  overflow: hidden; /* belt-and-braces: clip anything that peeks out */
+  isolation: isolate; /* new stacking context — siblings can't bleed through */
 }
 
 /* height set by JS */
-.cards-wrapper {}
+.cards-wrapper {
+  position: relative;
+}
 
 .cards-sticky {
   position: sticky;
@@ -3447,6 +3452,8 @@ mark.highlight {
   overflow: hidden;
   padding: 16px 16px 0;
   box-sizing: border-box;
+  background: #111; /* solid backing so nothing shows through during slide */
+  contain: paint; /* limit paint region to this box → cheaper composite */
 }
 
 .card-scene {
@@ -3454,6 +3461,8 @@ mark.highlight {
   top: 16px; right: 16px; bottom: 0; left: 16px;
   transform: translate3d(0, 100%, 0);
   will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   /* No CSS transition — JS scrubs transform against scroll for a smooth, 1:1 feel */
 }
 

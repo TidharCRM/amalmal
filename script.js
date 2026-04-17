@@ -518,7 +518,9 @@
     }
 
     // Re-run sticky card setup so wrapper height reflects any hidden/added scenes
-    requestAnimationFrame(function() { window.dispatchEvent(new Event('resize')); });
+    requestAnimationFrame(function() {
+      window.dispatchEvent(new Event('sticky-cards-changed'));
+    });
   }
 
   function initAdmin() {
@@ -978,35 +980,39 @@
     var stacks = Array.from(document.querySelectorAll('.card-stack'));
     if (!stacks.length) return;
 
-    function getScenes(stack) {
+    // Cache per-stack meta to avoid repeated DOM queries during scroll.
+    // Shape: [{ stack, wrapper, scenes, N, transitions, total, vh }]
+    var meta = [];
+
+    function collectScenes(stack) {
       var sticky = stack.querySelector('.cards-sticky');
       if (!sticky) return [];
-      return Array.from(sticky.querySelectorAll('.card-scene')).filter(function(s) {
+      return Array.from(sticky.querySelectorAll('.card-scene')).filter(function (s) {
         return s.style.display !== 'none';
       });
     }
 
-    // Smooth easing for the slide — ease-out cubic
     function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
 
+    // Full setup: recompute heights + re-cache. Runs on init and on width changes.
     function setup() {
-      stacks.forEach(function (stack) {
+      var vh = window.innerHeight;
+      meta = stacks.map(function (stack) {
         var wrapper = stack.querySelector('.cards-wrapper');
-        if (!wrapper) return;
-        var scenes = getScenes(stack);
+        if (!wrapper) return null;
+        var scenes = collectScenes(stack);
         var N = scenes.length;
-        if (!N) return;
-        // Card 1 is already in view when the stack enters — only N-1 transitions needed.
-        // Each transition gets ~1 viewport of scroll + dwell. +1 at the end so the
-        // last card gets some dwell time before the stack releases.
+        if (!N) return null;
         var transitions = Math.max(1, N - 1);
-        wrapper.style.height = ((transitions + 1) * window.innerHeight) + 'px';
-        // Card 1 starts in place; later cards wait below
+        var total = transitions + 1;
+        wrapper.style.height = (total * vh) + 'px';
+        // Prime transforms (card 0 in place, rest below)
         scenes.forEach(function (s, i) {
           s.style.transform = i === 0 ? 'translate3d(0,0,0)' : 'translate3d(0,100%,0)';
           s.style.zIndex = String(i + 1);
         });
-      });
+        return { stack: stack, wrapper: wrapper, scenes: scenes, N: N, total: total, vh: vh };
+      }).filter(Boolean);
       update();
     }
 
@@ -1015,37 +1021,27 @@
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(function () {
-        stacks.forEach(function (stack) {
-          var wrapper = stack.querySelector('.cards-wrapper');
-          if (!wrapper) return;
-          var scenes = getScenes(stack);
-          var N = scenes.length;
-          if (!N) return;
-          var rect = wrapper.getBoundingClientRect();
-          var wH = wrapper.offsetHeight;
-          var scrollable = wH - window.innerHeight;
-          var progress = scrollable > 0 ? Math.max(0, Math.min(1, -rect.top / scrollable)) : 0;
-
-          // Card 0 sits at 0 always; cards 1..N-1 each slide in over one
-          // transition slice. Last slice is dwell on the final card.
-          var transitions = Math.max(1, N - 1);
-          var total = transitions + 1;
-          var p = progress * total; // 0 .. total
-
-          scenes.forEach(function (scene, i) {
-            if (i === 0) {
-              scene.style.transform = 'translate3d(0,0,0)';
-              return;
-            }
-            // Card i starts sliding in when p crosses (i-1), fully in at p = i
+        // READ phase — all layout reads first (no interleaved writes → no forced reflow)
+        var frames = [];
+        for (var m = 0; m < meta.length; m++) {
+          var info = meta[m];
+          var rectTop = info.wrapper.getBoundingClientRect().top;
+          var scrollable = info.wrapper.offsetHeight - info.vh;
+          var progress = scrollable > 0 ? Math.max(0, Math.min(1, -rectTop / scrollable)) : 0;
+          frames.push(progress * info.total);
+        }
+        // WRITE phase — apply transforms, no layout reads
+        for (var k = 0; k < meta.length; k++) {
+          var info2 = meta[k];
+          var p = frames[k];
+          var scenes = info2.scenes;
+          for (var i = 0; i < scenes.length; i++) {
+            if (i === 0) continue; // first card never moves, no writes needed
             var local = p - (i - 1);
-            var ty;
-            if (local <= 0) ty = 100;
-            else if (local < 1) ty = (1 - easeOut(local)) * 100;
-            else ty = 0;
-            scene.style.transform = 'translate3d(0,' + ty + '%,0)';
-          });
-        });
+            var ty = local <= 0 ? 100 : local < 1 ? (1 - easeOut(local)) * 100 : 0;
+            scenes[i].style.transform = 'translate3d(0,' + ty + '%,0)';
+          }
+        }
         ticking = false;
       });
     }
@@ -1053,7 +1049,18 @@
     setup();
     window.addEventListener('load', setup, { once: true });
     window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', function () { setup(); }, { passive: true });
+    // CMS fires this after hiding/showing scenes
+    window.addEventListener('sticky-cards-changed', setup);
+
+    // Only re-setup on width changes. Mobile browsers fire resize when the URL
+    // bar shows/hides, which would otherwise reset transforms mid-scroll and jitter.
+    var lastWidth = window.innerWidth;
+    window.addEventListener('resize', function () {
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        setup();
+      }
+    }, { passive: true });
   }
 
   function initJourney() {
