@@ -995,7 +995,11 @@
         if (!N) return;
         wrapper.style.height = (N * window.innerHeight) + 'px';
         // Ensure first card is visible before first scroll update
-        scenes.forEach(function (s, i) { s.classList.toggle('is-active', i === 0); });
+        scenes.forEach(function (s, i) {
+          s.classList.toggle('is-active', i === 0);
+          s.classList.toggle('is-past', false);
+          s.classList.toggle('is-future', i > 0);
+        });
       });
       update();
     }
@@ -1018,6 +1022,8 @@
           var idx = Math.min(N - 1, Math.floor(progress * N));
           scenes.forEach(function (scene, i) {
             scene.classList.toggle('is-active', i === idx);
+            scene.classList.toggle('is-past', i < idx);
+            scene.classList.toggle('is-future', i > idx);
           });
         });
         ticking = false;
