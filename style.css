@@ -3245,64 +3245,56 @@ mark.highlight {
 }
 
 /* ═══════════════════════════════════════════════════════
-   SCROLL STORYTELLING — Sticky Cards with Dwell Time
-   Each .card-scene gives its .stack-card ~100vh of sticky
-   screen-time before the next card enters.
+   STICKY CARD STACK
+   Each .card-scene provides scroll dwell; .stack-card sticks
+   at the top and new cards slide over the previous one.
    ═══════════════════════════════════════════════════════ */
 
 .card-stack {
-  background: var(--bg-primary);
-  padding: 20px 20px 0;
+  background: #111;
+  padding: 16px 16px 0;
 }
 
-/* Each card gets its own scroll space so it stays pinned long enough to read */
 .card-scene {
   position: relative;
-  padding-bottom: 100vh;
+  padding-bottom: 120vh;
 }
 
-/* Last card transitions directly to the next section — no dead space needed */
 .card-scene:last-child {
   padding-bottom: 60vh;
 }
 
 .stack-card {
   position: sticky;
-  top: calc(var(--nav-height) + 16px);
-  z-index: 10;
+  top: var(--nav-height);
   border-radius: 28px;
   overflow: hidden;
-  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.09), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -2px 0 rgba(0,0,0,0.08), 0 12px 56px rgba(0, 0, 0, 0.14);
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Remove summary's own border lines — the card border replaces them */
-.stack-card.summary {
-  border-top: none;
-  border-bottom: none;
-}
+/* Ascending z-index so each new card slides over the previous */
+.card-stack--a .card-scene:nth-child(1) .stack-card { z-index: 1; }
+.card-stack--a .card-scene:nth-child(2) .stack-card { z-index: 2; }
+.card-stack--b .card-scene:nth-child(1) .stack-card { z-index: 1; }
+.card-stack--b .card-scene:nth-child(2) .stack-card { z-index: 2; }
+.card-stack--b .card-scene:nth-child(3) .stack-card { z-index: 3; }
 
-/* Stack A card colors */
-.card-stack--a .card-scene:nth-child(1) .stack-card { background: #EEFFB8 !important; }
-.card-stack--a .card-scene:nth-child(2) .stack-card { background: #DDEFFF !important; }
-
-/* Stack B card colors */
-.card-stack--b .card-scene:nth-child(1) .stack-card { background: #FFE8D0 !important; }
-.card-stack--b .card-scene:nth-child(2) .stack-card { background: #FFFFFF !important; }
-.card-stack--b .card-scene:nth-child(3) .stack-card { background: #F2EAFF !important; }
+/* Card colors */
+.card-stack--a .card-scene:nth-child(1) .stack-card { background: #EEFFB8; }
+.card-stack--a .card-scene:nth-child(2) .stack-card { background: #DDEFFF; }
+.card-stack--b .card-scene:nth-child(1) .stack-card { background: #FFE8D0; }
+.card-stack--b .card-scene:nth-child(2) .stack-card { background: #FFFFFF; }
+.card-stack--b .card-scene:nth-child(3) .stack-card { background: #F2EAFF; }
 
 @media (max-width: 768px) {
-  .card-stack {
-    padding: 12px 12px 0;
-  }
-  .card-scene {
-    padding-bottom: 80vh;
-  }
-  .card-scene:last-child {
-    padding-bottom: 40vh;
-  }
-  .stack-card {
-    border-radius: 20px;
-  }
+  .card-stack { padding: 10px 10px 0; }
+  .card-scene { padding-bottom: 90vh; }
+  .card-scene:last-child { padding-bottom: 40vh; }
+  .stack-card { border-radius: 20px; min-height: 50vh; }
 }
 
 /* ═══════════════════════════════════════════════════════
