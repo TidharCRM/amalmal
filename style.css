@@ -3245,19 +3245,31 @@ mark.highlight {
 }
 
 /* ═══════════════════════════════════════════════════════
-   STACKING CARDS SCROLL EFFECT
+   SCROLL STORYTELLING — Sticky Cards with Dwell Time
+   Each .card-scene gives its .stack-card ~100vh of sticky
+   screen-time before the next card enters.
    ═══════════════════════════════════════════════════════ */
 
 .card-stack {
   background: var(--bg-primary);
-  padding: 20px 20px 72px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  padding: 20px 20px 0;
+}
+
+/* Each card gets its own scroll space so it stays pinned long enough to read */
+.card-scene {
+  position: relative;
+  padding-bottom: 100vh;
+}
+
+/* Last card transitions directly to the next section — no dead space needed */
+.card-scene:last-child {
+  padding-bottom: 60vh;
 }
 
 .stack-card {
   position: sticky;
+  top: calc(var(--nav-height) + 16px);
+  z-index: 10;
   border-radius: 28px;
   overflow: hidden;
   box-shadow: 0 8px 48px rgba(0, 0, 0, 0.09), 0 0 0 1px rgba(0, 0, 0, 0.05);
@@ -3269,41 +3281,24 @@ mark.highlight {
   border-bottom: none;
 }
 
-/* Stack A: Summary (lime cream) → Course Path (sky blue) */
-.card-stack--a .stack-card:nth-child(1) {
-  top: calc(var(--nav-height) + 10px);
-  z-index: 10;
-  background: #EEFFB8 !important;
-}
+/* Stack A card colors */
+.card-stack--a .card-scene:nth-child(1) .stack-card { background: #EEFFB8 !important; }
+.card-stack--a .card-scene:nth-child(2) .stack-card { background: #DDEFFF !important; }
 
-.card-stack--a .stack-card:nth-child(2) {
-  top: calc(var(--nav-height) + 26px);
-  z-index: 11;
-  background: #DDEFFF !important;
-}
-
-/* Stack B: Structure (peach) → Sessions (white) → FAQ (lavender) */
-.card-stack--b .stack-card:nth-child(1) {
-  top: calc(var(--nav-height) + 10px);
-  z-index: 10;
-  background: #FFE8D0 !important;
-}
-
-.card-stack--b .stack-card:nth-child(2) {
-  top: calc(var(--nav-height) + 26px);
-  z-index: 11;
-  background: #FFFFFF !important;
-}
-
-.card-stack--b .stack-card:nth-child(3) {
-  top: calc(var(--nav-height) + 42px);
-  z-index: 12;
-  background: #F2EAFF !important;
-}
+/* Stack B card colors */
+.card-stack--b .card-scene:nth-child(1) .stack-card { background: #FFE8D0 !important; }
+.card-stack--b .card-scene:nth-child(2) .stack-card { background: #FFFFFF !important; }
+.card-stack--b .card-scene:nth-child(3) .stack-card { background: #F2EAFF !important; }
 
 @media (max-width: 768px) {
   .card-stack {
-    padding: 12px 12px 56px;
+    padding: 12px 12px 0;
+  }
+  .card-scene {
+    padding-bottom: 80vh;
+  }
+  .card-scene:last-child {
+    padding-bottom: 40vh;
   }
   .stack-card {
     border-radius: 20px;
