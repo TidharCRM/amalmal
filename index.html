@@ -578,23 +578,18 @@
   </div>
 
   <!-- Firebase CDN — Realtime Database for cross-device countdown sync -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
   <script>
-    // ═══════════════════════════════════════════════════════
-    // FIREBASE CONFIG — Replace ALL values with your own!
-    // 1. Go to https://console.firebase.google.com
-    // 2. Create a project → Add a web app → Copy the config below
-    // 3. Enable "Realtime Database" in test mode
-    // ═══════════════════════════════════════════════════════
     var firebaseConfig = {
-      apiKey:            "YOUR_API_KEY",
-      authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-      databaseURL:       "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-      projectId:         "YOUR_PROJECT_ID",
-      storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId:             "YOUR_APP_ID"
+      apiKey:            "AIzaSyDO2E9E2OKGhoSnyZz5fGhBKcIE_jPQTUo",
+      authDomain:        "amalmal.firebaseapp.com",
+      databaseURL:       "https://amalmal-default-rtdb.firebaseio.com",
+      projectId:         "amalmal",
+      storageBucket:     "amalmal.firebasestorage.app",
+      messagingSenderId: "235080489157",
+      appId:             "1:235080489157:web:b844e8b057aca11398f8ac",
+      measurementId:     "G-QLLQ7S8BRM"
     };
     try { firebase.initializeApp(firebaseConfig); } catch(e) {}
   </script>
