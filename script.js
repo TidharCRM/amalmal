@@ -439,20 +439,78 @@
   // ADMIN — Hidden PIN-gated panel
   // ═══════════════════════════════════════════════════════
 
+  function loadCmsContent() {
+    if (!db) return;
+
+    db.ref('/content').once('value').then(function (snap) {
+      var content = snap.val();
+      if (!content) return;
+      Object.keys(content).forEach(function (key) {
+        var el = document.querySelector('[data-editable-key="' + key + '"]');
+        if (el && content[key]) el.innerHTML = content[key];
+      });
+    });
+
+    db.ref('/cards').once('value').then(function (snap) {
+      var data = snap.val();
+      if (!data) return;
+      applyCardMeta(data.order, data.hidden, data.custom);
+    });
+  }
+
+  function applyCardMeta(order, hidden, custom) {
+    if (order) {
+      ['a', 'b'].forEach(function (stackKey) {
+        var ids = order[stackKey];
+        if (!ids || !ids.length) return;
+        var stackEl = document.querySelector('.card-stack--' + stackKey);
+        if (!stackEl) return;
+        ids.forEach(function (sectionId) {
+          var section = document.getElementById(sectionId);
+          if (!section) return;
+          var scene = section.closest('.card-scene');
+          if (scene && scene.parentElement === stackEl) stackEl.appendChild(scene);
+        });
+      });
+    }
+
+    if (hidden) {
+      Object.keys(hidden).forEach(function (sectionId) {
+        if (!hidden[sectionId]) return;
+        var section = document.getElementById(sectionId);
+        if (!section) return;
+        var scene = section.closest('.card-scene');
+        if (scene) scene.style.display = 'none';
+      });
+    }
+
+    if (custom) {
+      Object.keys(custom).forEach(function (id) {
+        var card = custom[id];
+        if (!card || card.deleted) return;
+        var stackEl = document.querySelector('.card-stack--' + (card.stack || 'b'));
+        if (!stackEl) return;
+        if (document.getElementById('custom-card-' + id)) return;
+        var scene = document.createElement('div');
+        scene.className = 'card-scene';
+        scene.innerHTML = '<section id="custom-card-' + id + '" class="stack-card" style="background:' + (card.color || '#fff') + '; padding:48px 0;">' +
+          '<div class="container"><h2 class="section__title section__title--center">' + (card.title || '') + '</h2>' +
+          '<p style="text-align:center;color:var(--text-secondary);margin-top:16px;font-size:1rem;line-height:1.8;">' + (card.body || '') + '</p></div></section>';
+        stackEl.appendChild(scene);
+      });
+    }
+  }
+
   function initAdmin() {
-    var trigger  = document.getElementById('admin-trigger');
-    var modal    = document.getElementById('admin-modal');
-    var backdrop = document.getElementById('admin-backdrop');
-    var closeBtn = document.getElementById('admin-close');
+    var trigger   = document.getElementById('admin-trigger');
+    var modal     = document.getElementById('admin-modal');
+    var backdrop  = document.getElementById('admin-backdrop');
+    var closeBtn  = document.getElementById('admin-close');
     var pinInput  = document.getElementById('pin-input');
     var pinSubmit = document.getElementById('pin-submit');
     var pinError  = document.getElementById('pin-error');
     var pinScreen = document.getElementById('admin-pin-screen');
     var adminPanel = document.getElementById('admin-panel');
-    var dateInput  = document.getElementById('admin-date-input');
-    var saveBtn    = document.getElementById('admin-save-btn');
-    var clearBtn   = document.getElementById('admin-clear-btn');
-
     if (!trigger || !modal) return;
 
     var CORRECT_PIN = '1234';
@@ -488,34 +546,263 @@
       if (pinInput.value === CORRECT_PIN) {
         pinScreen.style.display = 'none';
         adminPanel.style.display = 'block';
-        if (db) {
-          db.ref('/countdownDate').once('value').then(function (snap) {
-            if (snap.val()) dateInput.value = snap.val();
-          });
-        }
+        initCmsTabs();
+        initCountdownTab(closeModal);
+        initCardsTab();
+        initTextsTab();
       } else {
         if (pinError) pinError.style.display = 'block';
         pinInput.value = '';
         pinInput.focus();
       }
     });
+  }
+
+  function initCmsTabs() {
+    document.querySelectorAll('.cms-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.cms-tab').forEach(function (t) { t.classList.remove('cms-tab--active'); });
+        document.querySelectorAll('.cms-pane').forEach(function (p) { p.style.display = 'none'; });
+        tab.classList.add('cms-tab--active');
+        var pane = document.getElementById('cms-pane-' + tab.dataset.tab);
+        if (pane) pane.style.display = 'block';
+      });
+    });
+  }
+
+  function initCountdownTab(closeModal) {
+    var dateInput = document.getElementById('admin-date-input');
+    var saveBtn   = document.getElementById('admin-save-btn');
+    var clearBtn  = document.getElementById('admin-clear-btn');
+    if (!dateInput || !saveBtn) return;
+
+    if (db) {
+      db.ref('/countdownDate').once('value').then(function (snap) {
+        if (snap.val()) dateInput.value = snap.val();
+      });
+    }
 
     saveBtn.addEventListener('click', function () {
       var date = dateInput.value;
       if (!date) return;
-      if (db) {
-        db.ref('/countdownDate').set(date).then(closeModal).catch(closeModal);
-      } else {
-        closeModal();
-      }
+      if (db) db.ref('/countdownDate').set(date).then(closeModal).catch(closeModal);
+      else closeModal();
     });
 
     clearBtn.addEventListener('click', function () {
-      if (db) {
-        db.ref('/countdownDate').set(null).then(closeModal).catch(closeModal);
-      } else {
-        closeModal();
+      if (db) db.ref('/countdownDate').set(null).then(closeModal).catch(closeModal);
+      else closeModal();
+    });
+  }
+
+  function initCardsTab() {
+    var listEl    = document.getElementById('cms-cards-list');
+    var addBtn    = document.getElementById('cms-add-card-btn');
+    var addForm   = document.getElementById('cms-add-card-form');
+    var saveNew   = document.getElementById('cms-save-new-card-btn');
+    var cancelNew = document.getElementById('cms-cancel-card-btn');
+    if (!listEl) return;
+
+    var CARD_META = [
+      { id: 'summary',     title: 'סיכום — מה הקורס?', stack: 'a' },
+      { id: 'course-path', title: 'מסלול הקורס',        stack: 'a' },
+      { id: 'structure',   title: 'מבנה הקורס',         stack: 'b' },
+      { id: 'sessions',    title: 'פירוט מפגשים',       stack: 'b' },
+      { id: 'faq',         title: 'שאלות ותשובות',      stack: 'b' }
+    ];
+
+    var state = {
+      hidden: {},
+      order: { a: ['summary', 'course-path'], b: ['structure', 'sessions', 'faq'] },
+      custom: {}
+    };
+
+    function loadAndRender() {
+      if (!db) { renderList(); return; }
+      db.ref('/cards').once('value').then(function (snap) {
+        var data = snap.val() || {};
+        state.hidden = data.hidden || {};
+        state.order  = data.order  || state.order;
+        state.custom = data.custom || {};
+        renderList();
+      });
+    }
+
+    function renderList() {
+      listEl.innerHTML = '';
+      ['a', 'b'].forEach(function (stackKey) {
+        var label = document.createElement('div');
+        label.className = 'cms-stack-label';
+        label.textContent = 'סט ' + (stackKey === 'a' ? 'א' : 'ב');
+        listEl.appendChild(label);
+
+        var ids = state.order[stackKey] || [];
+        ids.forEach(function (id, idx) {
+          var meta = CARD_META.find(function (m) { return m.id === id; });
+          renderCardRow(listEl, id, meta ? meta.title : id, idx, ids.length, stackKey, false);
+        });
+
+        Object.keys(state.custom || {}).forEach(function (cid) {
+          var c = state.custom[cid];
+          if (!c || c.deleted || c.stack !== stackKey) return;
+          renderCardRow(listEl, 'custom-card-' + cid, c.title || 'כרטיס חדש', -1, -1, stackKey, cid);
+        });
+      });
+    }
+
+    function renderCardRow(container, id, title, idx, total, stackKey, customId) {
+      var row = document.createElement('div');
+      var isHidden = !!(state.hidden[id]);
+      row.className = 'cms-card-row' + (isHidden ? ' cms-card-row--hidden' : '');
+
+      var upBtn    = idx > 0  ? '<button class="cms-icon-btn" data-action="up">↑</button>'     : '<button class="cms-icon-btn" data-action="up" disabled>↑</button>';
+      var downBtn  = idx >= 0 && idx < total - 1 ? '<button class="cms-icon-btn" data-action="down">↓</button>' : (idx >= 0 ? '<button class="cms-icon-btn" data-action="down" disabled>↓</button>' : '');
+      var moveHtml = idx >= 0 ? upBtn + downBtn : '';
+      var badge    = customId ? '<span class="cms-custom-card-badge">חדש</span>' : '';
+      var delHtml  = customId ? '<button class="cms-del-btn" data-action="delete" data-cid="' + customId + '">✕</button>' : '';
+      var tog      = isHidden ? '<button class="cms-toggle cms-toggle--off" data-action="toggle">הצג</button>'
+                              : '<button class="cms-toggle cms-toggle--on"  data-action="toggle">הסתר</button>';
+
+      row.innerHTML = '<span class="cms-card-name">' + badge + title + '</span>' +
+        '<div class="cms-card-actions">' + moveHtml + tog + delHtml + '</div>';
+
+      row.addEventListener('click', function (e) {
+        var action = e.target.dataset.action;
+        if (!action) return;
+
+        if (action === 'toggle') {
+          state.hidden[id] = !isHidden;
+          var el = document.getElementById(id);
+          if (el) { var sc = el.closest('.card-scene'); if (sc) sc.style.display = isHidden ? '' : 'none'; }
+          saveCards(); renderList();
+        }
+        if (action === 'up' && idx > 0) {
+          var arr = state.order[stackKey];
+          var tmp = arr[idx]; arr[idx] = arr[idx - 1]; arr[idx - 1] = tmp;
+          reorderDom(stackKey); saveCards(); renderList();
+        }
+        if (action === 'down' && idx >= 0 && idx < total - 1) {
+          var arr = state.order[stackKey];
+          var tmp = arr[idx]; arr[idx] = arr[idx + 1]; arr[idx + 1] = tmp;
+          reorderDom(stackKey); saveCards(); renderList();
+        }
+        if (action === 'delete' && customId) {
+          state.custom[customId].deleted = true;
+          var el = document.getElementById('custom-card-' + customId);
+          if (el) { var sc = el.closest('.card-scene'); if (sc) sc.remove(); }
+          saveCards(); renderList();
+        }
+      });
+
+      container.appendChild(row);
+    }
+
+    function reorderDom(stackKey) {
+      var stackEl = document.querySelector('.card-stack--' + stackKey);
+      if (!stackEl) return;
+      state.order[stackKey].forEach(function (sectionId) {
+        var section = document.getElementById(sectionId);
+        if (!section) return;
+        var scene = section.closest('.card-scene');
+        if (scene && scene.parentElement === stackEl) stackEl.appendChild(scene);
+      });
+    }
+
+    function saveCards() { if (db) db.ref('/cards').set(state); }
+
+    var selectedColor = '#EEFFB8';
+    document.querySelectorAll('.cms-color-dot').forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        document.querySelectorAll('.cms-color-dot').forEach(function (d) { d.classList.remove('selected'); });
+        dot.classList.add('selected');
+        selectedColor = dot.dataset.color;
+      });
+    });
+
+    if (addBtn) addBtn.addEventListener('click', function () {
+      addForm.classList.add('cms-visible'); addBtn.style.display = 'none';
+    });
+    if (cancelNew) cancelNew.addEventListener('click', function () {
+      addForm.classList.remove('cms-visible'); addBtn.style.display = '';
+    });
+    if (saveNew) saveNew.addEventListener('click', function () {
+      var titleVal = (document.getElementById('cms-new-card-title') || {}).value || '';
+      var bodyVal  = (document.getElementById('cms-new-card-body')  || {}).value || '';
+      titleVal = titleVal.trim();
+      if (!titleVal) return;
+      var cid = Date.now().toString(36);
+      state.custom[cid] = { title: titleVal, body: bodyVal.trim(), color: selectedColor, stack: 'b' };
+      var stackEl = document.querySelector('.card-stack--b');
+      if (stackEl) {
+        var scene = document.createElement('div');
+        scene.className = 'card-scene';
+        scene.innerHTML = '<section id="custom-card-' + cid + '" class="stack-card" style="background:' + selectedColor + ';padding:48px 0;">' +
+          '<div class="container"><h2 class="section__title section__title--center">' + titleVal + '</h2>' +
+          '<p style="text-align:center;color:var(--text-secondary);margin-top:16px;font-size:1rem;line-height:1.8;">' + bodyVal + '</p></div></section>';
+        stackEl.appendChild(scene);
       }
+      saveCards();
+      addForm.classList.remove('cms-visible'); addBtn.style.display = '';
+      document.getElementById('cms-new-card-title').value = '';
+      document.getElementById('cms-new-card-body').value  = '';
+      renderList();
+    });
+
+    loadAndRender();
+  }
+
+  function initTextsTab() {
+    var listEl  = document.getElementById('cms-texts-list');
+    var saveBtn = document.getElementById('cms-texts-save-btn');
+    if (!listEl) return;
+
+    var DEFS = [
+      { key: 'about-heading',   label: 'כותרת — "גם אני התחלתי"' },
+      { key: 'card-cp-title',   label: 'כרטיס מסלול — כותרת' },
+      { key: 'card-str-title',  label: 'כרטיס מבנה — כותרת' },
+      { key: 'card-sess-title', label: 'כרטיס מפגשים — כותרת' },
+      { key: 'card-faq-title',  label: 'כרטיס FAQ — כותרת' }
+    ];
+
+    var changes = {};
+
+    function buildUI(overrides) {
+      listEl.innerHTML = '';
+      DEFS.forEach(function (def) {
+        var el = document.querySelector('[data-editable-key="' + def.key + '"]');
+        if (!el) return;
+        var current = (overrides && overrides[def.key]) ? overrides[def.key] : el.innerText.trim();
+        var row = document.createElement('div');
+        row.className = 'cms-text-row';
+        var lbl = document.createElement('label');
+        lbl.className = 'cms-label';
+        lbl.textContent = def.label;
+        var ta = document.createElement('textarea');
+        ta.className = 'cms-text-editor';
+        ta.value = current;
+        ta.rows = 2;
+        ta.addEventListener('input', function () {
+          changes[def.key] = ta.value;
+          el.innerText = ta.value;
+        });
+        row.appendChild(lbl);
+        row.appendChild(ta);
+        listEl.appendChild(row);
+      });
+    }
+
+    if (db) {
+      db.ref('/content').once('value').then(function (snap) { buildUI(snap.val() || {}); });
+    } else {
+      buildUI({});
+    }
+
+    if (saveBtn) saveBtn.addEventListener('click', function () {
+      if (!Object.keys(changes).length) return;
+      if (db) db.ref('/content').update(changes).then(function () {
+        saveBtn.textContent = 'נשמר ✓';
+        setTimeout(function () { saveBtn.textContent = 'שמירת שינויים'; changes = {}; }, 2000);
+      });
     });
   }
 
@@ -833,6 +1120,7 @@
     initSmoothScroll();
     initCursor();
     initAdmin();
+    loadCmsContent();
     initCountdown();
     initSnekReveal();
     initFaq();
