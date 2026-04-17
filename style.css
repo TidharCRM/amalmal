@@ -481,19 +481,11 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 
 .stats {
   padding: 60px 0;
-  background: #111111;
-  border-top: none;
-  border-bottom: none;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
   position: relative;
   overflow: hidden;
-}
-
-.stats::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(197,241,53,0.06) 0%, transparent 70%);
-  pointer-events: none;
 }
 
 .stats__grid {
@@ -1213,10 +1205,10 @@ mark.highlight::after {
 .marquee-strip {
   width: 100%;
   overflow: hidden;
-  background: #0A0A0A;
+  background: var(--accent-primary);
   border-top: none;
   border-bottom: none;
-  padding: 16px 0;
+  padding: 14px 0;
 }
 
 .marquee-track {
@@ -1234,14 +1226,13 @@ mark.highlight::after {
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--lime);
+  color: #fff;
   text-transform: uppercase;
 }
 
 .marquee-sep {
-  color: var(--accent-primary);
+  color: rgba(255,255,255,0.5);
   font-size: 0.65rem;
-  opacity: 1;
 }
 
 .marquee-strip:hover .marquee-track {
@@ -2562,7 +2553,7 @@ mark.highlight::after {
    ═══════════════════════════════════════════════════════ */
 
 .journey {
-  background: #080808;
+  background: var(--bg-primary);
   padding: 100px 0 120px;
   position: relative;
   overflow: hidden;
@@ -2808,24 +2799,16 @@ mark.highlight::after {
    ═══════════════════════════════════════════════════════ */
 
 .summary {
-  background: #0C0C0C;
+  background: #F0F7DE;
   padding: 80px 0 88px;
   position: relative;
   overflow: hidden;
 }
 
-.summary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(197,241,53,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-
 .summary__tag {
-  color: var(--lime) !important;
-  background: rgba(197,241,53,0.1) !important;
-  border-color: rgba(197,241,53,0.3) !important;
+  color: #5a7a00 !important;
+  background: rgba(197,241,53,0.35) !important;
+  border-color: rgba(197,241,53,0.6) !important;
 }
 
 .summary__body {
@@ -2840,17 +2823,17 @@ mark.highlight::after {
 .summary__line {
   font-size: clamp(1.3rem, 3vw, 1.85rem);
   font-weight: 600;
-  color: #F5F0EB;
+  color: var(--text-primary);
   line-height: 1.65;
 }
 
 .summary__line--dim {
-  color: rgba(245, 240, 235, 0.65);
+  color: var(--text-secondary);
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
 }
 
 .summary__strong {
-  color: var(--lime);
+  color: #4a6800;
   font-weight: 800;
 }
 
@@ -2976,27 +2959,19 @@ mark.highlight::after {
    ═══════════════════════════════════════════════════════ */
 
 .structure {
-  background: #0F0F0F;
+  background: #FFF3EE;
   padding: 100px 0;
   position: relative;
 }
 
-.structure::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 50% 60% at 50% 0%, rgba(255,97,48,0.07) 0%, transparent 65%);
-  pointer-events: none;
-}
-
 .structure__tag {
-  color: var(--orange) !important;
-  background: rgba(255,97,48,0.1) !important;
-  border-color: rgba(255,97,48,0.3) !important;
+  color: #c44000 !important;
+  background: rgba(255,97,48,0.12) !important;
+  border-color: rgba(255,97,48,0.35) !important;
 }
 
 .structure__heading {
-  color: #F5F0EB !important;
+  color: var(--text-primary) !important;
 }
 
 .str-flow {
@@ -3011,8 +2986,8 @@ mark.highlight::after {
   display: flex;
   align-items: center;
   gap: 24px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: #fff;
+  border: 1px solid rgba(255,97,48,0.15);
   border-radius: 16px;
   padding: 28px 36px;
   max-width: 560px;
@@ -3036,19 +3011,19 @@ mark.highlight::after {
 .str-pre__title {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #F5F0EB;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .str-pre__desc {
   font-size: 0.88rem;
-  color: rgba(245,240,235,0.5);
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
 .str-arrow {
   font-size: 1.8rem;
-  color: rgba(255,255,255,0.2);
+  color: rgba(0,0,0,0.2);
   padding: 12px 0;
 }
 
@@ -3067,14 +3042,14 @@ mark.highlight::after {
   gap: 10px;
   padding: 24px 16px;
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-subtle);
+  background: #fff;
   text-align: center;
 }
 
 .str-session strong {
   font-size: 0.9rem;
-  color: rgba(245,240,235,0.7);
+  color: var(--text-secondary);
   font-weight: 600;
 }
 
