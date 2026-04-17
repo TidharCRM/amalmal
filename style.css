@@ -346,10 +346,13 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   top: 0;
   width: 100%;
   height: 100vh;
+  height: var(--real-vh, 100vh); /* JS sets --real-vh = window.innerHeight to avoid iOS chrome gap */
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .hero__canvas {
@@ -1553,19 +1556,8 @@ mark.highlight {
   pointer-events: none;
 }
 
-/* ═══════════════════════════════════════════════════════
-   FIX: 100dvh for mobile browser chrome (UX guideline #20)
-   ═══════════════════════════════════════════════════════ */
-
-@supports (height: 100dvh) {
-  .hero__sticky {
-    height: 100dvh;
-  }
-}
-
 @media (max-width: 768px) {
   .hero { height: 400vh; }
-  .hero__sticky { position: sticky; top: 0; height: 100dvh; }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -2131,11 +2123,11 @@ mark.highlight {
 }
 
 .countdown__display {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  margin: 48px auto 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  max-width: 620px;
+  margin: 48px auto 44px;
   direction: ltr;
 }
 
@@ -2144,29 +2136,27 @@ mark.highlight {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 28px 36px;
+  padding: 32px 12px 24px;
   background: var(--bg-card);
-  border: 1px solid var(--border-accent);
-  min-width: 130px;
-  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 24px rgba(212, 43, 33, 0.07), 0 1px 4px rgba(0,0,0,0.04);
   position: relative;
+  overflow: hidden;
 }
 
-.countdown__unit:first-child {
-  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
-}
-
-.countdown__unit:last-child {
-  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-}
-
-.countdown__unit + .countdown__unit {
-  border-inline-start: none;
+.countdown__unit::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  border-radius: 0;
 }
 
 .countdown__number {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-size: clamp(2.2rem, 5vw, 4rem);
   font-weight: 900;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
@@ -2174,34 +2164,21 @@ mark.highlight {
   background-clip: text;
   line-height: 1;
   font-variant-numeric: tabular-nums;
-  min-width: 2ch;
   display: block;
 }
 
 .countdown__label {
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
   color: var(--text-muted);
   text-transform: uppercase;
-  font-weight: 600;
-}
-
-.countdown__sep {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 900;
-  color: var(--accent-primary);
-  padding: 0 2px;
-  line-height: 1;
-  align-self: flex-start;
-  margin-top: 28px;
-  opacity: 0.5;
+  font-weight: 700;
 }
 
 .countdown__sub {
   color: var(--text-secondary);
   font-size: 1rem;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
   font-weight: 500;
 }
 
@@ -2217,21 +2194,30 @@ mark.highlight {
   margin: 40px 0 24px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
   .countdown__display {
-    flex-wrap: wrap;
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    max-width: 100%;
   }
   .countdown__unit {
-    min-width: 72px;
-    padding: 18px 14px;
-    border-radius: var(--radius-md) !important;
-    border: 1px solid var(--border-accent) !important;
-    border-right: 1px solid var(--border-accent) !important;
+    padding: 22px 6px 18px;
+    border-radius: var(--radius-md);
+    gap: 8px;
   }
-  .countdown__sep {
-    font-size: 1.6rem;
-    margin-top: 18px;
+  .countdown__number {
+    font-size: clamp(1.7rem, 7vw, 2.4rem);
+  }
+  .countdown__label {
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+  }
+}
+
+@media (max-width: 320px) {
+  .countdown__display {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 }
 

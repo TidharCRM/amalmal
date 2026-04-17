@@ -22,6 +22,15 @@
 </head>
 
 <body>
+  <!-- Synchronous: runs before first paint to prevent flash -->
+  <script>
+    history.scrollRestoration = 'manual';
+    var _vh = window.innerHeight;
+    document.documentElement.style.setProperty('--real-vh', _vh + 'px');
+    if (window.innerWidth > 768) {
+      document.body.style.overflow = 'hidden';
+    }
+  </script>
 
   <div id="reading-bar" class="reading-bar" aria-hidden="true"></div>
 
@@ -456,17 +465,14 @@
           <span class="countdown__number" id="cd-days">00</span>
           <span class="countdown__label">ימים</span>
         </div>
-        <div class="countdown__sep" aria-hidden="true">:</div>
         <div class="countdown__unit">
           <span class="countdown__number" id="cd-hours">00</span>
           <span class="countdown__label">שעות</span>
         </div>
-        <div class="countdown__sep" aria-hidden="true">:</div>
         <div class="countdown__unit">
           <span class="countdown__number" id="cd-minutes">00</span>
           <span class="countdown__label">דקות</span>
         </div>
-        <div class="countdown__sep" aria-hidden="true">:</div>
         <div class="countdown__unit">
           <span class="countdown__number" id="cd-seconds">00</span>
           <span class="countdown__label">שניות</span>

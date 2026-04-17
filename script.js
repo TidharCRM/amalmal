@@ -119,11 +119,16 @@
       return;
     }
 
+    function updateVh() {
+      document.documentElement.style.setProperty('--real-vh', window.innerHeight + 'px');
+    }
+
     resizeCanvas();
     window.addEventListener('resize', function () {
+      updateVh();
       scrollableH = hero.offsetHeight - window.innerHeight;
       resizeCanvas();
-    });
+    }, { passive: true });
 
     // ── DESKTOP: wheel-locked virtual scroll ──
     let virtualY = 0;
@@ -134,10 +139,13 @@
       heroComplete = true;
       applyProgress(1);
       document.body.classList.remove('body--hero-lock');
+      document.body.style.overflow = '';
       window.removeEventListener('wheel', onWheel);
-      setTimeout(function () {
-        window.scrollTo(0, hero.offsetTop + hero.offsetHeight);
-      }, 16);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          window.scrollTo(0, hero.offsetTop + hero.offsetHeight);
+        });
+      });
     }
 
     function onWheel(e) {
@@ -202,6 +210,7 @@
     }
 
     if (isMobile) {
+      document.body.style.overflow = ''; // clear any inline lock from early script on narrow desktops
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
       initMobileAutoScroll();
