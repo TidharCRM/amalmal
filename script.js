@@ -185,12 +185,18 @@
       }
 
       document.addEventListener('touchend', function onFirstSwipe() {
-        if (triggered || window.scrollY > 20) return;
+        if (triggered) return;
+        // Stop at animation-complete point (sticky still fully on screen)
+        const heroEnd = hero.offsetTop + hero.offsetHeight - window.innerHeight;
+        if (window.scrollY >= heroEnd) {
+          document.removeEventListener('touchend', onFirstSwipe);
+          return;
+        }
         triggered = true;
         document.removeEventListener('touchend', onFirstSwipe);
 
         const startY = window.scrollY;
-        const targetY = hero.offsetTop + hero.offsetHeight;
+        const targetY = heroEnd;
         if (targetY <= startY) return;
 
         let startTime = null;

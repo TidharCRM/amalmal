@@ -338,7 +338,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   position: relative;
   height: 400vh;
   width: 100%;
-  background: #1A1614;
+  background: var(--bg-primary);
 }
 
 .hero__sticky {
