@@ -3265,8 +3265,7 @@ mark.highlight {
 }
 
 .stack-card {
-  position: sticky;
-  top: var(--nav-height);
+  position: relative; /* JS overrides to absolute for scroll-driven sticky */
   border-radius: 28px;
   overflow: hidden;
   box-shadow: 0 -2px 0 rgba(0,0,0,0.08), 0 12px 56px rgba(0, 0, 0, 0.14);

@@ -668,30 +668,46 @@
   }
 
   function initStickyCards() {
-    document.querySelectorAll('.sc-stack').forEach(function (stack) {
-      var cards = Array.from(stack.querySelectorAll('.sc-card'));
-      var N = cards.length;
-      if (!N) return;
+    var navH = 72;
+    var dwell = Math.round(window.innerHeight * 0.55);
 
-      // Set stack height so each card gets 100vh of scroll dwell
-      stack.style.height = (N * 100) + 'vh';
+    document.querySelectorAll('.card-scene').forEach(function (scene) {
+      var card = scene.querySelector('.stack-card');
+      if (!card) return;
 
-      // Activate first card immediately
-      cards[0].classList.add('sc-active');
+      card.style.position = 'absolute';
+      card.style.left = '0';
+      card.style.right = '0';
+      card.style.top = '0';
 
-      function update() {
-        var rect = stack.getBoundingClientRect();
-        var scrolled = Math.max(0, -rect.top);
-        var eachH = stack.offsetHeight / N;
-        var idx = Math.min(Math.floor(scrolled / eachH), N - 1);
-        cards.forEach(function (c, i) {
-          c.classList.toggle('sc-active', i === idx);
-        });
-      }
+      // Scene height = card height + dwell so next card enters after dwell scroll
+      scene.style.minHeight = (card.offsetHeight + dwell) + 'px';
+    });
 
-      window.addEventListener('scroll', update, { passive: true });
+    function update() {
+      document.querySelectorAll('.card-scene').forEach(function (scene) {
+        var card = scene.querySelector('.stack-card');
+        if (!card) return;
+        var rect = scene.getBoundingClientRect();
+        var cardH = card.offsetHeight;
+        var sceneH = scene.offsetHeight;
+        // How far the scene top has scrolled past the sticky threshold
+        var offset = Math.max(0, Math.min(sceneH - cardH, navH - rect.top));
+        card.style.top = offset + 'px';
+      });
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', function () {
+      // Recalculate scene heights on resize
+      document.querySelectorAll('.card-scene').forEach(function (scene) {
+        var card = scene.querySelector('.stack-card');
+        if (!card) return;
+        scene.style.minHeight = (card.offsetHeight + dwell) + 'px';
+      });
       update();
     });
+    update();
   }
 
   function initJourney() {
@@ -779,6 +795,7 @@
     initReadingProgress();
     initHeroAnimation();
     initJourney();
+    initStickyCards();
     initNav();
     initStatsCounter();
     initScrollReveal();
