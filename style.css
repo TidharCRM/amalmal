@@ -256,7 +256,7 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 }
 .hero__hint {
   position: absolute; bottom: 24px; left: 50%;
-  width: 110px; height: 110px;
+  width: 170px; height: 170px;
   transform: translateX(-50%); z-index: 4;
   will-change: opacity;
   pointer-events: none;
