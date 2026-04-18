@@ -23,8 +23,8 @@
     function fitDraw(img) {
       var cw = canvas.width, ch = canvas.height;
       var iw = img.naturalWidth, ih = img.naturalHeight;
-      // contain: show the whole frame, letterbox with black background
-      var scale = Math.min(cw / iw, ch / ih);
+      // cover: fill screen, crop edges — no black bars
+      var scale = Math.max(cw / iw, ch / ih);
       var dw = iw * scale, dh = ih * scale;
       ctx.clearRect(0, 0, cw, ch);
       ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
@@ -40,9 +40,9 @@
     }
 
     function resizeCanvas() {
-      // Set canvas pixel dimensions to match CSS size (no DPR stacking)
-      canvas.width  = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      // Use window dimensions directly — most reliable across mobile browsers
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
       if (drawnIndex >= 0 && frames[drawnIndex]) fitDraw(frames[drawnIndex]);
     }
 
