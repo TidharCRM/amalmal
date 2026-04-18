@@ -109,6 +109,80 @@
     updateProgress();
   }
 
+  // Scroll reveal — fade + rise on enter
+  (function(){
+    if (!('IntersectionObserver' in window)) return;
+    var selectors = [
+      '.section-heading__title',
+      '.section-heading__sub',
+      '.path__heading',
+      '.path__sub',
+      '.bigcard__title',
+      '.bigcard__desc',
+      '.bigcard__list',
+      '.about__tag',
+      '.about__title',
+      '.about__lead',
+      '.about__p',
+      '.faq__title',
+      '.faq__item',
+      '.contact__title',
+      '.contact__sub',
+      '.leadf__row',
+      '.leadf__btn'
+    ];
+    var elements = [];
+    selectors.forEach(function(sel){
+      document.querySelectorAll(sel).forEach(function(el){
+        el.classList.add('reveal');
+        elements.push(el);
+      });
+    });
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    elements.forEach(function(el){ obs.observe(el); });
+  })();
+
+  // Scroll-spy: mark active nav link based on section in view
+  (function(){
+    var links = document.querySelectorAll('.nav__links a[href^="#"]');
+    if (!links.length) return;
+    var map = {
+      hero: 'hero-pin',
+      course: 'cards-pin',
+      path: 'path-pin',
+      about: 'about',
+      contact: 'contact'
+    };
+    var sections = [];
+    links.forEach(function(link){
+      var id = link.getAttribute('href').slice(1);
+      var targetId = map[id] || id;
+      var el = document.getElementById(targetId);
+      if (el) sections.push({ link: link, el: el, id: id });
+    });
+    function updateActive() {
+      var anchor = window.scrollY + window.innerHeight * 0.35;
+      var activeId = null;
+      for (var i = 0; i < sections.length; i++) {
+        var s = sections[i];
+        var top = s.el.offsetTop;
+        var bottom = top + s.el.offsetHeight;
+        if (anchor >= top && anchor < bottom) { activeId = s.id; break; }
+      }
+      sections.forEach(function(s){ s.link.classList.toggle('is-active', s.id === activeId); });
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    window.addEventListener('resize', updateActive, { passive: true });
+    updateActive();
+  })();
+
   // FAQ accordion
   document.querySelectorAll('.faq__item').forEach(function (item) {
     var btn = item.querySelector('.faq__q');
@@ -139,12 +213,17 @@
     function next() { current = (current + 1) % cards.length; layout(); }
     function prev() { current = (current - 1 + cards.length) % cards.length; layout(); }
 
-    document.getElementById('t-next').addEventListener('click', next);
-    document.getElementById('t-prev').addEventListener('click', prev);
+    var auto = null;
+    function startAuto() { stopAuto(); auto = setInterval(next, 6000); }
+    function stopAuto() { if (auto) { clearInterval(auto); auto = null; } }
+
+    document.getElementById('t-next').addEventListener('click', function(){ stopAuto(); next(); });
+    document.getElementById('t-prev').addEventListener('click', function(){ stopAuto(); prev(); });
 
     layout();
-    var auto = setInterval(next, 5000);
-    deck.addEventListener('mouseenter', function () { clearInterval(auto); });
+    startAuto();
+    deck.addEventListener('mouseenter', stopAuto);
+    deck.addEventListener('touchstart', stopAuto, { passive: true });
   }
 
   // Lead form — handles submission via Formspree
@@ -339,21 +418,5 @@
     setupProgressStroke();
     update();
   })();
-
-  // Smooth active-section highlight in nav
-  var navLinks = document.querySelectorAll('.nav__links a');
-  var sections = Array.from(navLinks).map(function (a) {
-    var id = a.getAttribute('href').slice(1);
-    return document.getElementById(id);
-  }).filter(Boolean);
-
-  window.addEventListener('scroll', function () {
-    var y = window.scrollY + 90;
-    var active = sections.length ? sections[0] : null;
-    sections.forEach(function (s) { if (s && s.offsetTop <= y) active = s; });
-    navLinks.forEach(function (a) {
-      a.style.color = (active && a.getAttribute('href') === '#' + active.id) ? 'var(--red)' : '';
-    });
-  }, { passive: true });
 
 })();
