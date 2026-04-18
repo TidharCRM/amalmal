@@ -221,7 +221,8 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   gap: 0;
 }
 .bigcard {
-  position: relative;
+  position: sticky;
+  top: var(--nav-h);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -230,9 +231,11 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   min-height: 300px;
   overflow: hidden;
   border-bottom: var(--border);
-  transition: padding .2s;
+  border-top: var(--border);
 }
-.bigcard:last-child { border-bottom: none; }
+.bigcard:nth-child(1) { z-index: 1; }
+.bigcard:nth-child(2) { z-index: 2; }
+.bigcard:nth-child(3) { z-index: 3; }
 
 /* Skewed stripe accent */
 .bigcard::after {
