@@ -23,8 +23,8 @@
     function fitDraw(img) {
       var cw = canvas.width, ch = canvas.height;
       var iw = img.naturalWidth, ih = img.naturalHeight;
-      // cover: fill screen, crop edges — no black bars
-      var scale = Math.max(cw / iw, ch / ih);
+      // contain: show full frame with minimal/no cropping
+      var scale = Math.min(cw / iw, ch / ih);
       var dw = iw * scale, dh = ih * scale;
       ctx.clearRect(0, 0, cw, ch);
       ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
