@@ -216,13 +216,15 @@
     var pin    = document.getElementById('path-pin');
     var stage  = document.getElementById('path-stage');
     var marker = document.getElementById('path-marker');
+    var progressPath = document.getElementById('snake-progress');
     var info   = document.getElementById('path-info');
     var tagEl  = document.getElementById('path-tag');
+    var numEl  = document.getElementById('path-num');
     var titleEl = document.getElementById('path-title');
     var textEl  = document.getElementById('path-text');
     var nodeEls = document.querySelectorAll('.path__node');
 
-    if (!pin || !stage || !marker) return;
+    if (!pin || !stage || !marker || !info || !tagEl || !numEl || !titleEl || !textEl) return;
 
     var lessons = [
       { tag: 'שיעור 1', title: 'היכרות + סטוריטלינג',           text: 'פיתוח 3 רעיונות מהתוכן שלך + יסודות העריכה' },
@@ -245,6 +247,17 @@
 
     var activeLesson = -1;
     var raf = null;
+    var textTimer = null;
+    var progressLen = 0;
+
+    function setupProgressStroke() {
+      if (!progressPath || typeof progressPath.getTotalLength !== 'function') return;
+      progressLen = progressPath.getTotalLength();
+      progressPath.style.stroke = '#F03228';
+      progressPath.style.strokeDasharray = progressLen;
+      progressPath.style.strokeDashoffset = progressLen;
+      progressPath.style.transition = 'stroke-dashoffset .12s linear';
+    }
 
     function computeSegs() {
       var W = stage.offsetWidth / 100;
@@ -295,8 +308,10 @@
       activeLesson = lessonIndex;
       var l = lessons[lessonIndex];
       info.classList.add('fading');
-      setTimeout(function () {
+      if (textTimer) clearTimeout(textTimer);
+      textTimer = setTimeout(function () {
         tagEl.textContent   = l.tag;
+        numEl.textContent   = String(lessonIndex + 1).padStart(2, '0');
         titleEl.textContent = l.title;
         textEl.textContent  = l.text;
         info.classList.remove('fading');
@@ -317,7 +332,12 @@
 
       nodeEls.forEach(function (el, i) {
         el.classList.toggle('is-active', i === state.active);
+        el.classList.toggle('is-done', i < state.active);
       });
+
+      if (progressPath && progressLen > 0) {
+        progressPath.style.strokeDashoffset = String(progressLen * (1 - progress));
+      }
 
       updateContent(state.active);
     }
@@ -327,6 +347,8 @@
       raf = requestAnimationFrame(update);
     }, { passive: true });
 
+    window.addEventListener('resize', update, { passive: true });
+    setupProgressStroke();
     update();
   })();
 
