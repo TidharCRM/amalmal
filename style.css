@@ -265,12 +265,9 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 .cards-pin {
   position: relative;
   background: var(--cream);
-  height: 280vh;
   z-index: 1;
 }
 .cards-section {
-  position: sticky;
-  top: 0;
   padding: 100px 0 0;
 }
 .cards-section .section-heading {
@@ -289,8 +286,9 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 80px clamp(40px, 8vw, 120px);
-  min-height: 320px;
+  padding: clamp(56px, 7vh, 88px) clamp(40px, 8vw, 120px);
+  min-height: 60vh;
+  min-height: 60svh;
   overflow: hidden;
   border-bottom: 1px solid rgba(17,17,17,.12);
 }
