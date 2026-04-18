@@ -1,66 +1,66 @@
 /* Cut It by Amalmal — Brutalist, Sandra Creates palette */
 
 @font-face {
-  font-family: "FUP SATAF";
-  src: url("FUP Sataf - For Web/FUP Sataf - Light/FUP Sataf - Light.eot");
-  src: url("FUP Sataf - For Web/FUP Sataf - Light/FUP Sataf - Light.eot?#iefix") format("embedded-opentype"),
-       url("FUP Sataf - For Web/FUP Sataf - Light/FUP Sataf - Light.woff2") format("woff2"),
-       url("FUP Sataf - For Web/FUP Sataf - Light/FUP Sataf - Light.woff") format("woff");
+  font-family: "FUP GALIL";
+  src: url("FUP Galil - For Web/FUP Galil - Light/FUP Galil - Light.eot");
+  src: url("FUP Galil - For Web/FUP Galil - Light/FUP Galil - Light.eot?#iefix") format("embedded-opentype"),
+       url("FUP Galil - For Web/FUP Galil - Light/FUP Galil - Light.woff2") format("woff2"),
+       url("FUP Galil - For Web/FUP Galil - Light/FUP Galil - Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "FUP SATAF";
-  src: url("FUP Sataf - For Web/FUP Sataf - Regular/FUP Sataf - Regular.eot");
-  src: url("FUP Sataf - For Web/FUP Sataf - Regular/FUP Sataf - Regular.eot?#iefix") format("embedded-opentype"),
-       url("FUP Sataf - For Web/FUP Sataf - Regular/FUP Sataf - Regular.woff2") format("woff2"),
-       url("FUP Sataf - For Web/FUP Sataf - Regular/FUP Sataf - Regular.woff") format("woff");
+  font-family: "FUP GALIL";
+  src: url("FUP Galil - For Web/FUP Galil - Regular/FUP Galil - Regular.eot");
+  src: url("FUP Galil - For Web/FUP Galil - Regular/FUP Galil - Regular.eot?#iefix") format("embedded-opentype"),
+       url("FUP Galil - For Web/FUP Galil - Regular/FUP Galil - Regular.woff2") format("woff2"),
+       url("FUP Galil - For Web/FUP Galil - Regular/FUP Galil - Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "FUP SATAF";
-  src: url("FUP Sataf - For Web/FUP Sataf - Medium/FUP Sataf - Medium.eot");
-  src: url("FUP Sataf - For Web/FUP Sataf - Medium/FUP Sataf - Medium.eot?#iefix") format("embedded-opentype"),
-       url("FUP Sataf - For Web/FUP Sataf - Medium/FUP Sataf - Medium.woff2") format("woff2"),
-       url("FUP Sataf - For Web/FUP Sataf - Medium/FUP Sataf - Medium.woff") format("woff");
+  font-family: "FUP GALIL";
+  src: url("FUP Galil - For Web/FUP Galil - Medium/FUP Galil - Medium.eot");
+  src: url("FUP Galil - For Web/FUP Galil - Medium/FUP Galil - Medium.eot?#iefix") format("embedded-opentype"),
+       url("FUP Galil - For Web/FUP Galil - Medium/FUP Galil - Medium.woff2") format("woff2"),
+       url("FUP Galil - For Web/FUP Galil - Medium/FUP Galil - Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "FUP SATAF";
-  src: url("FUP Sataf - For Web/FUP Sataf - SemiBold/FUP Sataf - SemiBold.eot");
-  src: url("FUP Sataf - For Web/FUP Sataf - SemiBold/FUP Sataf - SemiBold.eot?#iefix") format("embedded-opentype"),
-       url("FUP Sataf - For Web/FUP Sataf - SemiBold/FUP Sataf - SemiBold.woff2") format("woff2"),
-       url("FUP Sataf - For Web/FUP Sataf - SemiBold/FUP Sataf - SemiBold.woff") format("woff");
+  font-family: "FUP GALIL";
+  src: url("FUP Galil - For Web/FUP Galil - SemiBold/FUP Galil - SemiBold.eot");
+  src: url("FUP Galil - For Web/FUP Galil - SemiBold/FUP Galil - SemiBold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Galil - For Web/FUP Galil - SemiBold/FUP Galil - SemiBold.woff2") format("woff2"),
+       url("FUP Galil - For Web/FUP Galil - SemiBold/FUP Galil - SemiBold.woff") format("woff");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "FUP SATAF";
-  src: url("FUP Sataf - For Web/FUP Sataf - Bold/FUP Sataf - Bold.eot");
-  src: url("FUP Sataf - For Web/FUP Sataf - Bold/FUP Sataf - Bold.eot?#iefix") format("embedded-opentype"),
-       url("FUP Sataf - For Web/FUP Sataf - Bold/FUP Sataf - Bold.woff2") format("woff2"),
-       url("FUP Sataf - For Web/FUP Sataf - Bold/FUP Sataf - Bold.woff") format("woff");
+  font-family: "FUP GALIL";
+  src: url("FUP Galil - For Web/FUP Galil - Bold/FUP Galil - Bold.eot");
+  src: url("FUP Galil - For Web/FUP Galil - Bold/FUP Galil - Bold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Galil - For Web/FUP Galil - Bold/FUP Galil - Bold.woff2") format("woff2"),
+       url("FUP Galil - For Web/FUP Galil - Bold/FUP Galil - Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "FUP SATAF";
-  src: url("FUP Sataf - For Web/FUP Sataf - ExtraBold/FUP Sataf - ExtraBold.eot");
-  src: url("FUP Sataf - For Web/FUP Sataf - ExtraBold/FUP Sataf - ExtraBold.eot?#iefix") format("embedded-opentype"),
-       url("FUP Sataf - For Web/FUP Sataf - ExtraBold/FUP Sataf - ExtraBold.woff2") format("woff2"),
-       url("FUP Sataf - For Web/FUP Sataf - ExtraBold/FUP Sataf - ExtraBold.woff") format("woff");
+  font-family: "FUP GALIL";
+  src: url("FUP Galil - For Web/FUP Galil - ExtraBold/FUP Galil - ExtraBold.eot");
+  src: url("FUP Galil - For Web/FUP Galil - ExtraBold/FUP Galil - ExtraBold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Galil - For Web/FUP Galil - ExtraBold/FUP Galil - ExtraBold.woff2") format("woff2"),
+       url("FUP Galil - For Web/FUP Galil - ExtraBold/FUP Galil - ExtraBold.woff") format("woff");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -87,9 +87,9 @@
   --ink-3:   #666666;
   --bg:      #F5EFE0;
   --nav-h:   64px;
-  --headline: "FUP SATAF", sans-serif;
-  --sans: "FUP SATAF", sans-serif;
-  --serif: "FUP SATAF", sans-serif;
+  --headline: "FUP GALIL", sans-serif;
+  --sans: "FUP GALIL", sans-serif;
+  --serif: "FUP GALIL", sans-serif;
   --shadow: 5px 5px 0 var(--black);
   --shadow-lg: 8px 8px 0 var(--black);
   --border: 3px solid var(--black);
