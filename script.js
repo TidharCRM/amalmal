@@ -176,6 +176,125 @@
     }
   }
 
+  // Zigzag path scroll animation
+  (function () {
+    var pin    = document.getElementById('path-pin');
+    var stage  = document.getElementById('path-stage');
+    var marker = document.getElementById('path-marker');
+    var info   = document.getElementById('path-info');
+    var tagEl  = document.getElementById('path-tag');
+    var titleEl = document.getElementById('path-title');
+    var textEl  = document.getElementById('path-text');
+    var nodeEls = document.querySelectorAll('.path__node');
+
+    if (!pin || !stage || !marker) return;
+
+    var lessons = [
+      { tag: 'שיעור 1', title: 'היכרות + סטוריטלינג',           text: 'פיתוח 3 רעיונות מהתוכן שלך + יסודות העריכה' },
+      { tag: 'שיעור 2', title: 'עריכה למתחילים עד מתקדמים',      text: 'Keyframes, קצב ותנועה' },
+      { tag: 'שיעור 3', title: 'עריכה מתקדמת',                   text: 'מסכות ואפקטים ויזואליים' },
+      { tag: 'שיעור 4', title: 'AI בעריכה',                      text: 'יצירת אפקטים עם בינה מלאכותית' }
+    ];
+
+    // Waypoints in % coordinates matching the SVG path M 12,20 H 88 V 52 H 12 V 82 H 88
+    var pts = [
+      {x:12, y:20}, // Node 1
+      {x:88, y:20}, // Node 2
+      {x:88, y:52}, // corner
+      {x:12, y:52}, // Node 3
+      {x:12, y:82}, // corner
+      {x:88, y:82}  // Node 4
+    ];
+    // Which pts index maps to each lesson node (0-based)
+    var nodeIdx = [0, 1, 3, 5];
+
+    var activeLesson = -1;
+    var raf = null;
+
+    function computeSegs() {
+      var W = stage.offsetWidth / 100;
+      var H = stage.offsetHeight / 100;
+      var segs = [];
+      for (var i = 0; i < pts.length - 1; i++) {
+        var dx = (pts[i+1].x - pts[i].x) * W;
+        var dy = (pts[i+1].y - pts[i].y) * H;
+        segs.push(Math.sqrt(dx*dx + dy*dy));
+      }
+      return segs;
+    }
+
+    function getState(progress) {
+      var segs  = computeSegs();
+      var total = segs.reduce(function(a, b) { return a + b; }, 0);
+      var target = progress * total;
+
+      // Dot x,y (in % of stage)
+      var acc = 0, dotX = pts[0].x, dotY = pts[0].y;
+      for (var s = 0; s < segs.length; s++) {
+        if (acc + segs[s] >= target) {
+          var t = segs[s] > 0 ? (target - acc) / segs[s] : 0;
+          dotX = pts[s].x + t * (pts[s+1].x - pts[s].x);
+          dotY = pts[s].y + t * (pts[s+1].y - pts[s].y);
+          break;
+        }
+        acc += segs[s];
+        if (s === segs.length - 1) { dotX = pts[pts.length-1].x; dotY = pts[pts.length-1].y; }
+      }
+
+      // Active lesson: highest node whose cumulative distance we've passed
+      var nodeDists = nodeIdx.map(function(pi) {
+        var d = 0;
+        for (var i = 0; i < pi; i++) d += segs[i];
+        return d;
+      });
+      var active = 0;
+      for (var n = 0; n < nodeDists.length; n++) {
+        if (target >= nodeDists[n]) active = n;
+      }
+
+      return { x: dotX, y: dotY, active: active };
+    }
+
+    function updateContent(lessonIndex) {
+      if (lessonIndex === activeLesson) return;
+      activeLesson = lessonIndex;
+      var l = lessons[lessonIndex];
+      info.classList.add('fading');
+      setTimeout(function () {
+        tagEl.textContent   = l.tag;
+        titleEl.textContent = l.title;
+        textEl.textContent  = l.text;
+        info.classList.remove('fading');
+      }, 220);
+    }
+
+    function update() {
+      var pinRect = pin.getBoundingClientRect();
+      var scrolled = -pinRect.top;
+      var range = pin.offsetHeight - window.innerHeight;
+      if (range <= 0) return;
+      var progress = Math.max(0, Math.min(1, scrolled / range));
+
+      var state = getState(progress);
+
+      marker.style.left = state.x + '%';
+      marker.style.top  = state.y + '%';
+
+      nodeEls.forEach(function (el, i) {
+        el.classList.toggle('is-active', i === state.active);
+      });
+
+      updateContent(state.active);
+    }
+
+    window.addEventListener('scroll', function () {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    }, { passive: true });
+
+    update();
+  })();
+
   // Smooth active-section highlight in nav
   var navLinks = document.querySelectorAll('.nav__links a');
   var sections = Array.from(navLinks).map(function (a) {

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Rubik:ital,wght@0,400;0,500;0,700;0,800;0,900;1,700;1,900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" />
-  <link rel="stylesheet" href="style.css?v=14" />
+  <link rel="stylesheet" href="style.css?v=15" />
 </head>
 
 <body>
@@ -126,36 +126,51 @@
     </div>
   </section>
 
-  <!-- COURSE PATH — 4 sessions grid -->
-  <section id="path" class="path">
-    <div class="section-heading section-heading--light">
-      <h2 class="section-heading__title">מסלול הקורס</h2>
-      <p class="section-heading__sub">ארבעה שיעורים שבונים אותך מהתחלה — מסטוריטלינג עד AI</p>
-    </div>
+  <!-- COURSE PATH — zigzag snake -->
+  <div class="path-pin" id="path-pin">
+    <section id="path" class="path">
+      <div class="path__header">
+        <h2 class="path__heading">מסלול הקורס</h2>
+        <p class="path__sub">ארבעה שיעורים שבונים אותך מהתחלה — מסטוריטלינג עד AI</p>
+      </div>
 
-    <div class="path__grid">
-      <div class="lesson lesson--1">
-        <span class="lesson__tag">שיעור 1</span>
-        <h3 class="lesson__title">היכרות + סטוריטלינג</h3>
-        <p class="lesson__text">פיתוח 3 רעיונות מהתוכן שלך + יסודות העריכה</p>
+      <div class="path__stage" id="path-stage">
+        <!-- SVG snake track -->
+        <svg class="path__svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 12,20 H 88 V 52 H 12 V 82 H 88"
+                fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+        </svg>
+
+        <!-- 4 lesson nodes -->
+        <div class="path__node" style="left:12%;top:20%" data-i="0">
+          <div class="path__node-ring"></div>
+          <span class="path__node-label">שיעור 1</span>
+        </div>
+        <div class="path__node" style="left:88%;top:20%" data-i="1">
+          <div class="path__node-ring"></div>
+          <span class="path__node-label">שיעור 2</span>
+        </div>
+        <div class="path__node" style="left:12%;top:52%" data-i="2">
+          <div class="path__node-ring"></div>
+          <span class="path__node-label">שיעור 3</span>
+        </div>
+        <div class="path__node" style="left:88%;top:82%" data-i="3">
+          <div class="path__node-ring"></div>
+          <span class="path__node-label">שיעור 4</span>
+        </div>
+
+        <!-- Moving marker -->
+        <div class="path__marker" id="path-marker"></div>
+
+        <!-- Center content — updates on scroll -->
+        <div class="path__info" id="path-info">
+          <div class="path__info-tag" id="path-tag">שיעור 1</div>
+          <h3 class="path__info-title" id="path-title">היכרות + סטוריטלינג</h3>
+          <p class="path__info-text" id="path-text">פיתוח 3 רעיונות מהתוכן שלך + יסודות העריכה</p>
+        </div>
       </div>
-      <div class="lesson lesson--2">
-        <span class="lesson__tag">שיעור 2</span>
-        <h3 class="lesson__title">עריכה למתחילים עד מתקדמים</h3>
-        <p class="lesson__text">Keyframes, קצב ותנועה</p>
-      </div>
-      <div class="lesson lesson--3">
-        <span class="lesson__tag">שיעור 3</span>
-        <h3 class="lesson__title">עריכה מתקדמת</h3>
-        <p class="lesson__text">מסכות ואפקטים ויזואליים</p>
-      </div>
-      <div class="lesson lesson--4">
-        <span class="lesson__tag">שיעור 4</span>
-        <h3 class="lesson__title">AI בעריכה</h3>
-        <p class="lesson__text">יצירת אפקטים עם בינה מלאכותית</p>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <!-- ABOUT / STORY — pink block with stats -->
   <section id="about" class="about">
