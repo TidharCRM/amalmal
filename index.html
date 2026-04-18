@@ -6,10 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cut It by Amalmal</title>
   <meta name="description" content="Cut It by Amalmal — קורס פרקטי ליצירת סרטונים שעוצרים גלילה, מהטלפון בלבד." />
-  <link rel="stylesheet" href="style.css?v=21" />
+  <link rel="stylesheet" href="style.css?v=22" />
 </head>
 
 <body>
+
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__bar" id="scroll-progress-bar"></div></div>
 
   <!-- TOP NAV -->
   <nav class="nav">
@@ -214,8 +217,8 @@
       </article>
     </div>
     <div class="testi__nav">
-      <button id="t-prev" class="testi__btn" aria-label="הקודם">→</button>
-      <button id="t-next" class="testi__btn" aria-label="הבא">←</button>
+      <button id="t-prev" class="testi__btn" aria-label="הקודם"><svg class="testi__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button id="t-next" class="testi__btn" aria-label="הבא"><svg class="testi__arrow testi__arrow--flip" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </section>
 
@@ -280,7 +283,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=11"></script>
+  <script src="script.js?v=12"></script>
 </body>
 
 </html>

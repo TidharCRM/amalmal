@@ -115,6 +115,23 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 
 h1, h2, h3, h4 { font-family: var(--headline); }
 
+/* ─── SCROLL PROGRESS ─────────────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(255,255,255,.08);
+  z-index: 101;
+  pointer-events: none;
+}
+.scroll-progress__bar {
+  height: 100%;
+  width: 0%;
+  background: var(--red);
+  transition: width .08s linear;
+  will-change: width;
+}
+
 /* ─── NAV ─────────────────────────────────────────────────── */
 .nav {
   position: fixed; inset: 0 0 auto 0; z-index: 100;
@@ -601,13 +618,15 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 .testi__btn {
   width: 52px; height: 52px;
   background: var(--black); color: var(--white);
-  font-size: 20px; font-weight: 800;
   display: grid; place-items: center;
   transition: background .15s, transform .15s, box-shadow .15s;
   border-radius: 50%;
   box-shadow: 0 6px 18px rgba(17,17,17,.25);
+  padding: 0;
 }
 .testi__btn:hover { background: var(--red); transform: translateY(-2px); box-shadow: 0 10px 22px rgba(240,50,40,.35); }
+.testi__arrow { width: 18px; height: 18px; display: block; }
+.testi__arrow--flip { transform: scaleX(-1); }
 
 /* ─── FAQ ─────────────────────────────────────────────────── */
 .faq {

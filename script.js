@@ -86,6 +86,20 @@
     updateHero();
   }
 
+  // Scroll progress bar
+  var progressBar = document.getElementById('scroll-progress-bar');
+  if (progressBar) {
+    function updateProgress() {
+      var doc = document.documentElement;
+      var max = (doc.scrollHeight - window.innerHeight) || 1;
+      var p = Math.min(1, Math.max(0, window.scrollY / max));
+      progressBar.style.width = (p * 100).toFixed(2) + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress, { passive: true });
+    updateProgress();
+  }
+
   // FAQ accordion
   document.querySelectorAll('.faq__item').forEach(function (item) {
     var btn = item.querySelector('.faq__q');
