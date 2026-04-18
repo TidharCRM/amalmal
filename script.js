@@ -2,7 +2,7 @@
   'use strict';
 
   // Hero — frame scrubber
-  var FRAME_COUNT = 129;
+  var FRAME_COUNT = 126;
   var LOGO_START  = 0.82; // logo fades in at this scroll fraction
 
   var heroPin     = document.getElementById('hero-pin');
