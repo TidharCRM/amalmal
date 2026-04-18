@@ -314,6 +314,8 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 .path-pin {
   height: 400vh;
   position: relative;
+  background: var(--black);    /* no cream bleed during pin */
+  z-index: 1;
 }
 .path {
   position: sticky;
@@ -438,9 +440,8 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 /* ─── ABOUT ───────────────────────────────────────────────── */
 .about {
   background: var(--pink);
-  padding: 140px 40px 120px;
-  clip-path: polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%);
-  margin: -40px 0;
+  padding: 100px 40px;
+  border-top: var(--border);
   position: relative; z-index: 0;
 }
 .about__inner {
@@ -507,9 +508,8 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 /* ─── TESTIMONIALS ────────────────────────────────────────── */
 .testi {
   background: var(--blue);
-  padding: 140px 40px 120px;
-  clip-path: polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%);
-  margin: -40px 0;
+  padding: 100px 40px;
+  border-top: var(--border);
   position: relative; z-index: 1;
 }
 .testi .section-heading__title { color: var(--black); }
@@ -562,9 +562,8 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 /* ─── FAQ ─────────────────────────────────────────────────── */
 .faq {
   background: var(--cream);
-  padding: 140px 40px 120px;
-  clip-path: polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%);
-  margin: -40px 0;
+  padding: 100px 40px;
+  border-top: var(--border);
   position: relative; z-index: 0;
 }
 .faq__head {
@@ -627,9 +626,8 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 /* ─── CONTACT ─────────────────────────────────────────────── */
 .contact {
   background: var(--red);
-  padding: 140px 40px 120px;
-  clip-path: polygon(0 40px, 100% 0, 100% 100%, 0 100%);
-  margin-top: -40px;
+  padding: 100px 40px;
+  border-top: var(--border);
   position: relative; z-index: 2;
 }
 .contact__box { max-width: 640px; margin: 0; padding: 0; }
@@ -727,14 +725,14 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   .bigcard__body { max-width: 100%; }
   .bigcard__art { width: 120px; height: 120px; margin-top: 32px; }
   .path__header { padding: 24px 24px 12px; }
-  .about { padding: 80px 24px; clip-path: none; margin: 0; }
+  .about { padding: 60px 24px; }
   .about__inner { grid-template-columns: 1fr; gap: 40px; }
-  .testi { padding: 80px 24px; clip-path: none; margin: 0; }
+  .testi { padding: 60px 24px; }
   .testi__deck { min-height: 460px; }
   .tcard { padding: 40px 32px; }
-  .faq { padding: 80px 24px; clip-path: none; margin: 0; }
+  .faq { padding: 60px 24px; }
   .faq__head { margin-bottom: 40px; }
-  .contact { padding: 80px 24px; clip-path: none; margin: 0; }
+  .contact { padding: 60px 24px; }
   .foot { padding: 56px 24px 40px; }
   .foot__inner { grid-template-columns: 1fr; gap: 28px; }
   .foot__col--motto { text-align: start; }
