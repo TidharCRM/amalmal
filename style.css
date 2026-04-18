@@ -268,13 +268,13 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   transform-origin: 50% 50%;
 }
 .hero__hint-text {
-  fill: rgba(255,255,255,.8);
+  fill: rgba(255,255,255,.9);
   font-family: var(--headline);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 3px;
-  text-transform: uppercase;
+  letter-spacing: 2px;
   direction: ltr;
+  unicode-bidi: bidi-override;
 }
 .hero__hint-arrow {
   position: absolute;
