@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cut It by Amalmal</title>
   <meta name="description" content="Cut It by Amalmal — קורס פרקטי ליצירת סרטונים שעוצרים גלילה, מהטלפון בלבד." />
-  <link rel="stylesheet" href="style.css?v=46" />
+  <link rel="stylesheet" href="style.css?v=48" />
 </head>
 
 <body>
@@ -88,6 +88,7 @@
             <div class="cd-cell"><span class="cd-cell__num" id="bc-minutes">00</span><span class="cd-cell__lbl">דקות</span></div>
             <div class="cd-cell"><span class="cd-cell__num" id="bc-seconds">00</span><span class="cd-cell__lbl">שניות</span></div>
           </div>
+          <p class="bigcard__sub">נותרו <span id="bc-spots">—</span> מקומות פנויים</p>
           <a class="bigcard__cta" href="#contact">תפסי מקום עכשיו</a>
         </div>
       </article>
@@ -272,7 +273,77 @@
     </div>
   </footer>
 
-  <script src="script.js?v=23"></script>
+  <!-- Admin modal -->
+  <div class="admin-modal" id="admin-modal" hidden aria-hidden="true" role="dialog">
+    <div class="admin-modal__backdrop" data-close="1"></div>
+    <div class="admin-modal__box" role="document">
+      <button type="button" class="admin-modal__close" aria-label="סגור" data-close="1">×</button>
+
+      <!-- Step 1: sign in -->
+      <form class="admin-modal__step" id="admin-step-password">
+        <h3 class="admin-modal__title">כניסה לניהול</h3>
+        <label class="admin-modal__field">
+          <span>אימייל</span>
+          <input type="email" id="admin-email" autocomplete="username" required />
+        </label>
+        <label class="admin-modal__field">
+          <span>סיסמה</span>
+          <input type="password" id="admin-password" autocomplete="current-password" required />
+        </label>
+        <div class="admin-modal__error" id="admin-pw-error" hidden></div>
+        <button type="submit" class="admin-modal__btn">כניסה</button>
+      </form>
+
+      <!-- Step 2: edit -->
+      <form class="admin-modal__step" id="admin-step-edit" hidden>
+        <h3 class="admin-modal__title">עריכת נתוני מחזור</h3>
+        <label class="admin-modal__field">
+          <span>תאריך המחזור הבא</span>
+          <input type="datetime-local" id="admin-date" required />
+        </label>
+        <label class="admin-modal__field">
+          <span>מקומות פנויים</span>
+          <input type="number" id="admin-spots" min="0" step="1" required />
+        </label>
+        <div class="admin-modal__status" id="admin-save-status"></div>
+        <div class="admin-modal__actions">
+          <button type="button" class="admin-modal__btn admin-modal__btn--ghost" data-close="1">ביטול</button>
+          <button type="submit" class="admin-modal__btn">שמירה</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDO2E9E2OKGhoSnyZz5fGhBKcIE_jPQTUo",
+      authDomain: "amalmal.firebaseapp.com",
+      databaseURL: "https://amalmal-default-rtdb.firebaseio.com",
+      projectId: "amalmal",
+      storageBucket: "amalmal.firebasestorage.app",
+      messagingSenderId: "235080489157",
+      appId: "1:235080489157:web:b844e8b057aca11398f8ac",
+      measurementId: "G-QLLQ7S8BRM"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    window.__cutitFb = {
+      auth, db,
+      signIn: signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged,
+      ref, onValue, set
+    };
+    window.dispatchEvent(new CustomEvent('cutit-fb-ready'));
+  </script>
+  <script src="script.js?v=25"></script>
 </body>
 
 </html>

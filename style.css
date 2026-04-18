@@ -354,6 +354,20 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   max-width: 520px;
 }
 
+/* Bigcard subtitle (spots left) */
+.bigcard__sub {
+  margin: 10px 0 0;
+  font-size: clamp(14px, 1.3vw, 17px);
+  font-weight: 600;
+  color: rgba(255,255,255,.9);
+  letter-spacing: .02em;
+}
+.bigcard__sub #bc-spots {
+  font-family: var(--headline);
+  font-weight: 800;
+  color: var(--white);
+}
+
 /* Countdown inside bigcard */
 .bigcard__countdown {
   display: flex;
@@ -868,6 +882,108 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   transition: color .15s, transform .15s;
 }
 .foot__admin:hover { color: rgba(255,255,255,.8); transform: rotate(30deg); }
+
+/* ─── ADMIN MODAL ─────────────────────────────────────────── */
+.admin-modal {
+  position: fixed; inset: 0;
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.admin-modal[hidden] { display: none; }
+.admin-modal__backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.admin-modal__box {
+  position: relative;
+  background: var(--cream);
+  color: var(--black);
+  border-radius: 14px;
+  box-shadow: 0 30px 70px rgba(0,0,0,.4);
+  width: min(420px, 100%);
+  padding: 32px 28px 28px;
+  animation: modalIn .22s cubic-bezier(.22,.9,.3,1);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.admin-modal__close {
+  position: absolute;
+  top: 10px; inset-inline-end: 12px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: transparent; color: var(--black);
+  font-size: 24px; line-height: 1;
+  display: grid; place-items: center;
+  cursor: pointer; padding: 0;
+  transition: background .15s;
+}
+.admin-modal__close:hover { background: rgba(0,0,0,.08); }
+.admin-modal__title {
+  font-family: var(--headline);
+  font-size: 22px; font-weight: 600;
+  margin: 0 0 20px;
+  text-align: center;
+}
+.admin-modal__field {
+  display: flex; flex-direction: column; gap: 6px;
+  margin-bottom: 16px;
+}
+.admin-modal__field span {
+  font-size: 12px; font-weight: 700;
+  color: rgba(17,17,17,.7);
+  letter-spacing: .04em;
+}
+.admin-modal__field input {
+  background: var(--white); color: var(--black);
+  border: 1.5px solid rgba(17,17,17,.18);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 16px; font-family: inherit; font-weight: 500;
+  outline: none; width: 100%;
+  transition: border-color .15s, box-shadow .15s;
+}
+.admin-modal__field input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(240,50,40,.18);
+}
+.admin-modal__error {
+  color: var(--red); font-size: 13px; font-weight: 700;
+  margin: -6px 0 10px;
+}
+.admin-modal__status {
+  font-size: 13px; color: rgba(17,17,17,.7);
+  margin-bottom: 12px; min-height: 18px;
+}
+.admin-modal__status.is-error { color: var(--red); }
+.admin-modal__actions {
+  display: flex; gap: 10px; margin-top: 8px;
+}
+.admin-modal__btn {
+  display: inline-block;
+  flex: 1;
+  background: var(--red); color: var(--white);
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(240,50,40,.25);
+  font-family: var(--headline);
+  font-size: 14px; font-weight: 600;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s, background .15s;
+}
+.admin-modal__btn:hover { background: #d8261d; transform: translateY(-1px); }
+.admin-modal__btn--ghost {
+  background: transparent; color: var(--black);
+  border: 1.5px solid rgba(17,17,17,.2);
+  box-shadow: none;
+}
+.admin-modal__btn--ghost:hover { background: rgba(0,0,0,.06); }
 
 /* ─── RESPONSIVE ──────────────────────────────────────────── */
 @media (max-width: 900px) {

@@ -192,29 +192,46 @@
     });
   });
 
-  // Next-cycle countdown state (shared with admin, synced via Firebase RTDB)
-  var FIREBASE_URL = 'https://amalmal-default-rtdb.firebaseio.com/countdownDate.json';
+  // Next-cycle state (synced via Firebase RTDB + Auth)
   var CYCLE_DEFAULT = new Date('2026-06-01T10:00:00').getTime();
   var cycleTarget = CYCLE_DEFAULT;
+  var spotsLeft = null;
 
   function getCycleTarget(){ return cycleTarget; }
+  function getSpotsLeft(){ return spotsLeft; }
 
-  function loadFromFirebase(){
-    return fetch(FIREBASE_URL, { cache: 'no-store' })
-      .then(function(r){ return r.json(); })
-      .then(function(data){
-        if (typeof data === 'string') {
-          var d = new Date(data);
-          if (!isNaN(d.getTime())) {
-            cycleTarget = d.getTime();
-            if (window.__cutitTickCountdown) window.__cutitTickCountdown();
-          }
-        }
-      })
-      .catch(function(){});
+  function updateSpotsDisplay(){
+    var el = document.getElementById('bc-spots');
+    if (!el) return;
+    el.textContent = (spotsLeft === null || spotsLeft === undefined) ? '—' : String(spotsLeft);
   }
-  loadFromFirebase();
-  setInterval(loadFromFirebase, 60000);
+
+  function subscribeFirebase(){
+    var fb = window.__cutitFb;
+    if (!fb) return;
+    fb.onValue(fb.ref(fb.db, 'countdownDate'), function(snap){
+      var data = snap.val();
+      if (typeof data === 'string') {
+        var d = new Date(data);
+        if (!isNaN(d.getTime())) {
+          cycleTarget = d.getTime();
+          if (window.__cutitTickCountdown) window.__cutitTickCountdown();
+        }
+      }
+    });
+    fb.onValue(fb.ref(fb.db, 'spotsLeft'), function(snap){
+      var data = snap.val();
+      if (typeof data === 'number') {
+        spotsLeft = data;
+        updateSpotsDisplay();
+      } else if (typeof data === 'string' && data !== '') {
+        var n = parseInt(data, 10);
+        if (!isNaN(n)) { spotsLeft = n; updateSpotsDisplay(); }
+      }
+    });
+  }
+  if (window.__cutitFb) subscribeFirebase();
+  else window.addEventListener('cutit-fb-ready', subscribeFirebase);
 
   // Bigcard countdown
   (function(){
@@ -235,34 +252,127 @@
     setInterval(window.__cutitTickCountdown, 1000);
   })();
 
-  // Admin settings — set the next-cycle date
+  // Admin — Firebase Auth sign-in + edit
   (function(){
-    var ADMIN_PASSWORD = '9876';
     var adminBtn = document.getElementById('admin-btn');
-    if (!adminBtn) return;
+    var modal = document.getElementById('admin-modal');
+    if (!adminBtn || !modal) return;
+
+    var stepPw = document.getElementById('admin-step-password');
+    var stepEdit = document.getElementById('admin-step-edit');
+    var emailInput = document.getElementById('admin-email');
+    var pwInput = document.getElementById('admin-password');
+    var pwError = document.getElementById('admin-pw-error');
+    var dateInput = document.getElementById('admin-date');
+    var spotsInput = document.getElementById('admin-spots');
+    var saveStatus = document.getElementById('admin-save-status');
+
+    function pad2(n){ return String(n).padStart(2,'0'); }
+    function toDatetimeLocal(ts){
+      var d = new Date(ts);
+      return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()) + 'T' + pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+    }
+
+    function showEditStep(){
+      dateInput.value = toDatetimeLocal(getCycleTarget());
+      spotsInput.value = (getSpotsLeft() === null || getSpotsLeft() === undefined) ? '' : String(getSpotsLeft());
+      stepPw.hidden = true;
+      stepEdit.hidden = false;
+      setTimeout(function(){ dateInput.focus(); }, 50);
+    }
+
+    function openModal(){
+      var fb = window.__cutitFb;
+      if (fb && fb.auth.currentUser) {
+        showEditStep();
+      } else {
+        stepPw.hidden = false;
+        stepEdit.hidden = true;
+        emailInput.value = '';
+        pwInput.value = '';
+        pwError.hidden = true;
+        setTimeout(function(){ emailInput.focus(); }, 50);
+      }
+      saveStatus.textContent = '';
+      saveStatus.classList.remove('is-error');
+      modal.hidden = false;
+      modal.setAttribute('aria-hidden', 'false');
+    }
+    function closeModal(){
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
     adminBtn.addEventListener('click', function(e){
       e.preventDefault();
-      var pw = prompt('סיסמת ניהול:');
-      if (pw === null) return;
-      if (pw !== ADMIN_PASSWORD) { alert('סיסמה שגויה'); return; }
-      var current = new Date(getCycleTarget());
-      function pad2(n){ return String(n).padStart(2,'0'); }
-      var formatted = current.getFullYear() + '-' + pad2(current.getMonth()+1) + '-' + pad2(current.getDate()) + 'T' + pad2(current.getHours()) + ':' + pad2(current.getMinutes());
-      var input = prompt('תאריך המחזור הבא (YYYY-MM-DDTHH:MM):', formatted);
-      if (input === null) return;
-      var d = new Date(input);
-      if (isNaN(d.getTime())) { alert('תאריך לא תקין'); return; }
-      fetch(FIREBASE_URL, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(input)
-      }).then(function(r){
-        if (!r.ok) throw new Error('save failed');
+      openModal();
+    });
+
+    modal.addEventListener('click', function(e){
+      if (e.target.getAttribute('data-close') === '1') closeModal();
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && !modal.hidden) closeModal();
+    });
+
+    stepPw.addEventListener('submit', function(e){
+      e.preventDefault();
+      var fb = window.__cutitFb;
+      if (!fb) {
+        pwError.textContent = 'Firebase לא נטען';
+        pwError.hidden = false;
+        return;
+      }
+      pwError.hidden = true;
+      var submitBtn = stepPw.querySelector('button[type="submit"]');
+      var origText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'מתחבר...';
+      fb.signIn(fb.auth, emailInput.value.trim(), pwInput.value)
+        .then(function(){
+          submitBtn.disabled = false;
+          submitBtn.textContent = origText;
+          showEditStep();
+        })
+        .catch(function(err){
+          submitBtn.disabled = false;
+          submitBtn.textContent = origText;
+          var msg = 'פרטי התחברות שגויים';
+          if (err && err.code === 'auth/too-many-requests') msg = 'נחסמת זמנית, נסי שוב עוד מעט';
+          else if (err && err.code === 'auth/network-request-failed') msg = 'בעיית רשת';
+          pwError.textContent = msg;
+          pwError.hidden = false;
+        });
+    });
+
+    stepEdit.addEventListener('submit', function(e){
+      e.preventDefault();
+      var fb = window.__cutitFb;
+      if (!fb) return;
+      var dateVal = dateInput.value;
+      var spotsVal = parseInt(spotsInput.value, 10);
+      if (!dateVal) return;
+      var d = new Date(dateVal);
+      if (isNaN(d.getTime())) { saveStatus.textContent = 'תאריך לא תקין'; saveStatus.classList.add('is-error'); return; }
+      if (isNaN(spotsVal) || spotsVal < 0) { saveStatus.textContent = 'מקומות לא תקינים'; saveStatus.classList.add('is-error'); return; }
+      saveStatus.classList.remove('is-error');
+      saveStatus.textContent = 'שומר...';
+
+      Promise.all([
+        fb.set(fb.ref(fb.db, 'countdownDate'), dateVal),
+        fb.set(fb.ref(fb.db, 'spotsLeft'), spotsVal)
+      ]).then(function(){
         cycleTarget = d.getTime();
+        spotsLeft = spotsVal;
         if (window.__cutitTickCountdown) window.__cutitTickCountdown();
-        alert('התאריך עודכן');
-      }).catch(function(){
-        alert('שגיאה בשמירה. בדוק הרשאות Firebase.');
+        updateSpotsDisplay();
+        saveStatus.textContent = 'נשמר בהצלחה';
+        setTimeout(closeModal, 900);
+      }).catch(function(err){
+        var msg = 'שגיאה בשמירה';
+        if (err && err.code === 'PERMISSION_DENIED') msg = 'אין הרשאה — בדוק את הכללים ב-Firebase';
+        saveStatus.textContent = msg;
+        saveStatus.classList.add('is-error');
       });
     });
   })();
