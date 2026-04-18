@@ -1,10 +1,11 @@
 /* Cut It by Amalmal — Brutalist, Sandra Creates palette */
 
 @font-face {
-  font-family: "Noa Shalev";
-  src: url("web/noa-shalev-regular-AlefAlefAlef.woff2") format("woff2"),
-       url("web/noa-shalev-regular-AlefAlefAlef.woff") format("woff"),
-       url("otf/noa-shalev-regular-AlefAlefAlef.otf") format("opentype");
+  font-family: "FUP SATAF";
+  src: url("FUP Sataf - For Web/FUP Sataf - Light/FUP Sataf - Light.eot");
+  src: url("FUP Sataf - For Web/FUP Sataf - Light/FUP Sataf - Light.eot?#iefix") format("embedded-opentype"),
+       url("FUP Sataf - For Web/FUP Sataf - Light/FUP Sataf - Light.woff2") format("woff2"),
+       url("FUP Sataf - For Web/FUP Sataf - Light/FUP Sataf - Light.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -31,9 +32,9 @@
   --ink-3:   #666666;
   --bg:      #F5EFE0;
   --nav-h:   64px;
-  --headline: "Noa Shalev", "Rubik", "Heebo", sans-serif;
-  --sans: "Rubik", "Heebo", -apple-system, BlinkMacSystemFont, sans-serif;
-  --serif: "Playfair Display", Georgia, serif;
+  --headline: "FUP SATAF", sans-serif;
+  --sans: "FUP SATAF", sans-serif;
+  --serif: "FUP SATAF", sans-serif;
   --shadow: 5px 5px 0 var(--black);
   --shadow-lg: 8px 8px 0 var(--black);
   --border: 3px solid var(--black);
