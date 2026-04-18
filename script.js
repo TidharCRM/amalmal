@@ -176,6 +176,38 @@
     }
   }
 
+  // Cards slide-up animation
+  (function () {
+    var pin   = document.getElementById('cards-pin');
+    var cards = Array.from(document.querySelectorAll('.bigcard'));
+    if (!pin || !cards.length) return;
+
+    var raf = null;
+
+    function update() {
+      var rect  = pin.getBoundingClientRect();
+      var range = pin.offsetHeight - window.innerHeight;
+      if (range <= 0) return;
+      var progress = Math.max(0, Math.min(1, -rect.top / range));
+
+      var count = cards.length;
+      cards.forEach(function (card, i) {
+        // Each card covers 1/count of the scroll range
+        // t goes 0→1 during that card's segment
+        var t = Math.max(0, Math.min(1, (progress - i / count) * count));
+        // Slide from 100% below to 0 (fully covering the heading)
+        card.style.transform = 'translateY(' + ((1 - t) * 100) + '%)';
+      });
+    }
+
+    window.addEventListener('scroll', function () {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    }, { passive: true });
+
+    update();
+  })();
+
   // Zigzag path scroll animation
   (function () {
     var pin    = document.getElementById('path-pin');

@@ -210,34 +210,46 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 .cards-pin {
   position: relative;
   background: var(--cream);
-  height: 280vh;
+  height: 380vh;
   z-index: 1;
 }
 .cards-section {
   position: sticky;
   top: 0;
-  padding: 100px 0 0;
-}
-.cards-section .section-heading {
-  max-width: 1200px; margin: 0 auto 64px; padding: 0 40px;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  padding: 0;
 }
 
-.cards {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+/* Heading sits behind — cards slide up over it */
+.cards-section .section-heading {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  max-width: none; margin: 0;
+  padding: clamp(80px, 11vh, 130px) clamp(32px, 5vw, 80px) 0;
+  z-index: 0;
 }
+.cards-section .section-heading__title { color: var(--ink); }
+.cards-section .section-heading__sub   { color: var(--ink-3); }
+
+.cards {
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+
+/* Full-screen cards — start off-screen below, JS slides them up */
 .bigcard {
-  position: sticky;
-  top: var(--nav-h);
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  padding: 72px clamp(40px, 6vw, 100px);
-  min-height: 300px;
+  padding: var(--nav-h) clamp(32px, 5vw, 80px) clamp(48px, 8vh, 88px);
   overflow: hidden;
-  border-bottom: var(--border);
+  will-change: transform;
   border-top: var(--border);
 }
 .bigcard:nth-child(1) { z-index: 1; }
@@ -249,9 +261,9 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   content: "";
   position: absolute;
   top: 0; bottom: 0;
-  width: 60px;
-  inset-inline-end: 38%;
-  opacity: .08;
+  width: 80px;
+  inset-inline-end: 35%;
+  opacity: .07;
   background: var(--black);
   transform: skewX(-8deg);
   pointer-events: none;
@@ -263,14 +275,14 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 
 .bigcard__body {
   flex: 1;
-  max-width: 58%;
+  max-width: 55%;
 }
 .bigcard__title {
   font-family: var(--headline);
   font-weight: 400;
-  font-size: clamp(36px, 4vw, 64px);
+  font-size: clamp(40px, 5.5vw, 86px);
   line-height: 1; letter-spacing: -.01em;
-  margin: 0 0 24px;
+  margin: 0 0 28px;
 }
 .bigcard--pink .bigcard__title,
 .bigcard--blue .bigcard__title { color: var(--black); }
@@ -727,10 +739,9 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   .nav__links { gap: 20px; }
   .nav__links a { font-size: 11px; }
   .section-heading { padding: 0 24px; }
-  .cards-section { padding: 72px 0 0; }
-  .bigcard { padding: 48px 24px; flex-direction: column; align-items: flex-start; }
+  .bigcard { padding: var(--nav-h) 24px 48px; }
   .bigcard__body { max-width: 100%; }
-  .bigcard__art { width: 120px; height: 120px; margin-top: 32px; }
+  .bigcard__art { width: 100px; height: 100px; }
   .path__header { padding: 24px 24px 12px; }
   .about { padding: 60px 24px; }
   .about__inner { grid-template-columns: 1fr; gap: 40px; }
