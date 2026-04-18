@@ -139,34 +139,39 @@
       <div class="path__stage" id="path-stage">
         <!-- SVG snake track -->
         <svg class="path__svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <!-- dim base track -->
           <path d="M 12,20 H 88 V 52 H 12 V 82 H 88"
-                fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+                fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.8"/>
+          <!-- animated red progress trail -->
+          <path id="snake-progress" d="M 12,20 H 88 V 52 H 12 V 82 H 88"
+                fill="none" stroke="#F03228" stroke-width="1.8"
+                stroke-linecap="square"/>
         </svg>
 
-        <!-- 4 lesson nodes -->
+        <!-- 4 lesson nodes — numbered squares, labels anchored outside -->
         <div class="path__node" style="left:12%;top:20%" data-i="0">
-          <div class="path__node-ring"></div>
-          <span class="path__node-label">שיעור 1</span>
+          <div class="path__node-num">01</div>
+          <span class="path__node-label path__node-label--out-left">היכרות + סטוריטלינג</span>
         </div>
         <div class="path__node" style="left:88%;top:20%" data-i="1">
-          <div class="path__node-ring"></div>
-          <span class="path__node-label">שיעור 2</span>
+          <div class="path__node-num">02</div>
+          <span class="path__node-label path__node-label--out-right">עריכה — מתחילים עד מתקדמים</span>
         </div>
         <div class="path__node" style="left:12%;top:52%" data-i="2">
-          <div class="path__node-ring"></div>
-          <span class="path__node-label">שיעור 3</span>
+          <div class="path__node-num">03</div>
+          <span class="path__node-label path__node-label--out-left">עריכה מתקדמת</span>
         </div>
         <div class="path__node" style="left:88%;top:82%" data-i="3">
-          <div class="path__node-ring"></div>
-          <span class="path__node-label">שיעור 4</span>
+          <div class="path__node-num">04</div>
+          <span class="path__node-label path__node-label--out-right">AI בעריכה</span>
         </div>
 
         <!-- Moving marker -->
         <div class="path__marker" id="path-marker"></div>
 
-        <!-- Center content — updates on scroll -->
+        <!-- Content — dominant center display -->
         <div class="path__info" id="path-info">
-          <div class="path__info-tag" id="path-tag">שיעור 1</div>
+          <div class="path__info-num" id="path-num">01</div>
           <h3 class="path__info-title" id="path-title">היכרות + סטוריטלינג</h3>
           <p class="path__info-text" id="path-text">פיתוח 3 רעיונות מהתוכן שלך + יסודות העריכה</p>
         </div>
