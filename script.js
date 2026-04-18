@@ -23,7 +23,8 @@
     function fitDraw(img) {
       var cw = canvas.width, ch = canvas.height;
       var iw = img.naturalWidth, ih = img.naturalHeight;
-      var scale = Math.max(cw / iw, ch / ih);
+      // contain: show the whole frame, letterbox with black background
+      var scale = Math.min(cw / iw, ch / ih);
       var dw = iw * scale, dh = ih * scale;
       ctx.clearRect(0, 0, cw, ch);
       ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
@@ -39,9 +40,9 @@
     }
 
     function resizeCanvas() {
-      canvas.width  = canvas.offsetWidth  * (window.devicePixelRatio || 1);
-      canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1);
-      ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+      // Set canvas pixel dimensions to match CSS size (no DPR stacking)
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
       if (drawnIndex >= 0 && frames[drawnIndex]) fitDraw(frames[drawnIndex]);
     }
 
