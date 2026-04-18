@@ -2,7 +2,7 @@
   'use strict';
 
   // Hero — frame scrubber
-  var FRAME_COUNT = 126;
+  var FRAME_COUNT = 87;
   var LOGO_START  = 0.82; // logo fades in at this scroll fraction
 
   var heroPin     = document.getElementById('hero-pin');
@@ -17,7 +17,7 @@
     var drawnIndex = -1;
 
     function frameSrc(i) {
-      return 'frames/ezgif-frame-' + String(i + 1).padStart(3, '0') + '.jpg';
+      return 'frames/frame-' + String(i + 1).padStart(3, '0') + '.jpg';
     }
 
     function fitDraw(img) {
