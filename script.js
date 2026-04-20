@@ -618,7 +618,21 @@
         if (target >= nodeDists[n]) active = n;
       }
 
-      return { x: dotX, y: dotY, active: active };
+      // Direction of current segment (normalized, in % units)
+      var dirX = 0, dirY = 0;
+      for (var sd = 0; sd < segs.length; sd++) {
+        var accD = 0;
+        for (var k = 0; k < sd; k++) accD += segs[k];
+        if (target <= accD + segs[sd]) {
+          var rawDx = pts[sd+1].x - pts[sd].x;
+          var rawDy = pts[sd+1].y - pts[sd].y;
+          var len = Math.sqrt(rawDx*rawDx + rawDy*rawDy);
+          if (len > 0) { dirX = rawDx / len; dirY = rawDy / len; }
+          break;
+        }
+      }
+
+      return { x: dotX, y: dotY, dirX: dirX, dirY: dirY, active: active };
     }
 
     function updateContent(lessonIndex) {
@@ -644,8 +658,24 @@
 
       var state = getState(progress);
 
-      marker.style.left = state.x + '%';
-      marker.style.top  = state.y + '%';
+      // Use getPointAtLength for accurate smooth-curve positioning
+      var trackPath = document.getElementById('snake-track');
+      if (trackPath && trackPath.getTotalLength) {
+        var tl = trackPath.getTotalLength();
+        var len = progress * tl;
+        var pt  = trackPath.getPointAtLength(len);
+        var pt2 = trackPath.getPointAtLength(Math.min(len + 2, tl));
+        var W = stage.offsetWidth, H = stage.offsetHeight;
+        var dxPx = (pt2.x - pt.x) * (W / 100);
+        var dyPx = (pt2.y - pt.y) * (H / 100);
+        var dlen = Math.sqrt(dxPx * dxPx + dyPx * dyPx);
+        if (dlen > 0) { dxPx /= dlen; dyPx /= dlen; }
+        var leadPx = 26;
+        var offX = W > 0 ? dxPx * leadPx / (W / 100) : 0;
+        var offY = H > 0 ? dyPx * leadPx / (H / 100) : 0;
+        marker.style.left = (pt.x + offX) + '%';
+        marker.style.top  = (pt.y + offY) + '%';
+      }
 
       nodeEls.forEach(function (el, i) {
         el.classList.toggle('is-active', i === state.active);

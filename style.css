@@ -565,15 +565,14 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 /* Moving marker */
 .path__marker {
   position: absolute;
-  width: 14px; height: 14px;
+  width: 52px; height: 52px;
   border-radius: 50%;
-  background: var(--white);
   transform: translate(-50%, -50%);
   z-index: 10;
-  border: 2px solid var(--red);
-  box-shadow: 0 0 0 6px rgba(240,50,40,.22), 0 0 22px rgba(240,50,40,.45);
+  object-fit: cover;
   pointer-events: none;
   will-change: left, top;
+  filter: drop-shadow(0 0 8px rgba(240,50,40,.5));
 }
 
 /* Lesson info panel (full-width, centered content, stable) */

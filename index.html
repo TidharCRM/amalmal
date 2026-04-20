@@ -129,12 +129,12 @@
         <!-- SVG snake track -->
         <svg class="path__svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <!-- dim base track -->
-          <path d="M 12,20 H 88 V 52 H 12 V 82 H 88"
-                fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.8"/>
+          <path id="snake-track" d="M 12,20 L 76,20 Q 88,20 88,32 L 88,40 Q 88,52 76,52 L 24,52 Q 12,52 12,64 L 12,70 Q 12,82 24,82 L 88,82"
+                fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           <!-- animated red progress trail -->
-          <path id="snake-progress" d="M 12,20 H 88 V 52 H 12 V 82 H 88"
+          <path id="snake-progress" d="M 12,20 L 76,20 Q 88,20 88,32 L 88,40 Q 88,52 76,52 L 24,52 Q 12,52 12,64 L 12,70 Q 12,82 24,82 L 88,82"
                 fill="none" stroke="#F03228" stroke-width="1.8"
-                stroke-linecap="square"/>
+                stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
 
         <!-- 4 lesson nodes — numbered squares, labels anchored outside -->
@@ -156,7 +156,7 @@
         </div>
 
         <!-- Moving marker -->
-        <div class="path__marker" id="path-marker"></div>
+        <img class="path__marker" id="path-marker" src="movingface.png" alt="" />
       </div>
     </section>
   </div>
