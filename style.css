@@ -114,26 +114,33 @@ html { scroll-behavior: smooth; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 
-/* Scramble / decrypt text reveal */
+/* Scramble / decrypt text reveal — calm, no jitter, stable line box */
 .scramble {
   font-variant-ligatures: none;
   font-feature-settings: "liga" 0, "clig" 0;
   -webkit-font-smoothing: antialiased;
-  transition: filter .35s ease-out, text-shadow .45s ease-out;
+  text-decoration: none;
+  transition: text-shadow .55s ease-out;
 }
 .scramble.is-scrambling {
-  filter: blur(.35px);
-  animation: scramble-flicker 140ms steps(2, end) infinite;
+  opacity: .97;
 }
 .scramble.is-revealed {
-  text-shadow: 0 0 14px rgba(240, 50, 40, .18);
+  opacity: 1;
+  text-shadow: 0 0 18px rgba(240, 50, 40, .12);
 }
-@keyframes scramble-flicker {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: .92; }
+.about .scramble {
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: baseline;
+}
+.about__title em.scramble {
+  font-style: italic;
+  text-decoration: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .scramble.is-scrambling { animation: none; filter: none; }
+  .scramble.is-scrambling { opacity: 1; }
 }
 
 body {

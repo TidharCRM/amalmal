@@ -706,8 +706,9 @@
        <span data-scramble>Hello</span>
 
      Optional attributes (all optional):
-       data-scramble-duration="1000"   // total animation ms (default 1000)
-       data-scramble-char-delay="30"   // stagger between chars ms  (default 30)
+       data-scramble-duration="1400"   // total animation ms (default 1400)
+       data-scramble-char-delay="48"   // stagger between chars ms  (default 48)
+       data-scramble-tick="52"         // ms between glyph changes (default 52, higher = calmer)
        data-scramble-chars="!@#$..."   // custom character pool
        data-scramble-trigger="view"    // "view" | "immediate" | "none"
        data-scramble-hover="true"      // replay on mouseenter
@@ -723,8 +724,9 @@
       opts = opts || {};
       this.el        = el;
       this.finalText = (opts.text != null ? opts.text : el.textContent) || '';
-      this.duration  = opts.duration  != null ? opts.duration  : 1000;
-      this.charDelay = opts.charDelay != null ? opts.charDelay : 30;
+      this.duration  = opts.duration  != null ? opts.duration  : 1400;
+      this.charDelay = opts.charDelay != null ? opts.charDelay : 48;
+      this.tickMs    = opts.tickMs != null ? opts.tickMs : 52;
       this.chars     = opts.chars || DEFAULT_CHARS;
       this.loop      = !!opts.loop;
       this.running   = false;
@@ -741,6 +743,7 @@
       var chars = this.chars;
       var duration = this.duration;
       var charDelay = this.charDelay;
+      var tickMs = this.tickMs;
 
       // Per-character "lock time" — base stagger + small random jitter.
       var lockTimes = new Array(len);
@@ -756,11 +759,29 @@
       for (var j = 0; j < len; j++) lockTimes[j] *= scale;
 
       var start = performance.now();
+      var lastGlyphTick = 0;
+      var glyphBuf = new Array(len);
+      for (var g0 = 0; g0 < len; g0++) {
+        var c0 = text.charAt(g0);
+        glyphBuf[g0] = (c0 === ' ' || c0 === '\u00A0' || c0 === '\n' || c0 === '\t')
+          ? c0
+          : chars.charAt(Math.floor(Math.random() * chars.length));
+      }
       self.el.classList.remove('is-revealed');
       self.el.classList.add('is-scrambling');
 
       function frame(now){
         var t = now - start;
+        if (now - lastGlyphTick >= tickMs) {
+          lastGlyphTick = now;
+          for (var g = 0; g < len; g++) {
+            var ch = text.charAt(g);
+            if (ch === ' ' || ch === '\u00A0' || ch === '\n' || ch === '\t') continue;
+            if (t < lockTimes[g]) {
+              glyphBuf[g] = chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+          }
+        }
         var out = '';
         var allLocked = true;
         for (var k = 0; k < len; k++){
@@ -774,7 +795,7 @@
             out += fc;
           } else {
             allLocked = false;
-            out += chars.charAt(Math.floor(Math.random() * chars.length));
+            out += glyphBuf[k];
           }
         }
         self.el.textContent = out;
@@ -803,15 +824,19 @@
       nodes.forEach(function(el){
         var duration  = parseInt(el.getAttribute('data-scramble-duration'), 10);
         var charDelay = parseInt(el.getAttribute('data-scramble-char-delay'), 10);
+        var tickMs    = parseInt(el.getAttribute('data-scramble-tick'), 10);
         var trigger   = el.getAttribute('data-scramble-trigger') || 'view';
         var loop      = el.getAttribute('data-scramble-loop') === 'true';
         var hover     = el.getAttribute('data-scramble-hover') === 'true';
         var chars     = el.getAttribute('data-scramble-chars') || undefined;
 
+        el.setAttribute('spellcheck', 'false');
+
         var inst = new Scramble(el, {
           text: (el.textContent || '').trim(),
           duration:  isNaN(duration)  ? undefined : duration,
           charDelay: isNaN(charDelay) ? undefined : charDelay,
+          tickMs:    isNaN(tickMs)    ? undefined : tickMs,
           chars: chars,
           loop: loop
         });
@@ -833,7 +858,7 @@
               var it = items[i];
               if (it.trigger !== 'view') { obs.unobserve(entry.target); return; }
               // Gentle stagger for sibling scrambles in the same section.
-              setTimeout(function(s){ return function(){ s.inst.play(); }; }(it), i * 130);
+              setTimeout(function(s){ return function(){ s.inst.play(); }; }(it), i * 200);
               obs.unobserve(entry.target);
               return;
             }
