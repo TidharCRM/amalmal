@@ -114,7 +114,31 @@ html { scroll-behavior: smooth; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 
-/* Scramble / decrypt text reveal — calm, no jitter, stable line box */
+/* Scramble / decrypt text reveal — calm, no jitter, layout locked to final phrase */
+.scramble-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: baseline;
+}
+.scramble__size {
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.scramble--face {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: inherit;
+  box-sizing: border-box;
+}
 .scramble {
   font-variant-ligatures: none;
   font-feature-settings: "liga" 0, "clig" 0;
@@ -128,12 +152,10 @@ html { scroll-behavior: smooth; }
 .scramble.is-revealed {
   opacity: 1;
   text-shadow: 0 0 18px rgba(240, 50, 40, .12);
+  overflow: visible;
 }
-.about .scramble {
+.about .scramble-wrap {
   white-space: nowrap;
-  display: inline-block;
-  max-width: 100%;
-  vertical-align: baseline;
 }
 .about__title em.scramble {
   font-style: italic;

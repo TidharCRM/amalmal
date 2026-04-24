@@ -818,9 +818,43 @@
       requestAnimationFrame(frame);
     };
 
+    /** Lock layout to final copy: invisible span sets width/height; animated text is overlaid (no width jump). */
+    function installScrambleShell(el){
+      if (el.parentNode && el.parentNode.classList.contains('scramble-wrap')) return;
+      var raw = (el.textContent || '').trim();
+      if (!raw) return;
+
+      var wrap = document.createElement('span');
+      wrap.className = 'scramble-wrap';
+
+      var size = document.createElement('span');
+      size.className = 'scramble__size';
+      size.setAttribute('aria-hidden', 'true');
+      size.textContent = raw;
+
+      var parent = el.parentNode;
+      if (!parent) return;
+      parent.insertBefore(wrap, el);
+      el.classList.add('scramble--face');
+      wrap.appendChild(size);
+      wrap.appendChild(el);
+      el.textContent = '';
+    }
+
+    function getScrambleFinalText(el){
+      var p = el.parentNode;
+      if (p && p.classList.contains('scramble-wrap')) {
+        var sz = p.firstElementChild;
+        if (sz && sz.classList.contains('scramble__size')) return sz.textContent || '';
+      }
+      return (el.textContent || '').trim();
+    }
+
     function boot(){
       var nodes = document.querySelectorAll('[data-scramble]');
       if (!nodes.length) return;
+
+      nodes.forEach(function(el){ installScrambleShell(el); });
 
       var items = [];
       nodes.forEach(function(el){
@@ -835,7 +869,7 @@
         el.setAttribute('spellcheck', 'false');
 
         var inst = new Scramble(el, {
-          text: (el.textContent || '').trim(),
+          text: getScrambleFinalText(el),
           duration:  isNaN(duration)  ? undefined : duration,
           charDelay: isNaN(charDelay) ? undefined : charDelay,
           tickMs:    isNaN(tickMs)    ? undefined : tickMs,
