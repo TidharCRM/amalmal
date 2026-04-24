@@ -125,7 +125,9 @@ html { scroll-behavior: smooth; }
   visibility: hidden;
   pointer-events: none;
   user-select: none;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 .scramble--face {
   position: absolute;
@@ -134,7 +136,9 @@ html { scroll-behavior: smooth; }
   right: 0;
   bottom: 0;
   width: 100%;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: break-word;
   overflow: hidden;
   text-align: inherit;
   box-sizing: border-box;
@@ -154,7 +158,26 @@ html { scroll-behavior: smooth; }
   text-shadow: 0 0 18px rgba(240, 50, 40, .12);
   overflow: visible;
 }
-.about .scramble-wrap {
+/* Title / subtitle: use full column width so Hebrew wraps instead of one endless line. */
+.about__title .scramble-wrap {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  white-space: normal;
+}
+.about__title .scramble__size,
+.about__title .scramble--face {
+  white-space: normal;
+}
+/* Short pill label — keep on one line */
+.about .scramble-wrap:has(.about__tag) {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+.about .scramble-wrap:has(.about__tag) .scramble__size,
+.about .scramble-wrap:has(.about__tag) .scramble--face {
   white-space: nowrap;
 }
 .about__title em.scramble {
@@ -720,7 +743,7 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   color: var(--white); background: var(--black);
   padding: 5px 14px; border-radius: 4px; margin-bottom: 20px;
 }
-.about__text { text-align: center; }
+.about__text { text-align: center; min-width: 0; }
 .about__title {
   font-family: var(--headline);
   font-weight: 400;
@@ -728,7 +751,12 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   line-height: 1; letter-spacing: -.01em;
   margin: 0 0 28px; color: var(--black);
 }
-.about__title em { font-style: italic; color: var(--red); }
+.about__title em {
+  display: block;
+  max-width: 100%;
+  font-style: italic;
+  color: var(--red);
+}
 .about__lead {
   font-size: clamp(19px, 1.6vw, 24px); font-weight: 700;
   line-height: 1.5; margin: 0 0 22px; color: var(--black);
