@@ -1,69 +1,153 @@
 /* Cut It by Amalmal — Brutalist, Sandra Creates palette */
 
+/* ─── FUP EREZ — headlines ────────────────────────────────── */
 @font-face {
-  font-family: "FUP GALIL";
-  src: url("FUP Galil - For Web/FUP Galil - Light/FUP Galil - Light.eot");
-  src: url("FUP Galil - For Web/FUP Galil - Light/FUP Galil - Light.eot?#iefix") format("embedded-opentype"),
-       url("FUP Galil - For Web/FUP Galil - Light/FUP Galil - Light.woff2") format("woff2"),
-       url("FUP Galil - For Web/FUP Galil - Light/FUP Galil - Light.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
+  font-family: "FUP EREZ";
+  src: url("FUP Erez - For Web/FUP Erez - Light/FUP Erez - Light.eot");
+  src: url("FUP Erez - For Web/FUP Erez - Light/FUP Erez - Light.eot?#iefix") format("embedded-opentype"),
+       url("FUP Erez - For Web/FUP Erez - Light/FUP Erez - Light.woff2") format("woff2"),
+       url("FUP Erez - For Web/FUP Erez - Light/FUP Erez - Light.woff") format("woff");
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP EREZ";
+  src: url("FUP Erez - For Web/FUP Erez - Regular/FUP Erez - Regular.eot");
+  src: url("FUP Erez - For Web/FUP Erez - Regular/FUP Erez - Regular.eot?#iefix") format("embedded-opentype"),
+       url("FUP Erez - For Web/FUP Erez - Regular/FUP Erez - Regular.woff2") format("woff2"),
+       url("FUP Erez - For Web/FUP Erez - Regular/FUP Erez - Regular.woff") format("woff");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP EREZ";
+  src: url("FUP Erez - For Web/FUP Erez - Medium/FUP Erez - Medium.eot");
+  src: url("FUP Erez - For Web/FUP Erez - Medium/FUP Erez - Medium.eot?#iefix") format("embedded-opentype"),
+       url("FUP Erez - For Web/FUP Erez - Medium/FUP Erez - Medium.woff2") format("woff2"),
+       url("FUP Erez - For Web/FUP Erez - Medium/FUP Erez - Medium.woff") format("woff");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP EREZ";
+  src: url("FUP Erez - For Web/FUP Erez - SemiBold/FUP Erez - SemiBold.eot");
+  src: url("FUP Erez - For Web/FUP Erez - SemiBold/FUP Erez - SemiBold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Erez - For Web/FUP Erez - SemiBold/FUP Erez - SemiBold.woff2") format("woff2"),
+       url("FUP Erez - For Web/FUP Erez - SemiBold/FUP Erez - SemiBold.woff") format("woff");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP EREZ";
+  src: url("FUP Erez - For Web/FUP Erez - Bold/FUP Erez - Bold.eot");
+  src: url("FUP Erez - For Web/FUP Erez - Bold/FUP Erez - Bold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Erez - For Web/FUP Erez - Bold/FUP Erez - Bold.woff2") format("woff2"),
+       url("FUP Erez - For Web/FUP Erez - Bold/FUP Erez - Bold.woff") format("woff");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP EREZ";
+  src: url("FUP Erez - For Web/FUP Erez - ExtraBold/FUP Erez - ExtraBold.eot");
+  src: url("FUP Erez - For Web/FUP Erez - ExtraBold/FUP Erez - ExtraBold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Erez - For Web/FUP Erez - ExtraBold/FUP Erez - ExtraBold.woff2") format("woff2"),
+       url("FUP Erez - For Web/FUP Erez - ExtraBold/FUP Erez - ExtraBold.woff") format("woff");
+  font-weight: 800; font-style: normal; font-display: swap;
 }
 
+/* ─── FUP AVIV — body ─────────────────────────────────────── */
 @font-face {
-  font-family: "FUP GALIL";
-  src: url("FUP Galil - For Web/FUP Galil - Regular/FUP Galil - Regular.eot");
-  src: url("FUP Galil - For Web/FUP Galil - Regular/FUP Galil - Regular.eot?#iefix") format("embedded-opentype"),
-       url("FUP Galil - For Web/FUP Galil - Regular/FUP Galil - Regular.woff2") format("woff2"),
-       url("FUP Galil - For Web/FUP Galil - Regular/FUP Galil - Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+  font-family: "FUP AVIV";
+  src: url("FUP Aviv - For Web/FUP Aviv - Light/FUP Aviv - Light.eot");
+  src: url("FUP Aviv - For Web/FUP Aviv - Light/FUP Aviv - Light.eot?#iefix") format("embedded-opentype"),
+       url("FUP Aviv - For Web/FUP Aviv - Light/FUP Aviv - Light.woff2") format("woff2"),
+       url("FUP Aviv - For Web/FUP Aviv - Light/FUP Aviv - Light.woff") format("woff");
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP AVIV";
+  src: url("FUP Aviv - For Web/FUP Aviv - Regular/FUP Aviv - Regular.eot");
+  src: url("FUP Aviv - For Web/FUP Aviv - Regular/FUP Aviv - Regular.eot?#iefix") format("embedded-opentype"),
+       url("FUP Aviv - For Web/FUP Aviv - Regular/FUP Aviv - Regular.woff2") format("woff2"),
+       url("FUP Aviv - For Web/FUP Aviv - Regular/FUP Aviv - Regular.woff") format("woff");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP AVIV";
+  src: url("FUP Aviv - For Web/FUP Aviv - Medium/FUP Aviv - Medium.eot");
+  src: url("FUP Aviv - For Web/FUP Aviv - Medium/FUP Aviv - Medium.eot?#iefix") format("embedded-opentype"),
+       url("FUP Aviv - For Web/FUP Aviv - Medium/FUP Aviv - Medium.woff2") format("woff2"),
+       url("FUP Aviv - For Web/FUP Aviv - Medium/FUP Aviv - Medium.woff") format("woff");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP AVIV";
+  src: url("FUP Aviv - For Web/FUP Aviv - SemiBold/FUP Aviv - SemiBold.eot");
+  src: url("FUP Aviv - For Web/FUP Aviv - SemiBold/FUP Aviv - SemiBold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Aviv - For Web/FUP Aviv - SemiBold/FUP Aviv - SemiBold.woff2") format("woff2"),
+       url("FUP Aviv - For Web/FUP Aviv - SemiBold/FUP Aviv - SemiBold.woff") format("woff");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP AVIV";
+  src: url("FUP Aviv - For Web/FUP Aviv - Bold/FUP Aviv - Bold.eot");
+  src: url("FUP Aviv - For Web/FUP Aviv - Bold/FUP Aviv - Bold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Aviv - For Web/FUP Aviv - Bold/FUP Aviv - Bold.woff2") format("woff2"),
+       url("FUP Aviv - For Web/FUP Aviv - Bold/FUP Aviv - Bold.woff") format("woff");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP AVIV";
+  src: url("FUP Aviv - For Web/FUP Aviv - ExtraBold/FUP Aviv - ExtraBold.eot");
+  src: url("FUP Aviv - For Web/FUP Aviv - ExtraBold/FUP Aviv - ExtraBold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Aviv - For Web/FUP Aviv - ExtraBold/FUP Aviv - ExtraBold.woff2") format("woff2"),
+       url("FUP Aviv - For Web/FUP Aviv - ExtraBold/FUP Aviv - ExtraBold.woff") format("woff");
+  font-weight: 800; font-style: normal; font-display: swap;
 }
 
+/* ─── FUP SAVYON — accent / italics ───────────────────────── */
 @font-face {
-  font-family: "FUP GALIL";
-  src: url("FUP Galil - For Web/FUP Galil - Medium/FUP Galil - Medium.eot");
-  src: url("FUP Galil - For Web/FUP Galil - Medium/FUP Galil - Medium.eot?#iefix") format("embedded-opentype"),
-       url("FUP Galil - For Web/FUP Galil - Medium/FUP Galil - Medium.woff2") format("woff2"),
-       url("FUP Galil - For Web/FUP Galil - Medium/FUP Galil - Medium.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
+  font-family: "FUP SAVYON";
+  src: url("FUP Savyon - For Web/FUP Savyon - Light/FUP Savyon - Light.eot");
+  src: url("FUP Savyon - For Web/FUP Savyon - Light/FUP Savyon - Light.eot?#iefix") format("embedded-opentype"),
+       url("FUP Savyon - For Web/FUP Savyon - Light/FUP Savyon - Light.woff2") format("woff2"),
+       url("FUP Savyon - For Web/FUP Savyon - Light/FUP Savyon - Light.woff") format("woff");
+  font-weight: 300; font-style: normal; font-display: swap;
 }
-
 @font-face {
-  font-family: "FUP GALIL";
-  src: url("FUP Galil - For Web/FUP Galil - SemiBold/FUP Galil - SemiBold.eot");
-  src: url("FUP Galil - For Web/FUP Galil - SemiBold/FUP Galil - SemiBold.eot?#iefix") format("embedded-opentype"),
-       url("FUP Galil - For Web/FUP Galil - SemiBold/FUP Galil - SemiBold.woff2") format("woff2"),
-       url("FUP Galil - For Web/FUP Galil - SemiBold/FUP Galil - SemiBold.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
+  font-family: "FUP SAVYON";
+  src: url("FUP Savyon - For Web/FUP Savyon - Regular/FUP Savyon - Regular.eot");
+  src: url("FUP Savyon - For Web/FUP Savyon - Regular/FUP Savyon - Regular.eot?#iefix") format("embedded-opentype"),
+       url("FUP Savyon - For Web/FUP Savyon - Regular/FUP Savyon - Regular.woff2") format("woff2"),
+       url("FUP Savyon - For Web/FUP Savyon - Regular/FUP Savyon - Regular.woff") format("woff");
+  font-weight: 400; font-style: normal; font-display: swap;
 }
-
 @font-face {
-  font-family: "FUP GALIL";
-  src: url("FUP Galil - For Web/FUP Galil - Bold/FUP Galil - Bold.eot");
-  src: url("FUP Galil - For Web/FUP Galil - Bold/FUP Galil - Bold.eot?#iefix") format("embedded-opentype"),
-       url("FUP Galil - For Web/FUP Galil - Bold/FUP Galil - Bold.woff2") format("woff2"),
-       url("FUP Galil - For Web/FUP Galil - Bold/FUP Galil - Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+  font-family: "FUP SAVYON";
+  src: url("FUP Savyon - For Web/FUP Savyon - Medium/FUP Savyon - Medium.eot");
+  src: url("FUP Savyon - For Web/FUP Savyon - Medium/FUP Savyon - Medium.eot?#iefix") format("embedded-opentype"),
+       url("FUP Savyon - For Web/FUP Savyon - Medium/FUP Savyon - Medium.woff2") format("woff2"),
+       url("FUP Savyon - For Web/FUP Savyon - Medium/FUP Savyon - Medium.woff") format("woff");
+  font-weight: 500; font-style: normal; font-display: swap;
 }
-
 @font-face {
-  font-family: "FUP GALIL";
-  src: url("FUP Galil - For Web/FUP Galil - ExtraBold/FUP Galil - ExtraBold.eot");
-  src: url("FUP Galil - For Web/FUP Galil - ExtraBold/FUP Galil - ExtraBold.eot?#iefix") format("embedded-opentype"),
-       url("FUP Galil - For Web/FUP Galil - ExtraBold/FUP Galil - ExtraBold.woff2") format("woff2"),
-       url("FUP Galil - For Web/FUP Galil - ExtraBold/FUP Galil - ExtraBold.woff") format("woff");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
+  font-family: "FUP SAVYON";
+  src: url("FUP Savyon - For Web/FUP Savyon - SemiBold/FUP Savyon - SemiBold.eot");
+  src: url("FUP Savyon - For Web/FUP Savyon - SemiBold/FUP Savyon - SemiBold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Savyon - For Web/FUP Savyon - SemiBold/FUP Savyon - SemiBold.woff2") format("woff2"),
+       url("FUP Savyon - For Web/FUP Savyon - SemiBold/FUP Savyon - SemiBold.woff") format("woff");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP SAVYON";
+  src: url("FUP Savyon - For Web/FUP Savyon - Bold/FUP Savyon - Bold.eot");
+  src: url("FUP Savyon - For Web/FUP Savyon - Bold/FUP Savyon - Bold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Savyon - For Web/FUP Savyon - Bold/FUP Savyon - Bold.woff2") format("woff2"),
+       url("FUP Savyon - For Web/FUP Savyon - Bold/FUP Savyon - Bold.woff") format("woff");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "FUP SAVYON";
+  src: url("FUP Savyon - For Web/FUP Savyon - ExtraBold/FUP Savyon - ExtraBold.eot");
+  src: url("FUP Savyon - For Web/FUP Savyon - ExtraBold/FUP Savyon - ExtraBold.eot?#iefix") format("embedded-opentype"),
+       url("FUP Savyon - For Web/FUP Savyon - ExtraBold/FUP Savyon - ExtraBold.woff2") format("woff2"),
+       url("FUP Savyon - For Web/FUP Savyon - ExtraBold/FUP Savyon - ExtraBold.woff") format("woff");
+  font-weight: 800; font-style: normal; font-display: swap;
 }
 
 /* Sandra Creates palette only:
@@ -87,9 +171,9 @@
   --ink-3:   #666666;
   --bg:      #F5EFE0;
   --nav-h:   64px;
-  --headline: "FUP GALIL", sans-serif;
-  --sans: "FUP GALIL", sans-serif;
-  --serif: "FUP GALIL", sans-serif;
+  --headline: "FUP EREZ", "FUP AVIV", sans-serif;
+  --sans:     "FUP AVIV", "FUP EREZ", sans-serif;
+  --serif:    "FUP SAVYON", "FUP EREZ", sans-serif;
   --shadow: 3px 3px 0 rgba(17,17,17,.55);
   --shadow-lg: 5px 5px 0 rgba(17,17,17,.6);
   --border: 1.5px solid rgba(17,17,17,.7);
@@ -206,6 +290,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 ::selection { background: var(--red); color: var(--white); }
 
 h1, h2, h3, h4 { font-family: var(--headline); }
+h1 em, h2 em, h3 em, h4 em { font-family: var(--serif); font-style: italic; }
 
 /* ─── SCROLL PROGRESS ─────────────────────────────────────── */
 .scroll-progress {
@@ -304,6 +389,7 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   gap: 28px; opacity: 0;
+  padding: calc(var(--nav-h) + 32px) 24px 80px;
   will-change: opacity; pointer-events: none;
 }
 .hero__logo-overlay[style*="opacity: 1"],
@@ -404,32 +490,42 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 /* ─── COURSE INTRO ────────────────────────────────────────── */
 .cards-pin {
   position: relative;
-  background: var(--cream);
+  background: var(--black);
   z-index: 1;
+  padding-bottom: 80px;
 }
 .cards-section {
-  padding: 100px 0 0;
+  padding: 80px 0 0;
 }
 .cards-section .section-heading {
-  max-width: 1200px; margin: 0 auto 64px; padding: 0 40px;
+  max-width: 1200px; margin: 0 auto 56px; padding: 0 40px;
 }
+.cards-section .section-heading__title { color: var(--cream); }
+.cards-section .section-heading__sub,
+.cards-section .section-heading__lead { color: rgba(245,239,224,.78); }
 
 .cards {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 22px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 3vw, 32px);
 }
 .bigcard {
   position: sticky;
-  top: var(--nav-h);
+  top: calc(var(--nav-h) + 24px);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: clamp(56px, 7vh, 88px) clamp(40px, 8vw, 120px);
-  min-height: 60vh;
-  min-height: 60svh;
+  padding: clamp(40px, 6vh, 72px) clamp(28px, 5vw, 72px);
+  min-height: 56vh;
+  min-height: 56svh;
   overflow: hidden;
+  border-radius: clamp(20px, 2.4vw, 32px);
+  border: 1.5px solid rgba(0,0,0,.55);
+  box-shadow: 0 18px 60px rgba(0,0,0,.55), 0 4px 12px rgba(0,0,0,.35);
   border-bottom: 1px solid rgba(17,17,17,.12);
   text-align: center;
 }
@@ -710,34 +806,103 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 /* ─── ABOUT ───────────────────────────────────────────────── */
 .about {
   background: #F9D1DE;
-  padding: 100px 40px;
-  position: relative; z-index: 0;
+  padding: clamp(72px, 10vw, 120px) 40px 100px;
+  position: relative;
+  z-index: 0;
+  overflow: visible;
 }
 .about__inner {
   max-width: 1200px; margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(280px, 400px) 1fr;
-  gap: 80px; align-items: center;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+}
+/* Hangs from testimonials — string + polaroid */
+.about__hang {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: clamp(-72px, -10vw, -108px);
+  margin-bottom: 8px;
+  transform-origin: 50% 0;
+  filter: drop-shadow(0 22px 36px rgba(17,17,17,.2));
+}
+.about__pin-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2px;
+}
+.about__pin-line {
+  width: 2px;
+  height: clamp(40px, 6vw, 64px);
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(17,17,17,0) 0%,
+    rgba(17,17,17,.22) 28%,
+    rgba(17,17,17,.5) 100%
+  );
+}
+.about__pin-dot {
+  width: 14px; height: 14px;
+  margin-top: -1px;
+  border-radius: 50%;
+  background: var(--black);
+  border: 2px solid #EEF1F5;
+  box-shadow: 0 4px 12px rgba(0,0,0,.28);
 }
 .about__photo {
-  aspect-ratio: 4/5;
-  transform-origin: 50% 0%;
-  animation: about-sway 6s ease-in-out infinite;
+  width: 100%;
+  max-width: min(360px, 100%);
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  transform-origin: 50% 0;
   will-change: transform;
-  filter: drop-shadow(0 18px 24px rgba(17,17,17,.18));
+  animation: none;
+}
+.about__hang.reveal.is-visible .about__photo {
+  animation: about-sway 7s ease-in-out 0.35s infinite;
 }
 .about__photo img {
-  width: 100%; height: 100%;
-  object-fit: contain;
+  width: 100%;
+  height: auto;
   display: block;
+  vertical-align: middle;
+  object-fit: contain;
+  border-radius: clamp(6px, 1.2vw, 12px);
 }
 @keyframes about-sway {
-  0%   { transform: rotate(-0.9deg); }
-  50%  { transform: rotate(0.9deg); }
-  100% { transform: rotate(-0.9deg); }
+  0%   { transform: rotate(-1.1deg); }
+  50%  { transform: rotate(1.1deg); }
+  100% { transform: rotate(-1.1deg); }
+}
+/* Stronger entrance than default .reveal — feels like it drops into place */
+.about__hang.reveal {
+  opacity: 0;
+  transform: translateY(52px) rotate(-5deg);
+  transition:
+    opacity 0.9s cubic-bezier(.22,.9,.3,1),
+    transform 1s cubic-bezier(.34,1.2,.64,1);
+}
+.about__hang.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg);
 }
 @media (prefers-reduced-motion: reduce) {
-  .about__photo { animation: none; }
+  .about__hang.reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .about__hang.reveal.is-visible .about__photo { animation: none; }
 }
 
 .about__tag {
@@ -775,9 +940,9 @@ h1, h2, h3, h4 { font-family: var(--headline); }
 /* ─── TESTIMONIALS ────────────────────────────────────────── */
 .testi {
   background: #EEF1F5;
-  padding: 100px 40px;
+  padding: 100px 40px 120px;
   position: relative; z-index: 1;
-  overflow: hidden;
+  overflow: visible;
 }
 .testi .section-heading__title { color: var(--black); }
 .testi__deck {
@@ -1157,8 +1322,13 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   .bigcard__body { max-width: 100%; }
   .bigcard__art { width: 120px; height: 120px; margin-top: 32px; }
   .path__header { padding: 20px 24px 10px; }
-  .about { padding: 60px 24px; }
-  .about__inner { grid-template-columns: 1fr; gap: 40px; }
+  .about { padding: 56px 24px 72px; }
+  .about__inner { grid-template-columns: 1fr; gap: 32px; }
+  .about__hang {
+    margin-top: clamp(-48px, -12vw, -72px);
+    max-width: 320px;
+    margin-inline: auto;
+  }
   .testi { padding: 60px 24px; }
   .testi__deck { min-height: 460px; }
   .tcard { padding: 40px 32px; }
@@ -1175,4 +1345,356 @@ h1, h2, h3, h4 { font-family: var(--headline); }
   .path-pin { height: 240vh; }
   .tcard { padding: 32px 24px; }
   .testi__deck { min-height: 400px; }
+}
+
+/* ─── HERO HOOK + TAGLINE ─────────────────────────────────── */
+.hero__hook {
+  margin: 0;
+  font-family: var(--headline);
+  font-weight: 800;
+  font-size: clamp(26px, 4.6vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  text-align: center;
+  text-shadow: 0 4px 32px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.4);
+  max-width: min(900px, 92vw);
+  padding: 0 8px;
+}
+.hero__hook em {
+  font-style: italic;
+  color: var(--pink);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+.hero__logo {
+  max-width: min(420px, 60vw) !important;
+}
+.hero__tagline {
+  margin: 0;
+  max-width: min(720px, 86vw);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: clamp(15px, 1.8vw, 19px);
+  line-height: 1.55;
+  text-align: center;
+  color: var(--white);
+  text-shadow: 0 2px 18px rgba(0,0,0,.55);
+  padding: 0 24px;
+}
+.hero__tagline strong {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--pink);
+  font-weight: 700;
+}
+@media (max-width: 700px) {
+  .hero__logo-overlay { gap: 18px; }
+  .hero__logo { max-width: 70vw !important; }
+}
+
+/* ─── MARQUEE — proof strip ───────────────────────────────── */
+.marquee {
+  position: relative;
+  background: var(--red);
+  color: var(--cream);
+  border-block: var(--border);
+  padding: 18px 0;
+  overflow: hidden;
+  z-index: 2;
+}
+.marquee__track {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  animation: marqueeScroll 38s linear infinite;
+  white-space: nowrap;
+}
+.marquee__item {
+  font-family: var(--headline);
+  font-weight: 600;
+  font-size: clamp(15px, 1.6vw, 20px);
+  letter-spacing: 0.02em;
+  flex: 0 0 auto;
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}
+
+/* ─── BIGCARD INLINE CTA + X-LIST ─────────────────────────── */
+.bigcard__cta--inline {
+  display: inline-block;
+  margin-top: 20px;
+  background: var(--black);
+  color: var(--cream);
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-family: var(--headline);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: transform .15s, box-shadow .15s;
+  box-shadow: var(--shadow);
+}
+.bigcard__cta--inline:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+.bigcard__list--x { list-style: none; padding-inline-start: 0; }
+.bigcard__list--x li {
+  position: relative;
+  padding-inline-start: 32px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.bigcard__list--x li::before {
+  content: "✗";
+  position: absolute;
+  inset-inline-start: 0;
+  top: -1px;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--red);
+  background: var(--cream);
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(17,17,17,.5);
+}
+.bigcard__sub--accent {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1.5px dashed rgba(17,17,17,.25);
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* ─── DIARY ───────────────────────────────────────────────── */
+.diary {
+  background: var(--cream);
+  padding: 100px 24px;
+  border-block: var(--border);
+}
+.diary__inner {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+}
+.diary__title {
+  margin: 0 0 24px;
+  font-family: var(--headline);
+  font-weight: 800;
+  font-size: clamp(28px, 4.2vw, 48px);
+  letter-spacing: -0.01em;
+  color: var(--black);
+}
+.diary__lead {
+  margin: 0 0 24px;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.5;
+  color: var(--ink);
+}
+.diary__lead em {
+  display: block;
+  margin-top: 6px;
+  font-style: italic;
+  color: var(--red);
+  font-weight: 700;
+}
+.diary__p {
+  margin: 0;
+  font-size: clamp(16px, 1.6vw, 18px);
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+.diary__p strong { color: var(--red); }
+
+/* ─── MANIFESTO ───────────────────────────────────────────── */
+.manifesto {
+  background: var(--black);
+  color: var(--cream);
+  padding: 110px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.manifesto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(240,50,40,.12), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(91,192,224,.08), transparent 50%);
+  pointer-events: none;
+}
+.manifesto__inner {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+.manifesto__title {
+  margin: 0 0 24px;
+  font-family: var(--headline);
+  font-weight: 800;
+  font-size: clamp(32px, 5.4vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+.manifesto__title em {
+  font-style: italic;
+  color: var(--red);
+  text-decoration: underline;
+  text-decoration-thickness: 4px;
+  text-underline-offset: 8px;
+}
+.manifesto__lead {
+  margin: 0 0 32px;
+  font-size: clamp(17px, 2vw, 22px);
+  line-height: 1.5;
+  color: var(--pink);
+  font-weight: 500;
+}
+.manifesto__p {
+  margin: 0 0 18px;
+  font-size: clamp(16px, 1.7vw, 19px);
+  line-height: 1.75;
+  color: rgba(245,239,224,.92);
+}
+.manifesto__p strong { color: var(--white); }
+.manifesto__p em { color: var(--blue); font-style: italic; }
+.manifesto__p mark {
+  background: var(--red);
+  color: var(--white);
+  padding: 1px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+/* ─── URGENCY ─────────────────────────────────────────────── */
+.urgency {
+  background: var(--red);
+  color: var(--white);
+  padding: 100px 24px;
+  border-block: var(--border);
+  text-align: center;
+}
+.urgency__inner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.urgency__title {
+  margin: 0 0 28px;
+  font-family: var(--headline);
+  font-weight: 800;
+  font-size: clamp(28px, 5vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+.urgency__title em {
+  font-style: italic;
+  color: var(--cream);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+.urgency__p {
+  margin: 0 0 16px;
+  font-size: clamp(16px, 1.7vw, 19px);
+  line-height: 1.65;
+  color: rgba(255,255,255,.94);
+}
+.urgency__p strong { color: var(--cream); }
+.urgency__p--strong {
+  margin-top: 28px;
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 22px);
+}
+.urgency__date {
+  background: var(--cream);
+  color: var(--black);
+  padding: 2px 12px;
+  border-radius: 4px;
+  font-weight: 800;
+}
+.urgency__cta {
+  display: inline-block;
+  margin-top: 28px;
+  background: var(--black);
+  color: var(--cream);
+  padding: 16px 38px;
+  border-radius: 999px;
+  font-family: var(--headline);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  box-shadow: 0 8px 28px rgba(0,0,0,.35);
+  transition: transform .15s, box-shadow .15s;
+}
+.urgency__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(0,0,0,.45);
+}
+
+/* ─── TESTI CTA ───────────────────────────────────────────── */
+.testi__cta-wrap {
+  margin-top: 32px;
+  text-align: center;
+}
+.testi__cta {
+  display: inline-block;
+  background: var(--red);
+  color: var(--white);
+  padding: 16px 38px;
+  border-radius: 999px;
+  font-family: var(--headline);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(240,50,40,.35);
+  transition: transform .15s, box-shadow .15s;
+}
+.testi__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(240,50,40,.45);
+}
+
+/* ─── FOOT EXTRAS ─────────────────────────────────────────── */
+.foot__p {
+  margin: 16px 0 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(245,239,224,.78);
+}
+.foot__cta {
+  display: inline-block;
+  margin-bottom: 14px;
+  background: var(--red);
+  color: var(--white);
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-family: var(--headline);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(240,50,40,.3);
+  transition: transform .15s;
+}
+.foot__cta:hover { transform: translateY(-2px); }
+
+/* ─── RESPONSIVE TWEAKS ───────────────────────────────────── */
+@media (max-width: 900px) {
+  .diary { padding: 72px 24px; }
+  .manifesto { padding: 80px 24px; }
+  .urgency { padding: 72px 24px; }
 }

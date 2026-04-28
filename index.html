@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cut It by Amalmal</title>
-  <meta name="description" content="Cut It by Amalmal — קורס פרקטי ליצירת סרטונים שעוצרים גלילה, מהטלפון בלבד." />
-  <link rel="stylesheet" href="style.css?v=67" />
+  <meta name="description" content="קורס עריכה ויצירת תוכן שמלמד אותך לערוך, ליצור ולהביא את הקול שלך החוצה. מהטלפון. עם AI. בלי ציוד יקר." />
+  <link rel="stylesheet" href="style.css?v=73" />
 </head>
 
 <body>
@@ -30,19 +30,20 @@
     </div>
   </nav>
 
-  <!-- HERO — frame scrubber -->
+  <!-- HERO — frame scrubber + hook -->
   <div class="hero-pin" id="hero-pin">
     <section id="hero" class="hero">
       <canvas class="hero__canvas" id="hero-canvas"></canvas>
       <div class="hero__logo-overlay" id="hero-logo-overlay">
-        <img src="logo-cutit.png" alt="Cut It by Amalmal" class="hero__logo" />
-        <a href="#course" class="hero__cta">גלי עוד</a>
+        <h1 class="hero__hook">הפיד שלך יכול להביא לקוחות.<br /><em>עכשיו תלמדי איך.</em></h1>
+        <p class="hero__tagline">קורס עריכה ויצירת תוכן שמלמד אותך לערוך, ליצור ולהביא את הקול שלך החוצה.<br /><strong>מהטלפון. עם AI. בלי ציוד יקר.</strong></p>
+        <a href="#contact" class="hero__cta">כן, אני רוצה להתחיל ← שמרי לי מקום</a>
       </div>
       <div class="hero__hint" id="hero-hint" aria-hidden="true">
         <svg class="hero__hint-svg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <path id="hero-hint-circle" fill="none" d="M 70,70 m -55,0 a 55,55 0 1,0 110,0 a 55,55 0 1,0 -110,0" />
           <text class="hero__hint-text" dy="3.5">
-            <textPath xlink:href="#hero-hint-circle" startOffset="0" textLength="345" lengthAdjust="spacing">הטמל יללג · הטמל יללג · הטמל יללג ·</textPath>
+            <textPath xlink:href="#hero-hint-circle" startOffset="0" textLength="345" lengthAdjust="spacing">לולגל יכישמת · לולגל יכישמת · לולגל יכישמת ·</textPath>
           </text>
         </svg>
         <span class="hero__hint-arrow">↓</span>
@@ -50,50 +51,66 @@
     </section>
   </div>
 
-  <!-- COURSE INTRO — big cards like sandracreates services -->
+  <!-- MARQUEE — proof strip -->
+  <section class="marquee" aria-label="הישגים">
+    <div class="marquee__track">
+      <span class="marquee__item">✦&nbsp;קהילה של מעל 14 אלף יוצרות ובעלות עסקים</span>
+      <span class="marquee__item">✦&nbsp;שיתוף פעולה עם גוגל</span>
+      <span class="marquee__item">✦&nbsp;120,000 ש״ח בחודש וחצי מתוכן בלבד</span>
+      <span class="marquee__item">✦&nbsp;קהילה של מעל 14 אלף יוצרות ובעלות עסקים</span>
+      <span class="marquee__item">✦&nbsp;שיתוף פעולה עם גוגל</span>
+      <span class="marquee__item">✦&nbsp;120,000 ש״ח בחודש וחצי מתוכן בלבד</span>
+      <span class="marquee__item" aria-hidden="true">✦&nbsp;קהילה של מעל 14 אלף יוצרות ובעלות עסקים</span>
+      <span class="marquee__item" aria-hidden="true">✦&nbsp;שיתוף פעולה עם גוגל</span>
+      <span class="marquee__item" aria-hidden="true">✦&nbsp;120,000 ש״ח בחודש וחצי מתוכן בלבד</span>
+      <span class="marquee__item" aria-hidden="true">✦&nbsp;קהילה של מעל 14 אלף יוצרות ובעלות עסקים</span>
+      <span class="marquee__item" aria-hidden="true">✦&nbsp;שיתוף פעולה עם גוגל</span>
+      <span class="marquee__item" aria-hidden="true">✦&nbsp;120,000 ש״ח בחודש וחצי מתוכן בלבד</span>
+    </div>
+  </section>
+
+  <!-- COURSE INTRO — big cards -->
   <div class="cards-pin" id="cards-pin">
   <section id="course" class="cards-section">
     <div class="section-heading">
-      <h2 class="section-heading__title">מה זה קאט-איט?</h2>
-      <p class="section-heading__lead"><strong>זה הקורס שהייתי רוצה שיהיה לי כשהתחלתי.</strong></p>
-      <p class="section-heading__sub">12 שעות של ידע מרוכז — איך להפיק, לצלם ולערוך סרטונים שמרגישים מקצועיים, גם אם מעולם לא נגעת באפליקציית עריכה.</p>
-      <p class="section-heading__sub">נלמד יחד סטוריטלינג, עריכה באפליקציות חינמיות, שילוב AI, ואיך לבנות תוכן שבאמת מחזיק את הצופה.</p>
-      <p class="section-heading__sub">הכל מהטלפון. הכל בצעדים קטנים. בלי להיתקע.</p>
+      <h2 class="section-heading__title">זה בשבילך אם —</h2>
+      <p class="section-heading__sub">חמש סיבות שכנראה הביאו אותך לכאן.</p>
     </div>
 
     <div class="cards">
-      <!-- Card 1: Pink -->
+      <!-- Card 1: Pink — audience -->
       <article class="bigcard bigcard--pink">
         <div class="bigcard__body">
           <h3 class="bigcard__title">זה בשבילך אם:</h3>
           <ul class="bigcard__list">
-            <li>יש לך עסק ואת יודעת שאת צריכה להיות בסושיאל — אבל אין לך מושג מאיפה להתחיל</li>
-            <li>את מצלמת, מוחקת, מצלמת שוב, ובסוף לא מעלה כלום</li>
-            <li>את רואה יוצרות תוכן ואומרת לעצמך "גם אני יכולה" — ולא מתחילה</li>
-            <li>כבר ניסית קורסים אחרים והם היו טכניים מדי, משעממים, או פשוט לא התחברת</li>
-            <li>את מוכנה להפסיק לחכות לרגע המושלם ולהתחיל ליצור</li>
+            <li>יש לך עסק ואת יודעת שהוא צריך להיות יותר נוכח ברשת — אבל את לא יודעת איך להפוך אותו לתוכן שמביא לקוחות.</li>
+            <li>את מצלמת, מוחקת, מצלמת שוב — ועדיין לא מעלה כלום.</li>
+            <li>כבר קנית קורסים דיגיטליים שנשארו פתוחים בטאב ולא באמת שינו משהו.</li>
+            <li>את רוצה ללמוד AI, אבל הולכת לאיבוד מכל המידע ורק רוצה שמישהי תעשה לך סדר ותעביר אותך יד ביד.</li>
+            <li>יש לך מה להגיד, יש לך סיפור, ואת מרגישה שמגיע לו מקום — אבל עדיין לא מצאת את הדרך לגרום לאנשים לעצור עליו.</li>
           </ul>
+          <a class="bigcard__cta bigcard__cta--inline" href="#contact">כן, זה אני ← שמרי לי מקום</a>
         </div>
       </article>
 
-      <!-- Card 2: Blue -->
+      <!-- Card 2: Blue — what didn't work -->
       <article class="bigcard bigcard--blue">
         <div class="bigcard__body">
-          <h3 class="bigcard__title">מה תלמדי בקורס?</h3>
-          <ul class="bigcard__list bigcard__list--bullets">
-            <li>ליצור סרטונים ברמה גבוהה מהטלפון בלבד</li>
-            <li>לערוך בצורה מקצועית עם אפליקציות חינמיות</li>
-            <li>לשלב AI בתהליך היצירה</li>
-            <li>לספר סיפור קצר שמחזיק את הצופה</li>
-            <li>לייצר תוכן שמושך תשומת לב אמיתית</li>
+          <h3 class="bigcard__title">ניסית על הדרך:</h3>
+          <ul class="bigcard__list bigcard__list--x">
+            <li>מדריכים ביוטיוב שמסבירים הכל — חוץ ממה שאת צריכה</li>
+            <li>קורסים מוקלטים שישבו לך "על המדף" ולא פתחת</li>
+            <li>אפליקציות שהורדת ושכחת</li>
+            <li>לחקות מה שעובד לאחרות — ולהישמע לא כמוך</li>
           </ul>
+          <p class="bigcard__sub bigcard__sub--accent">הבעיה לא הייתה הכישרון שלך. הבעיה הייתה שאף אחד לא לימד אותך את השיטה.</p>
         </div>
       </article>
 
       <!-- Card 3: Red — countdown -->
       <article class="bigcard bigcard--red">
         <div class="bigcard__body">
-          <h3 class="bigcard__title">המחזור הבא נפתח בעוד</h3>
+          <h3 class="bigcard__title">המחזור הקרוב נפתח בעוד</h3>
           <div class="bigcard__countdown" id="bigcard-countdown" aria-live="polite">
             <div class="cd-cell"><span class="cd-cell__num" id="bc-days">00</span><span class="cd-cell__lbl">ימים</span></div>
             <div class="cd-cell"><span class="cd-cell__num" id="bc-hours">00</span><span class="cd-cell__lbl">שעות</span></div>
@@ -108,148 +125,160 @@
   </section>
   </div>
 
+  <!-- DIARY — את מכירה את זה -->
+  <section class="diary">
+    <div class="diary__inner">
+      <h2 class="diary__title">את מכירה את זה:</h2>
+      <p class="diary__lead">יש לך רעיון. את נלהבת. פותחת את הטלפון.<br /><em>ואז מתחיל הסבב.</em></p>
+      <p class="diary__p">מצלמת. לא אוהבת. מוחקת. מנסה לערוך. לא יודעת איך. מוחקת גם את זה. רואה מה שאחרות מעלות ושואלת את עצמך מה יש להן שאין לך. וסוגרת את האפליקציה. <strong>שוב.</strong></p>
+    </div>
+  </section>
+
+  <!-- MANIFESTO — לכן בניתי CUT IT -->
+  <section class="manifesto">
+    <div class="manifesto__inner">
+      <h2 class="manifesto__title">לכן בניתי את <em>CUT IT</em></h2>
+      <p class="manifesto__lead">כדי שלא תחכי. לא לזמן הנכון. לא לציוד המתאים. לא לגרסה המושלמת של עצמך.</p>
+      <p class="manifesto__p"><strong>CUT IT הוא לא עוד קורס מוקלט שקונים ב-97 ש״ח ולא פותחים.</strong></p>
+      <p class="manifesto__p">זה <mark>4 מפגשים</mark> — חלקם פרונטליים, חלקם בזום — שלוקחים אותך יד ביד מ"אין לי מושג מאיפה להתחיל" לרגע שבו את פותחת אינסטגרם, ומעלה סרטון.</p>
+      <p class="manifesto__p">בלי ציוד יקר. בלי להיות טכנולוגית.<br /><em>רק את, הטלפון שלך, שיטה ו-AI שעוזר לך לעבוד חכם.</em></p>
+    </div>
+  </section>
+
   <!-- COURSE PATH — zigzag snake -->
   <div class="path-pin" id="path-pin">
     <section id="path" class="path">
       <div class="path__header">
-        <h2 class="path__heading">מסלול הקורס</h2>
-        <p class="path__sub">ארבעה שיעורים שבונים אותך מהתחלה — מסטוריטלינג עד AI</p>
+        <h2 class="path__heading">מה מקבלים בקורס</h2>
+        <p class="path__sub">לפני שמתחילים — קורס דיגיטלי מקדים, כדי שתגיעי למפגש הראשון בטוחה ומוכנה. איפה כל כפתור, איך מתחילים, ישר לעניין. ואז:</p>
       </div>
 
       <!-- Lesson details — panel above the path -->
       <div class="path__info" id="path-info">
         <div class="path__info-num" id="path-num">01</div>
         <div class="path__info-body">
-          <h3 class="path__info-title" id="path-title">היכרות + סטוריטלינג</h3>
-          <p class="path__info-text" id="path-text">פיתוח 3 רעיונות מהתוכן שלך + יסודות העריכה</p>
+          <h3 class="path__info-title" id="path-title">סטוריטלינג + יסודות עריכה</h3>
+          <p class="path__info-text" id="path-text">איך לספר סיפור, זוויות צילום, ועולם העריכה. יוצרים יחד בזמן אמת.</p>
         </div>
       </div>
 
       <div class="path__stage" id="path-stage">
         <!-- SVG snake track -->
         <svg class="path__svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <!-- dim base track -->
           <path id="snake-track" d="M 12,20 L 76,20 Q 88,20 88,32 L 88,40 Q 88,52 76,52 L 24,52 Q 12,52 12,64 L 12,70 Q 12,82 24,82 L 88,82"
                 fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- animated red progress trail -->
           <path id="snake-progress" d="M 12,20 L 76,20 Q 88,20 88,32 L 88,40 Q 88,52 76,52 L 24,52 Q 12,52 12,64 L 12,70 Q 12,82 24,82 L 88,82"
                 fill="none" stroke="#F03228" stroke-width="1.8"
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
 
-        <!-- 4 lesson nodes — numbered squares, labels anchored outside -->
+        <!-- 4 lesson nodes -->
         <div class="path__node" style="left:12%;top:20%" data-i="0">
           <div class="path__node-num">01</div>
-          <span class="path__node-label path__node-label--out-left">היכרות + סטוריטלינג</span>
+          <span class="path__node-label path__node-label--out-left">פרונטלי · סטוריטלינג + יסודות עריכה</span>
         </div>
         <div class="path__node" style="left:88%;top:20%" data-i="1">
           <div class="path__node-num">02</div>
-          <span class="path__node-label path__node-label--out-right">עריכה — מתחילים עד מתקדמים</span>
+          <span class="path__node-label path__node-label--out-right">זום · עריכה מתקדמת</span>
         </div>
         <div class="path__node" style="left:12%;top:52%" data-i="2">
           <div class="path__node-num">03</div>
-          <span class="path__node-label path__node-label--out-left">עריכה מתקדמת</span>
+          <span class="path__node-label path__node-label--out-left">זום · מסכות + בסיס AI</span>
         </div>
         <div class="path__node" style="left:88%;top:82%" data-i="3">
           <div class="path__node-num">04</div>
-          <span class="path__node-label path__node-label--out-right">AI בעריכה</span>
+          <span class="path__node-label path__node-label--out-right">פרונטלי · AI + יצירה</span>
         </div>
 
-        <!-- Moving marker -->
         <img class="path__marker" id="path-marker" src="movingface.png" alt="" />
       </div>
     </section>
   </div>
 
-  <!-- ABOUT / STORY — pink block with stats -->
-  <section id="about" class="about">
-    <div class="about__inner">
-      <div class="about__photo">
-        <img src="photos/idpic.png" alt="אמלמל" loading="lazy" />
-      </div>
-      <div class="about__text">
-        <span class="about__tag"><span data-scramble data-scramble-duration="1500" data-scramble-char-delay="55" data-scramble-tick="58" data-scramble-hover="true">הסיפור שלי</span></span>
-        <h2 class="about__title"><span data-scramble data-scramble-duration="1600" data-scramble-char-delay="95" data-scramble-tick="58" data-scramble-hover="true">אמלמל</span><br /><em data-scramble data-scramble-duration="2400" data-scramble-char-delay="62" data-scramble-tick="58" data-scramble-hover="true">יוצרת תוכן דיגיטלי</em></h2>
-        <p class="about__lead">גם אני התחלתי בדיוק מאיפה שאת עכשיו.</p>
-        <p class="about__p">לא היה לי ציוד יקר, לא ידעתי לערוך, ולא גדלתי עם מצלמה ביד. אבל הייתה לי תשוקה.</p>
-        <p class="about__p">ישבתי שעות, למדתי, ניסיתי — ולאט לאט הבנתי איך לספר סיפורים דרך וידאו. הכישורים האלה אפשרו לי לעזוב עבודה כשכירה ולבנות עסק משלי.</p>
-        <p class="about__p">ככה הכנסתי מעל <mark>120,000 ש״ח</mark> בחודש וחצי מהסושיאל, יצרתי קהילה של מעל <mark>10,000 יוצרות תוכן</mark> ובעלות עסקים, ושיתפתי פעולה עם גוגל.<br />והכל קרה תוך 8 חודשים מהרגע שהתפטרתי.</p>
-        <p class="about__p">בניתי את CUT IT כדי שלא תחכי. לא לזמן הנכון, ולא לציוד המושלם. <strong>רק תתחילי.</strong></p>
-      </div>
-    </div>
-  </section>
-
   <!-- TESTIMONIALS -->
   <section id="testimonials" class="testi">
     <div class="section-heading section-heading--light">
-      <h2 class="section-heading__title">מה אומרות מי שכבר בפנים</h2>
+      <h2 class="section-heading__title">הן אמרו את זה. <em>לא אני.</em></h2>
     </div>
     <div class="testi__deck" id="testi-deck">
       <article class="tcard" data-i="0">
         <div class="tcard__stars" aria-label="5 מתוך 5">★★★★★</div>
-        <p class="tcard__text">היא מקצועית ברמה שלא יתואר. הקורסים עדיין בהתחלה אז הייתי ממליץ להיכנס עכשיו.<br><br>זה לא ממומן — זה באמת משהו שנתן לי המון ידע וקידם אותי משמעותית. תודה רבה!</p>
-        <div class="tcard__author"><strong>@giliz_tattoo</strong></div>
+        <p class="tcard__text">זו ההשקעה הכי טובה שיכולתי לעשות לעצמי ולעסק שלי. ממליצה לכם לרוץ אליה.<br><br>תודה על המקצועיות, האיכות, ההקשבה והאכפתיות.</p>
+        <div class="tcard__author"><strong>@mazal_yaso</strong></div>
       </article>
       <article class="tcard" data-i="1">
         <div class="tcard__stars" aria-label="5 מתוך 5">★★★★★</div>
-        <p class="tcard__text">רציתי לעשות את הקורס הזה כבר הרבה זמן — ולא סתם זה קרה דווקא עכשיו. מהשיחה הראשונה התאהבתי באמלמל, החיבור היה מיידי.<br><br>למדתי, התפתחתי, יצאתי מאזור הנוחות ובעיקר נהניתי. תודה אחותי, בטוחה שניפגש בהמשך ❤️</p>
-        <div class="tcard__author"><strong>@tawi.asefa7</strong></div>
+        <p class="tcard__text">הדבר הכי משמעותי שלקחתי מהקורס זה ביטחון — גם מול מצלמה וגם בכלל להתחיל ליצור בלי לפחד.<br><br>קיבלתי כלים פרקטיים שבאמת שינו לי את הדרך שבה אני ניגשת לתוכן.</p>
+        <div class="tcard__author"><strong>תקווה</strong></div>
       </article>
       <article class="tcard" data-i="2">
         <div class="tcard__stars" aria-label="5 מתוך 5">★★★★★</div>
-        <p class="tcard__text">זו ההשקעה הכי טובה שיכולתי לעשות לעצמי ולעסק שלי. ממליצה לכם לרוץ אליה.<br><br>תודה על המקצועיות, האיכות, ההקשבה והאכפתיות. את מדהימה, ואני התאהבתי בך. נתראה בקורס הבא שלך.</p>
-        <div class="tcard__author"><strong>@mazal_yaso</strong></div>
-      </article>
-      <article class="tcard" data-i="3">
-        <div class="tcard__stars" aria-label="5 מתוך 5">★★★★★</div>
-        <p class="tcard__text">וואי אמלמל, תודה רבה. אני עדיין בהתרגשות מהקורס. את עושה את זה כל כך קליל ונגיש, וזה משהו שתמיד רציתי — אבל זה הרגיש לי overwhelming לפני.<br><br>עכשיו זה סוף סוף ברור לי ואני נהנית מזה ממש.</p>
-        <div class="tcard__author"><strong>Ella</strong></div>
-      </article>
-      <article class="tcard" data-i="4">
-        <div class="tcard__stars" aria-label="5 מתוך 5">★★★★★</div>
-        <p class="tcard__text">היה מושלם! אני עפה עלייך ברמות.<br><br>קיבלתי המון ידע שאני הולכת לתרגל וליישם עד שזה יבוא לי בטבעיות. מחכה כבר למפגש הבא.</p>
-        <div class="tcard__author"><strong>Shiri</strong></div>
-      </article>
-      <article class="tcard" data-i="5">
-        <div class="tcard__stars" aria-label="5 מתוך 5">★★★★★</div>
-        <p class="tcard__text">היה ממש כיף. נהניתי מאוד. את מעבירה את החומר בצורה מעניינת ופרקטית.<br><br>אהבתי שזה גם תיאורטי וגם מעשי — זה עושה סדר בראש.</p>
-        <div class="tcard__author"><strong>מנטגבוש</strong></div>
-      </article>
-      <article class="tcard" data-i="6">
-        <div class="tcard__stars" aria-label="5 מתוך 5">★★★★★</div>
-        <p class="tcard__text">והיום יש לי ראיון עבודה ראשון אחרי שנתיים שלא. זה קצת בזכותך, ותדעי שבתוכן שלך את משנה חיים ובאמת משפיעה על אנשים.<br><br>תודה רבה אמלמל, העולם של הבינה המלאכותית ובכלל הרשתות החברתיות עבורי מאתגר ולא פשוט, במיוחד בגילי. אבל בזכות הדרך הברורה והנעימה שבה העברת את הקורס, הצלחתי להבין וליצור אפילו סרטון מוצלח — ועל כך אני ממש מודה לך מכל הלב.</p>
+        <p class="tcard__text">עולם הרשתות החברתיות היה מאתגר עבורי, במיוחד בגילי. אבל בזכות הדרך הברורה והנעימה שבה העברת את הקורס — הצלחתי להבין, ליצור סרטון מוצלח, ולמצוא ביטחון שלא ציפיתי שיחזור אלי.</p>
         <div class="tcard__author"><strong>אילנה</strong></div>
-      </article>
-      <article class="tcard" data-i="7">
-        <div class="tcard__stars" aria-label="5 מתוך 5">★★★★★</div>
-        <p class="tcard__text">תודה רבה על המילים שלך. הדבר הכי משמעותי שלקחתי מהקורס זה בעיקר ביטחון — גם מול מצלמה וגם בכלל להתחיל ליצור בלי לפחד.<br><br>בנוסף, קיבלתי כלים פרקטיים לעריכה ולחשיבה יצירתית שבאמת שינו לי את הדרך שבה אני ניגשת לתוכן. הקורס ממש עשה לי סדר ונתן לי דרך ברורה איך להפוך רעיונות לתוכן שעובד.</p>
-        <div class="tcard__author"><strong>תקווה</strong></div>
       </article>
     </div>
     <div class="testi__nav">
       <button id="t-prev" class="testi__btn" aria-label="הקודם"><svg class="testi__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <button id="t-next" class="testi__btn" aria-label="הבא"><svg class="testi__arrow testi__arrow--flip" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
+    <div class="testi__cta-wrap">
+      <a class="testi__cta" href="#contact">אני רוצה תוצאות כאלה ← שמרי לי מקום</a>
+    </div>
+  </section>
+
+  <!-- ABOUT / STORY -->
+  <section id="about" class="about">
+    <div class="about__inner">
+      <div class="about__hang">
+        <div class="about__pin-stack" aria-hidden="true">
+          <span class="about__pin-line"></span>
+          <span class="about__pin-dot"></span>
+        </div>
+        <div class="about__photo" id="about-photo">
+          <img src="photos/idpic.png" alt="אמלמל" loading="lazy" />
+        </div>
+      </div>
+      <div class="about__text">
+        <span class="about__tag"><span data-scramble data-scramble-duration="1500" data-scramble-char-delay="55" data-scramble-tick="58" data-scramble-hover="true">היי, אני</span></span>
+        <h2 class="about__title"><span data-scramble data-scramble-duration="1600" data-scramble-char-delay="95" data-scramble-tick="58" data-scramble-hover="true">אמלמל</span><br /><em data-scramble data-scramble-duration="2400" data-scramble-char-delay="62" data-scramble-tick="58" data-scramble-hover="true">יוצרת תוכן דיגיטלי</em></h2>
+        <p class="about__lead">גם אני התחלתי בדיוק מהמקום שלך.</p>
+        <p class="about__p">לא היה לי ציוד יקר, לא ידעתי לערוך, ולא גדלתי עם מצלמה ביד. <strong>אבל הייתה לי תשוקה.</strong></p>
+        <p class="about__p">כילדה שעלתה לארץ, למדתי מהר מאוד להתבייש במי שאני, ובמשך שנים השתקתי את הקול שלי. דרך התוכן, העריכה והסטוריטלינג — מצאתי דרך לחזור לעצמי, וליצור תוכן שתופס את העין, מספר סיפור, ואי אפשר להתעלם ממנו.</p>
+        <p class="about__p">לפני פחות משנה התפטרתי מול כל האינטרנט, ונתתי לעצמי 30 ימים להרוויח את הכסף הראשון שלי מאינסטגרם.</p>
+        <p class="about__p"><strong>מה שקרה מאז:</strong><br />✦ בניתי עסק של <mark>6 ספרות</mark> — מתוכן בלבד<br />✦ שיתפתי פעולה עם <mark>Google</mark><br />✦ יצרתי קהילה של מעל <mark>10,000 יוצרות</mark> ובעלות עסקים<br />והכל קרה תוך פחות משנה.</p>
+        <p class="about__p">השיטה הזאת לקחה אותי לשם. היום אני מלמדת אותה — בצורה ברורה, פשוטה, וכזאת שאפשר באמת ליישם.</p>
+        <p class="about__p">בניתי את CUT IT כדי שלא תחכי. לא לזמן הנכון. לא לציוד המושלם. <strong>רק תתחילי.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- URGENCY — האלגוריתם לא עוצר -->
+  <section class="urgency">
+    <div class="urgency__inner">
+      <h2 class="urgency__title">כי עולם התוכן לא מחכה.<br /><em>האלגוריתם לא עוצר.</em></h2>
+      <p class="urgency__p">היכולת ליצור סרטונים בולטים — היא כבר לא בונוס. היא חלק הכרחי מהנוכחות שלך ברשת.</p>
+      <p class="urgency__p">כל שבוע שאת לא יוצרת — מישהי אחרת תופסת את המקום שהיה יכול להיות שלך בפיד. <strong>לא כי היא טובה יותר ממך. כי היא למדה קודם.</strong></p>
+      <p class="urgency__p urgency__p--strong">המחזור הקרוב נפתח ב-<span class="urgency__date">[תאריך]</span>.</p>
+      <a class="urgency__cta" href="#contact">תפסי את המקום שלך עכשיו ←</a>
+    </div>
   </section>
 
   <!-- FAQ -->
   <section id="faq" class="faq">
     <div class="faq__head">
-      <h2 class="faq__title"><em>שאלות נפוצות</em></h2>
+      <h2 class="faq__title"><em>שאלות שאת כנראה שואלת</em></h2>
     </div>
     <div class="faq__list">
-      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>אני ממש לא טכנולוגית, זה בשבילי?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>כן. זה בדיוק בשביל זה בניתי את הקורס. אני מלמדת מהבסיס — איפה כל כפתור, איך מתחילים ואיך עובדים נכון. אם את יודעת לשלוח הודעה בוואטסאפ, את תסתדרי פה.</p></div></div>
-      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>אני כבר יוצרת תוכן, זה לא יהיה בסיסי מדי בשבילי?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>הקורס מתחיל מהבסיס אבל מגיע מהר לרמה מתקדמת — במיוחד בשילוב AI וטכניקות עריכה שיקפיצו אותך קדימה.</p></div></div>
-      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>כמה זמן זה דורש ממני?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>הקורס הוא 12 שעות סה״כ. תרגול של שעה–שעתיים בשבוע כבר יביא אותך לתוצאות.</p></div></div>
-      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>מה אני יודעת לעשות בסוף הקורס?</span><span class="faq__icon">↓</span></button><div class="faq__a"><ul><li>ליצור סרטונים ברמה גבוהה מהטלפון</li><li>לערוך לבד בלי תלות באחרים</li><li>לשלב AI בתהליך היצירה</li><li>לבנות סרטון שמחזיק צופה עד הסוף</li><li>להעלות תוכן קבוע בלי להרגיש עומס</li></ul></div></div>
-      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>זה יעזור לי להגדיל את העסק?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>הקורס נותן לך את הכלים ליצור תוכן שמביא תשומת לב. התוצאות תלויות בכמה תיישמי — אבל תלמידות כבר מדווחות על יותר צפיות, פניות ומכירות.</p></div></div>
-      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>אני לא רוצה להיות יוצרת תוכן — רק לשווק את העסק שלי</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>מעולה. זה בדיוק העניין. את לא צריכה להיות אינפלואנסרית — רק לדעת להשתמש בווידאו כדי להביא לקוחות.</p></div></div>
-      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>מה צריך לפני הקורס?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>רק טלפון ורצון ללמוד.</p></div></div>
-      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>יש ליווי אישי?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>כן. כל משתתפת מקבלת ליווי אישי — ולכן גם מספר המקומות מוגבל.</p></div></div>
+      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>מה אם אני כבר יוצרת תוכן?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>הקורס יקפיץ אותך קדימה — בעיקר בשילוב AI וטכניקות עריכה שכנראה עדיין לא הכרת. אם את כבר עורכת ברצינות — בואי נדבר לפני, כדי לבדוק אם זה נכון לך.</p></div></div>
+      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>צריך ניסיון קודם?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>לא. הקורס נבנה במיוחד למתחילות, גם אם עד היום לא ערכת בכלל או הרגשת שכל עולם התוכן והטכנולוגיה גדול עלייך.</p></div></div>
+      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>מה בדיוק לומדים בקורס?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>הקורס משלב עריכה, סטוריטלינג ושילוב חכם של AI — כדי שתלמדי ליצור תוכן מקצועי, בולט ומדויק. כזה שמושך תשומת לב ומבטא אותך באמת.</p></div></div>
+      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>זה קורס דיגיטלי או פרונטלי?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>זה לא עוד קורס דיגיטלי שקונים ולא תמיד באמת פותחים. מדובר במעטפת מלאה שכוללת 2 מפגשים פרונטליים, 2 מפגשי זום, וקורס דיגיטלי קצר ליסודות העריכה לפני שמתחילים.</p></div></div>
+      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>צריך ציוד מקצועי כדי להשתתף?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>לא. בסוף הקורס תדעי להפיק סרטונים ברמה גבוהה גם מהפלאפון, בלי ציוד יקר ובלי להיות תלויה באנשי מקצוע.</p></div></div>
+      <div class="faq__item"><button class="faq__q" aria-expanded="false"><span>לא בטוחה שזה מתאים לי?</span><span class="faq__icon">↓</span></button><div class="faq__a"><p>אפשר להשאיר פרטים לשיחת התאמה קצרה — נבדוק יחד איפה את נמצאת היום, ומה נכון עבורך בשלב הזה.</p></div></div>
     </div>
   </section>
 
-  <!-- COUNTDOWN -->
+  <!-- COUNTDOWN (legacy, ?start=ISO param) -->
   <section id="countdown" class="countdown" style="display:none" aria-live="polite">
     <h2 class="countdown__title">הקורס הבא מתחיל בעוד</h2>
     <div class="countdown__row">
@@ -266,15 +295,14 @@
   <section id="contact" class="contact">
     <div class="contact__box">
       <div class="contact__logo-dot"></div>
-      <h2 class="contact__title">מוכנה להפסיק לדחות —<br /><em>ולהתחיל ליצור?</em></h2>
-      <p class="contact__sub">השאירי פרטים ואחזור אליך עם כל המידע</p>
+      <h2 class="contact__title">מוכנה <em>להתחיל?</em></h2>
+      <p class="contact__sub">המחזור הקרוב נפתח ב-<strong>[תאריך]</strong>. נותרו <strong>[X]</strong> מקומות בלבד.</p>
       <form class="leadf" id="lead-form" action="https://formspree.io/f/xjgjwynp" method="POST" novalidate>
         <label class="leadf__row"><span>שם מלא</span><input type="text" name="name" required autocomplete="name" placeholder="השם שלך" /></label>
         <label class="leadf__row"><span>טלפון</span><input type="tel" name="phone" required autocomplete="tel" placeholder="05X-XXXXXXX" /></label>
-        <label class="leadf__row"><span>אימייל</span><input type="email" name="email" autocomplete="email" placeholder="your@email.com" /></label>
-        <button class="leadf__btn" type="submit" id="lead-submit">שלחי לי פרטים</button>
+        <button class="leadf__btn" type="submit" id="lead-submit">אמלמל, שמרי לי מקום ←</button>
       </form>
-      <div class="leadf__ok" id="lead-success" hidden>✓ קיבלתי! אחזור אליך בקרוב</div>
+      <div class="leadf__ok" id="lead-success" hidden>✓ שלחתי! אמלמל תחזור אליך תוך שעות. בינתיים — בואי נתחבר: <a href="https://instagram.com/amalmal50" target="_blank" rel="noopener">@amalmal50 באינסטגרם ←</a></div>
     </div>
   </section>
 
@@ -292,6 +320,8 @@
       </div>
       <div class="foot__col foot__col--motto">
         <p class="foot__motto">את לא צריכה להיות מושלמת.<br /><em>את רק צריכה להתחיל.</em></p>
+        <p class="foot__p">CUT IT נבנה בדיוק כדי שהמפגש הבא שלך עם מצלמה יסתיים בסרטון שעולה לרשת — ולא בעוד רעיון שנשאר רק בראש.</p>
+        <a class="foot__cta" href="#contact">כן, אני מצטרפת ←</a>
         <p class="foot__copy">&copy; 2026 Cut It by Amalmal <button class="foot__admin" id="admin-btn" aria-label="הגדרות">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </button></p>
@@ -309,7 +339,6 @@
     <div class="admin-modal__box" role="document">
       <button type="button" class="admin-modal__close" aria-label="סגור" data-close="1">×</button>
 
-      <!-- Step 1: sign in -->
       <form class="admin-modal__step" id="admin-step-password">
         <h3 class="admin-modal__title">כניסה לניהול</h3>
         <label class="admin-modal__field">
@@ -324,7 +353,6 @@
         <button type="submit" class="admin-modal__btn">כניסה</button>
       </form>
 
-      <!-- Step 2: edit -->
       <form class="admin-modal__step" id="admin-step-edit" hidden>
         <h3 class="admin-modal__title">עריכת נתוני מחזור</h3>
         <label class="admin-modal__field">
@@ -373,7 +401,7 @@
     };
     window.dispatchEvent(new CustomEvent('cutit-fb-ready'));
   </script>
-  <script src="script.js?v=33"></script>
+  <script src="script.js?v=35"></script>
 </body>
 
 </html>

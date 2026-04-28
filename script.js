@@ -120,6 +120,7 @@
       '.bigcard__title',
       '.bigcard__desc',
       '.bigcard__list',
+      '.about__hang',
       '.about__tag',
       '.about__title',
       '.about__lead',
@@ -545,10 +546,10 @@
     if (!pin || !stage || !marker || !info || !numEl || !titleEl || !textEl) return;
 
     var lessons = [
-      { title: 'היכרות + סטוריטלינג',           text: 'פיתוח 3 רעיונות מהתוכן שלך + יסודות העריכה' },
-      { title: 'עריכה למתחילים עד מתקדמים',      text: 'Keyframes, קצב ותנועה' },
-      { title: 'עריכה מתקדמת',                   text: 'מסכות ואפקטים ויזואליים' },
-      { title: 'AI בעריכה',                      text: 'יצירת אפקטים עם בינה מלאכותית' }
+      { title: 'פרונטלי · סטוריטלינג + יסודות עריכה', text: 'איך לספר סיפור, זוויות צילום, היכרות עם עולם העריכה. יוצרים יחד בזמן אמת.' },
+      { title: 'זום · עריכה מתקדמת',                  text: 'Keyframes, מעברים וטכניקות שגורמות לסרטון שלך לעצור גלילה.' },
+      { title: 'זום · מסכות + בסיס AI',                text: 'עריכה מתקדמת, כלי מסכות, ובסיס ליצירת תוכן עם AI.' },
+      { title: 'פרונטלי · AI + יצירה',                 text: 'לחשוב על רעיון ולשבת וליצור אותו. AI לא בא להחליף — הוא נותן לך כנפיים.' }
     ];
 
     // Waypoints in % coordinates matching the SVG path M 12,20 H 88 V 52 H 12 V 82 H 88
